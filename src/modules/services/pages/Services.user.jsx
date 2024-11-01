@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { BiSolidPlaneAlt } from "react-icons/bi";
 import { FaCar, FaHotel, FaHouseTsunami } from "react-icons/fa6";
 import { FiPackage } from "react-icons/fi";
-import { MdOutlineDirectionsBoat } from "react-icons/md";
+// import { MdOutlineDirectionsBoat } from "react-icons/md";
 import { RiHotelBedFill } from "react-icons/ri";
 import { getService } from "../services.handlers";
 import ServicesWrapper from "../components/ServicesWrapper";
@@ -63,17 +63,17 @@ export default function ServicesView() {
         </div>
       ),
     },
-    {
-      id: "cruises",
-      label: (
-        <div
-          className={`flex items-center space-x-2  ${selected == "cruises" ? "text-black" : " "} `}
-        >
-          <MdOutlineDirectionsBoat className="w-5 h-5" />
-          <span>Cruises</span>
-        </div>
-      ),
-    },
+    // {
+    //   id: "cruises",
+    //   label: (
+    //     <div
+    //       className={`flex items-center space-x-2  ${selected == "cruises" ? "text-black" : " "} `}
+    //     >
+    //       <MdOutlineDirectionsBoat className="w-5 h-5" />
+    //       <span>Cruises</span>
+    //     </div>
+    //   ),
+    // },
     {
       id: "transportations",
       label: (

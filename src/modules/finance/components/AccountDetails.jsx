@@ -1,6 +1,8 @@
 import { Avatar } from "@nextui-org/react";
+import { useTranslation } from "react-i18next";
 
 const AccountDetails = ({ account, isAdmin }) => {
+  const { t } = useTranslation();
   // !Note: order is very important here. If isAdmin is true, then account will be travelOffice, else account will be user
   const balance = isAdmin
     ? account?.currentBalance
@@ -44,7 +46,7 @@ const AccountDetails = ({ account, isAdmin }) => {
           <span className="text-gray-600">&nbsp;</span>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-lg font-bold mb-2">Total Balance</h1>
+          <h1 className="text-lg font-bold mb-2">{t("Total Balance")}</h1>
 
           {balance < 0 ? (
             <p className="text-md rounded-md px-1 bg-red-200 w-fit h-fit min-w-10 text-center text-gray-600">

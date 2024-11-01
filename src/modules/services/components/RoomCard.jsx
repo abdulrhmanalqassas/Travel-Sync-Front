@@ -1,8 +1,10 @@
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { displayByLanguage } from "../../../utils/helper";
 export default function RoomCard({ service }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
   const navigate = useNavigate();
 
   return (
@@ -16,23 +18,25 @@ export default function RoomCard({ service }) {
           />
         </div>
         <div className="flex flex-col gap-3">
-          <h1 className="font-semibold">{service.name}</h1>
-          <h2>{service.description}</h2>
+          <h1 className="font-semibold">
+            {displayByLanguage(CurrentLang, "name", service)}
+          </h1>
+          <h2> {displayByLanguage(CurrentLang, "description", service)}</h2>
           <div className="flex gap-4">
             <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              Area: {service.room?.roomArea} m²
+              {t("Area")}: {service.room?.roomArea} m²
             </div>
             <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              Number of Beds: {service.room?.numberOfBeds}
+              {t("Number of Beds")}: {service.room?.numberOfBeds}
             </div>
             <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              Number of Sleeps: {service.room?.numberOfSleeps}
+              {t("Number_Sleeps")} {service.room?.numberOfSleeps}
             </div>
           </div>
           <h3 className="text-[black2]">
             <span className="text-black">{service.quantityAvailable}</span> Room
             {service.quantityAvailable > 1 && "s "}
-            available with this price
+            {t("available_with")}
           </h3>
         </div>
       </div>
@@ -42,7 +46,7 @@ export default function RoomCard({ service }) {
       >
         <div className="mb-4">
           <h1 className="font-semibold">{service.price}$</h1>
-          <h1>Per Night</h1>
+          <h1>{t("Per Night")}</h1>
         </div>
         <Button
           onClick={() => {

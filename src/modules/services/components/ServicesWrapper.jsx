@@ -4,11 +4,16 @@ import ServiceCard from "./ServiceCard";
 // import HotelsFilter from "../components/HotelsFilters";
 import RoomCard from "./RoomCard";
 import { Pagination } from "@nextui-org/react";
+import { displayByLanguage } from "../../../utils/helper";
+import { useTranslation } from "react-i18next";
 
 const ServicesWrapper = ({ data, isLoading, type }) => {
+  const { i18n } = useTranslation();
+  const CurrentLang = i18n.language;
+  // data.arName = "test ar at hotel";
   return (
     <div className="flex flex-col  gap-4">
-
+      {console.log(">>>>>>>>>>>>>>>>>>", data)}
       <div className="flex flex-col gap-2">
         {isLoading ? (
           <div className="flex justify-center items-center h-96">
@@ -26,17 +31,22 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
         ) : (
           // <HotelsFilter>
           // {
-          data.map(({ id, name, images, stars }) => (
-            <ServiceCard
-              type={type}
-              id={id}
-              key={id}
-              img={images[0]?.imageUrl}
-              stars={stars}
-              hotelName={name}
-              numberOfRooms={52}
-            />
-          ))
+          data.map((card) => {
+            // card.arname = "test this shite"
+
+            const { id, images, stars } = card;
+            return (
+              <ServiceCard
+                type={type}
+                id={id}
+                key={id}
+                img={images[0]?.imageUrl}
+                stars={stars}
+                hotelName={displayByLanguage(CurrentLang, "name", card)}
+                numberOfRooms={52}
+              />
+            );
+          })
           // }
           // </HotelsFilter>
         )}

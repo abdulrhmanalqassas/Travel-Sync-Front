@@ -28,6 +28,7 @@ import SafariFormEdit from "./Safari.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
 import { useTranslation } from "react-i18next";
+import { displayByLanguage } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "NAME",
@@ -56,7 +57,8 @@ export default function SafariTable({ data, isLoading, handleUpdate }) {
     { name: "ACTIONS", uid: "actions" },
   ];
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -86,9 +88,15 @@ export default function SafariTable({ data, isLoading, handleUpdate }) {
     let filteredServices = [...data];
 
     if (hasSearchFilter) {
-      filteredServices = filteredServices.filter((service) =>
-        service.name.toLowerCase().includes(filterValue.toLowerCase()),
-      );
+      filteredServices = filteredServices.filter((service) => {
+        const nameMatches = service.name
+          .toLowerCase()
+          .includes(filterValue.toLowerCase());
+        const arNameMatches = service.ar_name
+          ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase())
+          : false;
+        return nameMatches || arNameMatches;
+      });
     }
     return filteredServices;
   }, [data, filterValue]);
@@ -112,7 +120,7 @@ export default function SafariTable({ data, isLoading, handleUpdate }) {
 
   const renderCell = React.useCallback((service, columnKey) => {
     console.log("service:", service);
-    const cellValue = service[columnKey];
+    const cellValue = displayByLanguage(CurrentLang, columnKey, service);
     switch (columnKey) {
       case "airline":
         return (

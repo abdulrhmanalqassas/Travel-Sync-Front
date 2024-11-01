@@ -28,6 +28,7 @@ import RoomsFormEdit from "./Rooms.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
 import { useTranslation } from "react-i18next";
+import { displayByLanguage } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "type",
@@ -51,7 +52,8 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
     { name: "numberOfSleeps", uid: "numberOfSleeps" },
     { name: "ACTIONS", uid: "actions" },
   ];
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -82,7 +84,11 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
 
     if (hasSearchFilter) {
       filteredServices = filteredServices.filter((service) =>
-        service.name.toLowerCase().includes(filterValue.toLowerCase()),
+{
+  const nameMatches = service.name.toLowerCase().includes(filterValue.toLowerCase());
+  const arNameMatches = service.ar_name ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase()) : false;
+  return nameMatches || arNameMatches
+},
       );
     }
     return filteredServices;
@@ -106,7 +112,9 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((service, columnKey) => {
-    const cellValue = service[columnKey];
+
+    const cellValue = displayByLanguage(CurrentLang, columnKey, service);
+    console.log("servises in room",service)
     switch (columnKey) {
       case "departureAddress":
         return (

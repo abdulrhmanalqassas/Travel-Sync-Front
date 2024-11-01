@@ -28,6 +28,7 @@ import AgenciesForm from "./Agencies.Add.Form";
 import AgenciesFormEdit from "./Agencies.edit.Form";
 
 import { useTranslation } from "react-i18next";
+import { displayByLanguage } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "city", "postalCode", "actions"];
 
@@ -37,7 +38,8 @@ export default function AgenciesTable({
   isLoading,
   handleUpdate,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -67,9 +69,15 @@ export default function AgenciesTable({
     let filteredUsers = [...users];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
-      );
+      filteredUsers = filteredUsers.filter((user) => {
+        const nameMatches = user.name
+          .toLowerCase()
+          .includes(filterValue.toLowerCase());
+        const arNameMatches = user.ar_name
+          ? user.ar_name.toLowerCase().includes(filterValue.toLowerCase())
+          : false;
+        return nameMatches || arNameMatches;
+      });
     }
     return filteredUsers;
   }, [users, filterValue]);
@@ -92,7 +100,7 @@ export default function AgenciesTable({
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+    const cellValue = displayByLanguage(CurrentLang, columnKey, user);
     switch (columnKey) {
       case "name":
         return (

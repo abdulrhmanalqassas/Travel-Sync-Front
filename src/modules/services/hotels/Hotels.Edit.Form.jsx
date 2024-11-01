@@ -100,7 +100,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Edit Hotel
+              {t("Edit_Hotel")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">

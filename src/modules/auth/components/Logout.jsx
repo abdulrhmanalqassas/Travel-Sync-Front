@@ -34,7 +34,7 @@ export default function Logout() {
                 {t("Logout")}
               </ModalHeader>
               <ModalBody>
-                <p>Are you sure you want to logout?</p>
+                <p>{t("logout_warning")}</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="default" variant="light" onPress={onClose}>

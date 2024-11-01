@@ -24,6 +24,7 @@ import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
 import { capitalize } from "../../core/utils";
 import { useTranslation } from "react-i18next";
+import { displayByLanguage } from "../../../utils/helper";
 const INITIAL_VISIBLE_COLUMNS = ["name", "city", "website", "actions"];
 
 export default function PackagesTable({ data, isLoading, handleUpdate }) {
@@ -43,7 +44,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
     { name: "ACTIONS", uid: "actions" },
   ];
   const { t, i18n } = useTranslation();
-  const currentLanguage = i18n.language;
+  const CurrentLang = i18n.language;
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -73,7 +74,12 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
+       {
+        const nameMatches = user.name.toLowerCase().includes(filterValue.toLowerCase());
+        const arNameMatches = user.ar_name ? user.ar_name.toLowerCase().includes(filterValue.toLowerCase()) : false;
+        return nameMatches || arNameMatches
+
+       },
       );
     }
     return filteredUsers;
@@ -97,7 +103,9 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+    
+    
+    const cellValue = displayByLanguage(CurrentLang, columnKey, user);
     switch (columnKey) {
       case "actions":
         return (
@@ -202,7 +210,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
     onRowsPerPageChange,
     data.length,
     hasSearchFilter,
-    currentLanguage,
+    CurrentLang,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -240,7 +248,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    [currentLanguage],
+    [],
   );
 
   return (

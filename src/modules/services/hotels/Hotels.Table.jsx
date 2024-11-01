@@ -28,6 +28,7 @@ import HotelsFormEdit from "./Hotels.Edit.Form";
 import DeleteModal from "../../core/components/DeleteModal";
 import { DeleteService } from "../services.handlers";
 import { useTranslation } from "react-i18next";
+import { displayByLanguage } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "name",
@@ -54,7 +55,8 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
     { name: "DESCRIPTION", uid: "description" },
     { name: "ACTIONS", uid: "actions" },
   ];
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -83,12 +85,16 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
     let filteredUsers = [...data];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
+      filteredUsers = filteredUsers.filter((user) =>{
+        console.log("filterd user opj ##",user,"value : ",user.name.toLowerCase().includes(filterValue.toLowerCase()))
+        const nameMatches = user.name.toLowerCase().includes(filterValue.toLowerCase());
+        const arNameMatches = user.ar_name ? user.ar_name.toLowerCase().includes(filterValue.toLowerCase()) : false;
+        return nameMatches || arNameMatches
+      },
       );
     }
     return filteredUsers;
-  }, [data, filterValue]);
+  }, [data, filterValue,CurrentLang]);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -108,7 +114,16 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+    console.log(
+      "user>>>>>>>>>>",
+      user,
+      "::::",
+      columnKey,
+      "::::",
+      user[columnKey],
+    );
+
+    const cellValue = displayByLanguage(CurrentLang, columnKey, user);
     switch (columnKey) {
       case "actions":
         return (

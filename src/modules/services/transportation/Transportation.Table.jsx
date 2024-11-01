@@ -28,6 +28,7 @@ import TransportationFormEdit from "./Transportation.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
 import { useTranslation } from "react-i18next";
+import { displayByLanguage } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "type",
@@ -57,6 +58,7 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
   ];
 
   const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -87,7 +89,13 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
 
     if (hasSearchFilter) {
       filteredServices = filteredServices.filter((service) =>
-        service.name.toLowerCase().includes(filterValue.toLowerCase()),
+      {
+        const nameMatches = service.name.toLowerCase().includes(filterValue.toLowerCase());
+        const arNameMatches = service.ar_name ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase()) : false;
+        return nameMatches || arNameMatches
+
+      },
+       
       );
     }
     return filteredServices;
@@ -112,7 +120,8 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
 
   const renderCell = React.useCallback((service, columnKey) => {
     console.log("service:", service);
-    const cellValue = service[columnKey];
+    const cellValue = displayByLanguage(CurrentLang, columnKey, service);
+    
     switch (columnKey) {
       case "departureAddress":
         return (
