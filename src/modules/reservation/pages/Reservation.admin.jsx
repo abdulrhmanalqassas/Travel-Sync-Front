@@ -6,8 +6,10 @@ import { getAllReservations } from "../reservation.handlers";
 import useAuthTokens from "../../auth/context/use-auth-tokens";
 import useAuth from "../../auth/context/use-auth";
 import { RoleEnum } from "../../../enums/role-enum";
+import { useTranslation } from "react-i18next";
 
 export default function Reservation() {
+  const { t } = useTranslation();
   // Get auth token and user info
   const tokenObj = useAuthTokens();
   const token = tokenObj.tokensInfoRef.current.token;
@@ -37,7 +39,16 @@ export default function Reservation() {
 
   // Effect to fetch reservations whenever token, selected tab or page changes
   useEffect(() => {
-    getAllReservations(setReservations, setIsLoading, selected, page, limit, {}, {}, token);
+    getAllReservations(
+      setReservations,
+      setIsLoading,
+      selected,
+      page,
+      limit,
+      {},
+      {},
+      token,
+    );
   }, [token, selected, page]);
 
   return (
@@ -48,10 +59,14 @@ export default function Reservation() {
         selectedKey={selected}
         onSelectionChange={setSelected}
       >
-        {/* Tab for All Reservations */}
+        Tab for All Reservations
         <Tab
           key="all"
-          title={<p className="font-semibold">All ({reservations?.count?.all ?? 0})</p>}
+          title={
+            <p className="font-semibold">
+              {t("All")} ({reservations?.count?.all ?? 0})
+            </p>
+          }
         >
           {isLoading ? (
             <div className="flex justify-center items-center h-96">
@@ -69,11 +84,14 @@ export default function Reservation() {
             </div>
           )}
         </Tab>
-
         {/* Tab for Confirmed Reservations */}
         <Tab
           key="confirmed"
-          title={<p className="text-success font-semibold">Reserved ({reservations.count?.confirmed ?? 0})</p>}
+          title={
+            <p className="text-success font-semibold">
+              {t("Reserved")} ({reservations.count?.confirmed ?? 0})
+            </p>
+          }
         >
           {isLoading ? (
             <div className="flex justify-center items-center h-96">
@@ -91,11 +109,14 @@ export default function Reservation() {
             </div>
           )}
         </Tab>
-
         {/* Tab for Pending Reservations */}
         <Tab
           key="pending"
-          title={<p className="text-warning font-semibold">Pending ({reservations.count?.pending ?? 0})</p>}
+          title={
+            <p className="text-warning font-semibold">
+              {t("Pending")} ({reservations.count?.pending ?? 0})
+            </p>
+          }
         >
           {isLoading ? (
             <div className="flex justify-center items-center h-96">
@@ -113,11 +134,14 @@ export default function Reservation() {
             </div>
           )}
         </Tab>
-
         {/* Tab for Canceled Reservations */}
         <Tab
           key="canceled"
-          title={<p className="text-danger font-semibold">Cancelled ({reservations.count?.canceled ?? 0})</p>}
+          title={
+            <p className="text-danger font-semibold">
+              {t("Cancelled")} ({reservations.count?.canceled ?? 0})
+            </p>
+          }
         >
           {isLoading ? (
             <div className="flex justify-center items-center h-96">
@@ -135,11 +159,15 @@ export default function Reservation() {
             </div>
           )}
         </Tab>
-
         {/* Tab for Reservations Requiring Action */}
         <Tab
           key="action_required"
-          title={<p className="text-secondary font-semibold">Action required ({reservations.count?.action_required ?? 0})</p>}
+          title={
+            <p className="text-secondary font-semibold">
+              {t("Action_required")} ({reservations.count?.action_required ?? 0}
+              )
+            </p>
+          }
         >
           {isLoading ? (
             <div className="flex justify-center items-center h-96">

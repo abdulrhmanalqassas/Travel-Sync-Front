@@ -21,11 +21,11 @@ import {
 
 import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
-import { capitalize } from "../utils";
 import DeleteModal from "../../core/components/DeleteModal";
 import { DeleteUser } from "../Users.handlers";
 import UsersForm from "./Users.Add.Form";
 import UsersFormEdit from "./Users.edit.Form";
+import { useTranslation } from "react-i18next";
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "email", "travelOffice", "actions"];
 
@@ -35,6 +35,8 @@ export default function UsersTable({
   isLoading,
   handleUpdate,
 }) {
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -71,7 +73,7 @@ export default function UsersTable({
       });
     }
     return filteredUsers;
-  }, [users, filterValue]);
+  }, [users, filterValue, currentLanguage]);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -159,7 +161,7 @@ export default function UsersTable({
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",
             }}
-            placeholder="Search by name..."
+            placeholder={t("Search_by_name")}
             size="sm"
             startContent={<SearchIcon className="text-default-300" />}
             value={filterValue}
@@ -175,7 +177,7 @@ export default function UsersTable({
                   size="sm"
                   variant="flat"
                 >
-                  Columns
+                  {t("Columns")}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -188,7 +190,7 @@ export default function UsersTable({
               >
                 {columns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
+                    {t(column.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -198,10 +200,10 @@ export default function UsersTable({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            {t("Total") + " " + users.length + " " + t("users")}
           </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+            {t("Rows_per_age")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -221,6 +223,7 @@ export default function UsersTable({
     onRowsPerPageChange,
     users.length,
     hasSearchFilter,
+    currentLanguage,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -240,7 +243,14 @@ export default function UsersTable({
         />
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
+  }, [
+    selectedKeys,
+    items.length,
+    page,
+    pages,
+    hasSearchFilter,
+    currentLanguage,
+  ]);
 
   const classNames = React.useMemo(
     () => ({
@@ -287,7 +297,7 @@ export default function UsersTable({
             align={column.uid === "actions" ? "center" : "end"}
             allowsSorting={column.sortable}
           >
-            {column.name}
+            {t(column.name)}
           </TableColumn>
         )}
       </TableHeader>

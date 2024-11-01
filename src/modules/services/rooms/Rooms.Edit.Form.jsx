@@ -20,8 +20,11 @@ import { uploadImage } from "../../core/core.handlers";
 import Alert from "../../core/components/Alert";
 import { editService, getService } from "../services.handlers";
 import { EditIcon } from "../../core/components/icons/EditIcon";
+import { useTranslation } from "react-i18next";
 
 export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
+  const { t } = useTranslation();
+
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [roomImages, setRoomImages] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -31,7 +34,6 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
   useEffect(() => {
     getService(setHotels, setIsLoading, "hotels");
   }, []);
-
 
   const formHandler = useFormik({
     initialValues: {
@@ -56,24 +58,27 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
     validationSchema: () => {
       return Yup.object({
         service: Yup.object({
-          name: Yup.string().min(5).max(500).required("Required"),
-          description: Yup.string().required("Required"),
-          price: Yup.number().max(999999).min(0).required("Required"),
+          name: Yup.string().min(5).max(500).required(t("Required")),
+          description: Yup.string().required(t("Required")),
+          price: Yup.number().max(999999).min(0).required(t("Required")),
           quantityAvailable: Yup.number()
             .min(0)
             .max(9999)
-            .required("Required")
+            .required(t("Required"))
             .integer("Must be a number"),
-          savings: Yup.number().min(0).max(9999).required("Required"),
-          isOffer: Yup.boolean().required("Required"),
-          cancellationPolicy: Yup.string().min(2).max(500).required("Required"),
+          savings: Yup.number().min(0).max(9999).required(t("Required")),
+          isOffer: Yup.boolean().required(t("Required")),
+          cancellationPolicy: Yup.string()
+            .min(2)
+            .max(500)
+            .required(t("Required")),
         }),
         room: Yup.object({
-          type: Yup.string().required("Required"),
-          roomArea: Yup.number().min(0).max(9999).required("Required"),
-          numberOfBeds: Yup.number().min(0).max(9999).required("Required"),
-          numberOfSleeps: Yup.number().min(0).max(9999).required("Required"),
-          hotelId: Yup.number().required("Required"),
+          type: Yup.string().required(t("Required")),
+          roomArea: Yup.number().min(0).max(9999).required(t("Required")),
+          numberOfBeds: Yup.number().min(0).max(9999).required(t("Required")),
+          numberOfSleeps: Yup.number().min(0).max(9999).required(t("Required")),
+          hotelId: Yup.number().required(t("Required")),
         }),
       });
     },
@@ -127,7 +132,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <Select
-                        label="Agency"
+                        label={t("Agency")}
                         id="room.hotelId"
                         placeholder="Select an agency"
                         selectedKeys={[formHandler.values.room.hotelId]}
@@ -150,7 +155,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="service.name"
                         type="text"
                         name="service.name"
-                        label="Title"
+                        label={t("Title")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -168,7 +173,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="service.description"
                         name="service.description"
                         type="text"
-                        label="Description"
+                        label={t("Description")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -185,7 +190,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="service.price"
                         name="service.price"
                         type="number"
-                        label="Price"
+                        label={t("Price")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -218,7 +223,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="service.savings"
                         name="service.savings"
                         type="number"
-                        label="savings"
+                        label={t("savings")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -252,7 +257,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="service.quantityAvailable"
                         name="service.quantityAvailable"
                         type="number"
-                        label="Quantity Available"
+                        label={t("Quantity Available")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -286,7 +291,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="service.cancellationPolicy"
                         name="service.cancellationPolicy"
                         type="text"
-                        label="Cancelation Policy"
+                        label={t("Cancelation Policy")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -306,7 +311,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="room.type"
                         name="room.type"
                         type="text"
-                        label="Room Type"
+                        label={t("Room Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -324,7 +329,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="room.roomArea"
                         name="room.roomArea"
                         type="number"
-                        label="Room Area"
+                        label={t("Room Area")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -349,7 +354,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="room.numberOfBeds"
                         name="room.numberOfBeds"
                         type="number"
-                        label="Number of Beds"
+                        label={t("Number of Beds")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -374,7 +379,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         id="room.numberOfSleeps"
                         name="room.numberOfSleeps"
                         type="number"
-                        label="Number of Sleeps"
+                        label={t("Number of Sleeps")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -403,7 +408,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                     <div>
                       <Checkbox
                         id="serviceIsOffer"
-                        label="Is Offer"
+                        label={t("is_offer")}
                         onChange={formHandler.handleChange("service.isOffer")}
                         value={formHandler.values.service?.isOffer}
                         isSelected={formHandler.values.service.isOffer}
@@ -413,7 +418,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                         }
                         errorMessage={formHandler.errors.service?.isOffer}
                       >
-                        Is Offer
+                        {t("is_offer")}
                       </Checkbox>
                     </div>
 
@@ -433,7 +438,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -442,7 +447,7 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
                   className="text-white"
                   onclick={() => console.log("clicked")}
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

@@ -9,8 +9,11 @@ import useAuthTokens from "../../auth/context/use-auth-tokens";
 import { FaExclamationCircle } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
 import { MdFileDownloadDone } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 const ReservationPageUser = () => {
+  const { t } = useTranslation;
+
   const tokenObj = useAuthTokens();
   const token = tokenObj.tokensInfoRef.current.token;
 
@@ -24,8 +27,6 @@ const ReservationPageUser = () => {
   useEffect(() => {
     getReservation(setReservation, setIsLoading, "", id, token);
   }, [id, token]);
-
-
 
   const { name, email, phone } = reservation.travelOffice || {};
   const { airline, arrivalAddress, arrivalCity } =
@@ -47,33 +48,69 @@ const ReservationPageUser = () => {
           <div className=" flex flex-col mb-4 rounded-3xl border-grey border-2">
             <div className=" flex justify-between p-3">
               {status === "pending" ? (
-                <Tooltip key={"warning"} color={"warning"} content={"Created at: " + formattedDate} className="capitalize ">
-                  <Button variant="flat" color={"warning"} className="capitalize  h-[35px]  px-2 gap-0
-            ">
+                <Tooltip
+                  key={"warning"}
+                  color={"warning"}
+                  content={"Created at: " + formattedDate}
+                  className="capitalize "
+                >
+                  <Button
+                    variant="flat"
+                    color={"warning"}
+                    className="capitalize  h-[35px]  px-2 gap-0
+            "
+                  >
                     <LuClock3 className="w-4 h-4" /> &nbsp;
                     {"Pending"}
                   </Button>
                 </Tooltip>
               ) : status === "canceled" ? (
-                <Tooltip key={"danger"} color={"danger"} content={"Created at: " + formattedDate} className="capitalize ">
-                  <Button variant="flat" color={"danger"} className="capitalize  h-[35px]  px-2 gap-0
-            ">
+                <Tooltip
+                  key={"danger"}
+                  color={"danger"}
+                  content={"Created at: " + formattedDate}
+                  className="capitalize "
+                >
+                  <Button
+                    variant="flat"
+                    color={"danger"}
+                    className="capitalize  h-[35px]  px-2 gap-0
+            "
+                  >
                     <ImCancelCircle className="w-4 h-4" /> &nbsp;
                     {"Canceled"}
                   </Button>
                 </Tooltip>
               ) : status === "action_required" ? (
-                <Tooltip key={"secondary"} color={"secondary"} content={"Created at: " + formattedDate} className="capitalize ">
-                  <Button variant="flat" color={"secondary"} className="capitalize  h-[35px]  px-2 gap-0
-            ">
+                <Tooltip
+                  key={"secondary"}
+                  color={"secondary"}
+                  content={"Created at: " + formattedDate}
+                  className="capitalize "
+                >
+                  <Button
+                    variant="flat"
+                    color={"secondary"}
+                    className="capitalize  h-[35px]  px-2 gap-0
+            "
+                  >
                     <FaExclamationCircle className="w-4 h-4" /> &nbsp;
                     {"Action required"}
                   </Button>
                 </Tooltip>
               ) : (
-                <Tooltip key={"success"} color={"success"} content={"Created at: " + formattedDate} className="capitalize ">
-                  <Button variant="flat" color={"success"} className="capitalize  h-[35px]  px-2 gap-0
-            ">
+                <Tooltip
+                  key={"success"}
+                  color={"success"}
+                  content={"Created at: " + formattedDate}
+                  className="capitalize "
+                >
+                  <Button
+                    variant="flat"
+                    color={"success"}
+                    className="capitalize  h-[35px]  px-2 gap-0
+            "
+                  >
                     <MdFileDownloadDone className="w-4 h-4" /> &nbsp;
                     {"Reserved"}
                   </Button>
@@ -123,7 +160,7 @@ const ReservationPageUser = () => {
                 <span className="text-gray-600">&nbsp;</span>
               </div>
               <div>
-                <h1 className="text-lg font-bold mb-2">Total price</h1>
+                <h1 className="text-lg font-bold mb-2">{t("total_price")}</h1>
                 <p className="text-sm text-center">{price}$</p>
               </div>
             </div>

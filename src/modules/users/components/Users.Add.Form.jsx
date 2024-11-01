@@ -20,8 +20,10 @@ import { uploadImage } from "../../core/core.handlers";
 import { addUser } from "../Users.handlers";
 import { getAgencies } from "../../agencies/Agencies.handlers";
 import Alert from "../../core/components/Alert";
+import { useTranslation } from "react-i18next";
 
 export default function UsersForm({ handleUpdate }) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [userImage, setUserImage] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -48,12 +50,14 @@ export default function UsersForm({ handleUpdate }) {
     },
     validationSchema: () => {
       return Yup.object({
-        email: Yup.string().email("Invalid email address").required("Required"),
+        email: Yup.string()
+          .email("Invalid email address")
+          .required(t("Required")),
         password: Yup.string()
-          .required("Required")
+          .required(t("Required"))
           .min(6, "Password must be at least 6 characters"),
-        firstName: Yup.string().required("Required"),
-        lastName: Yup.string().required("Required"),
+        firstName: Yup.string().required(t("Required")),
+        lastName: Yup.string().required(t("Required")),
         travelOfficeId: Yup.number().required("please select an agency"),
       });
     },
@@ -78,7 +82,7 @@ export default function UsersForm({ handleUpdate }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        Add New
+        {t("add_new")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -111,7 +115,6 @@ export default function UsersForm({ handleUpdate }) {
                         }
                         errorMessage={formHandler.errors.firstName}
                       />
-
                     </div>
 
                     <div>
@@ -128,14 +131,12 @@ export default function UsersForm({ handleUpdate }) {
                           formHandler.touched.lastName
                         }
                         errorMessage={formHandler.errors.lastName}
-
                       />
-
                     </div>
 
                     <div>
                       <Select
-                        label="Agency"
+                        label={t("Agency")}
                         id="travelOfficeId"
                         placeholder="Select an agency"
                         value={formHandler.values.travelOfficeId}
@@ -146,7 +147,6 @@ export default function UsersForm({ handleUpdate }) {
                           formHandler.touched.travelOfficeId
                         }
                         errorMessage={formHandler.errors.travelOfficeId}
-
                       >
                         {agencies.map(({ id, name }) => (
                           <SelectItem key={id} value={id}>
@@ -169,7 +169,6 @@ export default function UsersForm({ handleUpdate }) {
                           formHandler.errors.email && formHandler.touched.email
                         }
                         errorMessage={formHandler.errors.email}
-
                       />
                     </div>
 
@@ -186,7 +185,6 @@ export default function UsersForm({ handleUpdate }) {
                           formHandler.touched.password
                         }
                         errorMessage={formHandler.errors.password}
-
                       />
                     </div>
                     <div className="col-span-2">
@@ -205,7 +203,7 @@ export default function UsersForm({ handleUpdate }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -213,7 +211,7 @@ export default function UsersForm({ handleUpdate }) {
                   type="submit"
                   className="text-white"
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

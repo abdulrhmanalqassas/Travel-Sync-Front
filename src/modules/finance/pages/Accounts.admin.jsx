@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import UserBalance from "../components/UserBalance";
 import { getAccounts } from "../Finance.handlers";
 import useAuthTokens from "../../auth/context/use-auth-tokens";
+import { useTranslation } from "react-i18next";
 
 export default function Accounts() {
+  const {t} = useTranslation()
   const [accounts, setAccounts] = useState([]);
   const [, setIsLoading] = useState(false);
   const tokenObj = useAuthTokens();
@@ -20,7 +22,7 @@ export default function Accounts() {
       <div className="m-6 bg-white rounded-3xl">
         <div className="p-4">
           <div className="flex flex-col justify-between  px-1">
-            <h1 className="font-bold">Users Balance</h1>
+            <h1 className="font-bold">{t("Users_Balance")}</h1>
             <div className="w-full md:w-72 mt-3">
               <Input
                 label="Search"

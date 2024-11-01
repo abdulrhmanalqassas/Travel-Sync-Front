@@ -6,8 +6,10 @@ import { useFormik } from "formik";
 import { Button, Input } from "@nextui-org/react";
 import { Reserve } from "../reservation.handlers";
 import TravellerFileUploader from "../components/TravellerFileUploader";
+import { useTranslation } from "react-i18next";
 
 const ReserveService = () => {
+  const {t} = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -57,18 +59,18 @@ const ReserveService = () => {
       travelers: travelers,
     },
     validationSchema: Yup.object({
-      quantity: Yup.string().required("Required"),
-      checkInDate: Yup.string().required("Required"),
-      checkOutDate: Yup.string().required("Required"),
+      quantity: Yup.string().required(t("Required")),
+      checkInDate: Yup.string().required(t("Required")),
+      checkOutDate: Yup.string().required(t("Required")),
       travelers: Yup.array().of(
         Yup.object({
-          firstName: Yup.string().required("Required"),
-          lastName: Yup.string().required("Required"),
+          firstName: Yup.string().required(t("Required")),
+          lastName: Yup.string().required(t("Required")),
           email: Yup.string()
             .email("Invalid email address")
-            .required("Required"),
-          mobilePhone: Yup.string().required("Required"),
-          dateOfBirth: Yup.string().required("Required"),
+            .required(t("Required")),
+          mobilePhone: Yup.string().required(t("Required")),
+          dateOfBirth: Yup.string().required(t("Required")),
         }),
       ),
     }),
@@ -93,7 +95,7 @@ const ReserveService = () => {
       <div className="flex-grow">
         <div className="grid grid-cols-3 gap-5">
           <div className="col-span-2 ">
-            <h1 className="text-2xl font-semibold">Reservation details</h1>
+            <h1 className="text-2xl font-semibold"> {t("Reservation details")}</h1>
 
             {/* Quantity Input */}
             <div className="mb-2">

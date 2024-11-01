@@ -19,8 +19,10 @@ import { CiCalendar } from "react-icons/ci";
 import { GoTag } from "react-icons/go";
 import { useEffect } from "react";
 import { IoCartOutline } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 export default function ReservationCard({ Reservation, isAdmin }) {
+  const{t}=useTranslation()
   const formattedDate = formatDuration(
     new Date(Reservation?.updatedAt),
     new Date(),
@@ -61,7 +63,7 @@ export default function ReservationCard({ Reservation, isAdmin }) {
       className="flex flex-col mb-4 rounded-lg p-4 border shadow-md"
     >
       <CardHeader className=" flex justify-between p-3">
-        <StatusBadge status={Reservation?.status} />
+        <StatusBadge status={t(Reservation?.status)} />
         <div className="text-right text-sm text-gray-500">{formattedDate}</div>
       </CardHeader>
       <CardBody>
@@ -128,7 +130,7 @@ export default function ReservationCard({ Reservation, isAdmin }) {
               variant="solid"
               className=" bg-slate-900 text-white rounded-lg justify-self-end"
             >
-              Check In
+              {t("Check_In")}
             </Button>
           </div>
         </div>

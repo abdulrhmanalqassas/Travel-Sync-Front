@@ -23,7 +23,7 @@ import {
 import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
 import { capitalize } from "../../core/utils";
-
+import { useTranslation } from "react-i18next";
 const INITIAL_VISIBLE_COLUMNS = ["name", "city", "website", "actions"];
 
 export default function PackagesTable({ data, isLoading, handleUpdate }) {
@@ -42,7 +42,8 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
     { name: "DESCRIPTION", uid: "description" },
     { name: "ACTIONS", uid: "actions" },
   ];
-
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -138,7 +139,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",
             }}
-            placeholder="Search by name..."
+            placeholder={t("Search_by_name")}
             size="sm"
             startContent={<SearchIcon className="text-default-300" />}
             value={filterValue}
@@ -154,7 +155,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
                   size="sm"
                   variant="flat"
                 >
-                  Columns
+                  {t("Columns")}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -168,7 +169,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
               >
                 {columns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
+                    {t(column.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -178,10 +179,10 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {data.length} users
+            {t("Total") + " " + data.length + " " + t("users")}
           </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+            {t("Rows_per_age")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -201,6 +202,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
     onRowsPerPageChange,
     data.length,
     hasSearchFilter,
+    currentLanguage,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -238,7 +240,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    [],
+    [currentLanguage],
   );
 
   return (
@@ -268,7 +270,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
             align={column.uid === "actions" ? "center" : "end"}
             allowsSorting={column.sortable}
           >
-            {column.name}
+            {t(column.name)}
           </TableColumn>
         )}
       </TableHeader>

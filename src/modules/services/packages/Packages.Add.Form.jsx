@@ -17,8 +17,10 @@ import { useState } from "react";
 import { uploadImage } from "../../core/core.handlers";
 import Alert from "../../core/components/Alert";
 import { addService } from "../services.handlers";
+import { useTranslation } from "react-i18next";
 
 export default function PackagesForm({ handleUpdate }) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [agencyImage, setAgencyImage] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -44,21 +46,21 @@ export default function PackagesForm({ handleUpdate }) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
 
       return Yup.object({
-        name: Yup.string().required("Required"),
-        address: Yup.string().required("Required"),
-        stars: Yup.number().integer().required("Required"),
-        city: Yup.string().required("Required"),
-        state: Yup.string().required("Required"),
-        zipCode: Yup.string().required("Required"),
-        mobileNumber: Yup.string().required("Required"),
+        name: Yup.string().required(t("Required")),
+        address: Yup.string().required(t("Required")),
+        stars: Yup.number().integer().required(t("Required")),
+        city: Yup.string().required(t("Required")),
+        state: Yup.string().required(t("Required")),
+        zipCode: Yup.string().required(t("Required")),
+        mobileNumber: Yup.string().required(t("Required")),
         phoneNumber: Yup.string()
           .matches(phoneRegex, "Invalid Egyptian phoneNumber number")
-          .required("Required"),
-        website: Yup.string().required("Required"),
+          .required(t("Required")),
+        website: Yup.string().required(t("Required")),
         email: Yup.string()
           .matches(emailRegex, "Invalid email address")
-          .required("Required"),
-        description: Yup.string().required("Required"),
+          .required(t("Required")),
+        description: Yup.string().required(t("Required")),
       });
     },
 
@@ -84,7 +86,7 @@ export default function PackagesForm({ handleUpdate }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        Add New
+        {t("add_new")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -97,7 +99,7 @@ export default function PackagesForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add new Agency
+                {t("Add_new_Agency")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -106,7 +108,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="name"
                         type="name"
-                        label="Name"
+                        label={t("Name")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -125,7 +127,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="stars"
                         // type=""
-                        label="stars"
+                        label={t("stars")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -144,7 +146,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="zipCode"
                         type="zipCode"
-                        label="zipCode"
+                        label={t("ZIP CODE")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -164,7 +166,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="state"
                         type="state"
-                        label="state"
+                        label={t("state")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -183,7 +185,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="city"
                         type="city"
-                        label="city"
+                        label={t("city")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -220,7 +222,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="phoneNumber"
                         type="phoneNumber"
-                        label="phoneNumber"
+                        label={t("phoneNumber")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -240,7 +242,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="mobileNumber"
                         type="mobileNumber"
-                        label="mobileNumber"
+                        label={t("mobileNumber")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -260,7 +262,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="address"
                         type="address"
-                        label="address"
+                        label={t("address")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -280,7 +282,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="website"
                         type="website"
-                        label="website"
+                        label={t("address")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -300,7 +302,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="description"
                         type="description"
-                        label="description"
+                        label={t("Description")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -332,7 +334,7 @@ export default function PackagesForm({ handleUpdate }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -340,7 +342,7 @@ export default function PackagesForm({ handleUpdate }) {
                   type="submit"
                   className="text-white"
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

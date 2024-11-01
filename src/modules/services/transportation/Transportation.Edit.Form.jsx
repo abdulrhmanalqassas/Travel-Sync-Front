@@ -18,12 +18,15 @@ import { uploadImage } from "../../core/core.handlers";
 import Alert from "../../core/components/Alert";
 import { editService } from "../services.handlers";
 import { EditIcon } from "../../core/components/icons/EditIcon";
+import { useTranslation } from "react-i18next";
 
 export default function TransportationFormEdit({
   handleUpdate,
   transportationID,
   data,
 }) {
+  const { t } = useTranslation();
+
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [transportationImages, settransportationImages] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -57,23 +60,29 @@ export default function TransportationFormEdit({
     validationSchema: () => {
       return Yup.object({
         service: Yup.object({
-          name: Yup.string().min(5).max(500).required("Required"),
-          description: Yup.string().required("Required"),
-          price: Yup.number().max(999999).min(0).required("Required"),
+          name: Yup.string().min(5).max(500).required(t("Required")),
+          description: Yup.string().required(t("Required")),
+          price: Yup.number().max(999999).min(0).required(t("Required")),
           quantityAvailable: Yup.number()
             .min(0)
             .max(9999)
-            .required("Required")
+            .required(t("Required"))
             .integer("Must be a number"),
-          savings: Yup.number().min(0).max(9999).required("Required"),
-          isOffer: Yup.boolean().required("Required"),
-          cancellationPolicy: Yup.string().min(2).max(500).required("Required"),
+          savings: Yup.number().min(0).max(9999).required(t("Required")),
+          isOffer: Yup.boolean().required(t("Required")),
+          cancellationPolicy: Yup.string()
+            .min(2)
+            .max(500)
+            .required(t("Required")),
         }),
         transportation: Yup.object({
-          type: Yup.string().required("Required"),
-          description: Yup.string().min(3).max(250).required("Required"),
-          departureAddress: Yup.string().min(3).max(250).required("Required"),
-          arrivalAddress: Yup.string().min(3).max(60).required("Required"),
+          type: Yup.string().required(t("Required")),
+          description: Yup.string().min(3).max(250).required(t("Required")),
+          departureAddress: Yup.string()
+            .min(3)
+            .max(250)
+            .required(t("Required")),
+          arrivalAddress: Yup.string().min(3).max(60).required(t("Required")),
           departureTime: Yup.string(),
           arrivalTime: Yup.string(),
           departingDate: Yup.string(),
@@ -134,7 +143,7 @@ export default function TransportationFormEdit({
                         id="service.name"
                         type="text"
                         name="service.name"
-                        label="Title"
+                        label={t("Title")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -152,7 +161,7 @@ export default function TransportationFormEdit({
                         id="service.description"
                         name="service.description"
                         type="text"
-                        label="Description"
+                        label={t("Description")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -169,7 +178,7 @@ export default function TransportationFormEdit({
                         id="service.price"
                         name="service.price"
                         type="number"
-                        label="Price"
+                        label={t("Price")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -202,7 +211,7 @@ export default function TransportationFormEdit({
                         id="service.savings"
                         name="service.savings"
                         type="number"
-                        label="savings"
+                        label={t("savings")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -236,7 +245,7 @@ export default function TransportationFormEdit({
                         id="service.quantityAvailable"
                         name="service.quantityAvailable"
                         type="number"
-                        label="Quantity Available"
+                        label={t("Quantity Available")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -270,7 +279,7 @@ export default function TransportationFormEdit({
                         id="service.cancellationPolicy"
                         name="service.cancellationPolicy"
                         type="text"
-                        label="Cancelation Policy"
+                        label={t("Cancelation Policy")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -350,7 +359,7 @@ export default function TransportationFormEdit({
                         id="transportation.arrivalAddress"
                         name="transportation.arrivalAddress"
                         type="text"
-                        label="Arrival Address"
+                        label={t("Arrival Address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -370,7 +379,7 @@ export default function TransportationFormEdit({
                         id="transportation.departureTime"
                         name="transportation.departureTime"
                         type="text"
-                        label="Departure Time"
+                        label={t("Departure Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -390,7 +399,7 @@ export default function TransportationFormEdit({
                         id="transportation.arrivalTime"
                         name="transportation.arrivalTime"
                         type="text"
-                        label="Arrival Time"
+                        label={t("Arrival Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -446,7 +455,7 @@ export default function TransportationFormEdit({
                     <div>
                       <Checkbox
                         id="serviceIsOffer"
-                        label="Is Offer"
+                        label={t("is_offer")}
                         onChange={formHandler.handleChange("service.isOffer")}
                         value={formHandler.values.service?.isOffer}
                         isSelected={formHandler.values.service.isOffer}
@@ -456,7 +465,7 @@ export default function TransportationFormEdit({
                         }
                         errorMessage={formHandler.errors.service?.isOffer}
                       >
-                        Is Offer
+                        {t("is_offer")}
                       </Checkbox>
                     </div>
 
@@ -476,7 +485,7 @@ export default function TransportationFormEdit({
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -485,7 +494,7 @@ export default function TransportationFormEdit({
                   className="text-white"
                   onclick={() => console.log("clicked")}
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

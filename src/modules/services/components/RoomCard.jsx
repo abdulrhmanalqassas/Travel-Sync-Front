@@ -1,8 +1,10 @@
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 export default function RoomCard({ service }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+
   return (
     <div className="flex justify-between gap-6 p-3 border-2 rounded-xl m-2 ">
       <div className="flex  gap-6 justify-center  ">
@@ -48,7 +50,7 @@ export default function RoomCard({ service }) {
           }}
           className="bg-[#616CA8] text-white font-semibold"
         >
-          Reserve Room
+          {t("Reserve_Room")}
         </Button>
       </div>
     </div>

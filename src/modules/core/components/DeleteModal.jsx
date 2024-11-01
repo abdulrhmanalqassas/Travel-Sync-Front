@@ -9,8 +9,12 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { DeleteIcon } from "./icons/DeleteIcon";
+import { useTranslation } from "react-i18next";
 
 export default function DeleteModal({ deleteFun, text }) {
+
+  const {t} = useTranslation()
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -26,14 +30,14 @@ export default function DeleteModal({ deleteFun, text }) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Delete {text}
+                {t("Delete")} {text}
               </ModalHeader>
               <ModalBody>
                 <p>Are you sure you want to delete this {text}?</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="default" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   color="danger"
@@ -42,7 +46,7 @@ export default function DeleteModal({ deleteFun, text }) {
                     onClose();
                   }}
                 >
-                  Confirm
+                  {t("Confirm")}
                 </Button>
               </ModalFooter>
             </>

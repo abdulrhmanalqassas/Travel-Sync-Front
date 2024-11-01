@@ -27,6 +27,7 @@ import RoomsForm from "./Rooms.Add.Form";
 import RoomsFormEdit from "./Rooms.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
+import { useTranslation } from "react-i18next";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "type",
@@ -50,7 +51,7 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
     { name: "numberOfSleeps", uid: "numberOfSleeps" },
     { name: "ACTIONS", uid: "actions" },
   ];
-
+  const { t } = useTranslation();
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -233,7 +234,7 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",
             }}
-            placeholder="Search by name..."
+            placeholder={t("Search_by_name")}
             size="sm"
             startContent={<SearchIcon className="text-default-300" />}
             value={filterValue}
@@ -249,7 +250,7 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
                   size="sm"
                   variant="flat"
                 >
-                  Columns
+                  {t("Columns")}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -263,7 +264,7 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
               >
                 {columns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
+                    {t(column.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -273,10 +274,10 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {data.length} services
+            {t("Total") + " " + data.length + " " + t("services")}
           </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+            {t("Rows_per_age")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -365,7 +366,7 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
             align={column.uid === "actions" ? "center" : "end"}
             allowsSorting={column.sortable}
           >
-            {column.name}
+            {t(column.name)}
           </TableColumn>
         )}
       </TableHeader>

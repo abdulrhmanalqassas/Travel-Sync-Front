@@ -5,12 +5,14 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaStar } from "react-icons/fa6";
 import { getService } from "../services.handlers";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const HotelsPage = () => {
 
+  const { t } = useTranslation();
+  
   const [data, setData] = useState([]);
   const [hotel, setHotel] = useState({});
-
 
   const [, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -23,7 +25,6 @@ const HotelsPage = () => {
     getService(setData, setIsLoading, `hotels/${id}/rooms`);
   }, [id]);
 
-
   useEffect(() => {
     getService(setHotel, setIsLoading, `hotels/${id}`);
   }, [id]);
@@ -33,9 +34,7 @@ const HotelsPage = () => {
       <ImageGallery images={hotel?.images} />
       <div className="my-5">
         <div className="flex justify-between mb-3">
-          <h1 className="text-2xl font-semibold">
-            {hotel?.name}
-          </h1>
+          <h1 className="text-2xl font-semibold">{hotel?.name}</h1>
         </div>
         <div>
           <p className="flex  items-center gap-2">
@@ -51,7 +50,7 @@ const HotelsPage = () => {
             ))}
           </div>
           <div className="mt-2">
-            <h1 className="font-semibold">About Hotel</h1>
+            <h1 className="font-semibold">{t("About_Hotel")}</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
               beatae officiis itaque? Temporibus voluptatibus iure tempora
@@ -65,7 +64,7 @@ const HotelsPage = () => {
         </div>
       </div>
       <div>
-        <h1 className="text-2xl font-semibold">Rooms</h1>
+        <h1 className="text-2xl font-semibold">{t("Rooms")}</h1>
         <div className="grid grid-cols-4 mt-5 gap-5 ">
           {data?.map((item, index) => (
             <div
@@ -78,19 +77,22 @@ const HotelsPage = () => {
                 alt={item?.type}
               />
               <p className="text-xl font-semibold">{item?.type}</p>
+              <p className="text-sm font-semibold">
+                {item?.service?.description}
+              </p>
               <Button
                 onClick={() => {
                   navigate(`/user/hotel-rooms/${item?.id}`);
                 }}
                 color="secondary"
               >
-                Reserve Room
+                {t("Reserve_Room")}
               </Button>
               <div>
                 <p className="text-lg font-semibold">
                   {item?.service?.price} EGP
                 </p>
-                <p>per night</p>
+                <p>{t("per_night")}</p>
               </div>
             </div>
           ))}

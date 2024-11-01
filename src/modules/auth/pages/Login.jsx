@@ -69,8 +69,10 @@ const Login = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("Required"),
-      password: Yup.string().required("Required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required(t("Required")),
+      password: Yup.string().required(t("Required")),
     }),
 
     // onSubmit: (values) => {
@@ -81,14 +83,17 @@ const Login = () => {
 
   return (
     <>
+      <div className="relative h-full w-full bg-white"></div>
+      <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
 
-      <div className="relative h-full w-full bg-white"></div><div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-
-      <form onSubmit={formHandler.handleSubmit} className={'bg-slate-100'} >
-        <div className={`flex py-10 items-center justify-center  h-screen px-20`}>
-          <div className={`border-2 rounded-lg items-center  p-10 w-1/3 flex backdrop-blur-lg bg-white/90 shadow-md flex-col gap-2`}>
+      <form onSubmit={formHandler.handleSubmit} className={"bg-slate-100"}>
+        <div
+          className={`flex py-10 items-center justify-center  h-screen px-20`}
+        >
+          <div
+            className={`border-2 rounded-lg items-center  p-10 w-1/3 flex backdrop-blur-lg bg-white/90 shadow-md flex-col gap-2`}
+          >
             <div className="flex gap-1 items-center">
-
               <img
                 width={50}
                 height={50}
@@ -96,15 +101,16 @@ const Login = () => {
                 alt="logo"
               />
               <h1 className="text-3xl font-bold text-center">BookIt</h1>
-
             </div>
-            <h2 className="ltr:ml-3 rtl:mr-3 text-2xl font-semibold">{t("WelcomeMessage")}!</h2>
-            <h1 className=" text-gray-400 ">Sign in to manage your bookings</h1>
+            <h2 className="ltr:ml-3 rtl:mr-3 text-2xl font-semibold">
+              {t("WelcomeMessage")}!
+            </h2>
+            <h1 className=" text-gray-400 ">{t("Sign_in_to")}</h1>
 
             <div className="flex flex-col mt-5 items-start gap-5  w-full">
               <div className="flex flex-col gap-3 w-full ">
                 <Input
-                  className='rounded-lg'
+                  className="rounded-lg"
                   isClearable
                   label={t("email")}
                   name="email"
@@ -121,7 +127,7 @@ const Login = () => {
                   }
                 />
                 <Input
-                  className='rounded-lg'
+                  className="rounded-lg"
                   label={t("password")}
                   name="password"
                   placeholder="Enter your password"
@@ -159,7 +165,7 @@ const Login = () => {
                 {t("signin")}
               </Button>
               <div className="flex justify-center w-full">
-                {apiError ? <Alert text={"Wrong Email or Password."} /> : ""}
+                {apiError ? <Alert text={t("Wrong_Email")} /> : ""}
               </div>
             </div>
           </div>

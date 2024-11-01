@@ -19,8 +19,11 @@ import { useState } from "react";
 import { uploadImage } from "../../core/core.handlers";
 import Alert from "../../core/components/Alert";
 import { addService } from "../services.handlers";
+import { useTranslation } from "react-i18next";
 
 export default function FlightsForm({ handleUpdate }) {
+  const { t } = useTranslation();
+
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [flightImages, setFlightImages] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -57,27 +60,33 @@ export default function FlightsForm({ handleUpdate }) {
     validationSchema: () => {
       return Yup.object({
         service: Yup.object({
-          name: Yup.string().min(5).max(500).required("Required"),
-          description: Yup.string().required("Required"),
-          price: Yup.number().max(999999).min(0).required("Required"),
+          name: Yup.string().min(5).max(500).required(t("Required")),
+          description: Yup.string().required(t("Required")),
+          price: Yup.number().max(999999).min(0).required(t("Required")),
           quantityAvailable: Yup.number()
             .min(0)
             .max(9999)
-            .required("Required")
+            .required(t("Required"))
             .integer("Must be a number"),
-          savings: Yup.number().min(0).max(9999).required("Required"),
-          isOffer: Yup.boolean().required("Required"),
-          cancellationPolicy: Yup.string().min(2).max(500).required("Required"),
+          savings: Yup.number().min(0).max(9999).required(t("Required")),
+          isOffer: Yup.boolean().required(t("Required")),
+          cancellationPolicy: Yup.string()
+            .min(2)
+            .max(500)
+            .required(t("Required")),
         }),
         flight: Yup.object({
-          airline: Yup.string().min(3).max(60).required("Required"),
-          departureAddress: Yup.string().min(3).max(250).required("Required"),
-          departureCity: Yup.string().min(3).max(60).required("Required"),
-          arrivalAddress: Yup.string().min(3).max(250).required("Required"),
-          arrivalCity: Yup.string().min(3).max(60).required("Required"),
-          departureTime: Yup.string().required("Required"),
-          arrivalTime: Yup.string().required("Required"),
-          seatType: Yup.string().required("Required"),
+          airline: Yup.string().min(3).max(60).required(t("Required")),
+          departureAddress: Yup.string()
+            .min(3)
+            .max(250)
+            .required(t("Required")),
+          departureCity: Yup.string().min(3).max(60).required(t("Required")),
+          arrivalAddress: Yup.string().min(3).max(250).required(t("Required")),
+          arrivalCity: Yup.string().min(3).max(60).required(t("Required")),
+          departureTime: Yup.string().required(t("Required")),
+          arrivalTime: Yup.string().required(t("Required")),
+          seatType: Yup.string().required(t("Required")),
         }),
       });
     },
@@ -105,7 +114,7 @@ export default function FlightsForm({ handleUpdate }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        Add New
+        {t("add_new")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -130,7 +139,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="service.name"
                         type="text"
                         name="service.name"
-                        label="Title"
+                        label={t("Title")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -143,13 +152,12 @@ export default function FlightsForm({ handleUpdate }) {
                       />
                     </div>
 
-
                     <div>
                       <Input
                         id="service.price"
                         name="service.price"
                         type="number"
-                        label="Price"
+                        label={t("Price")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -182,7 +190,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="service.savings"
                         name="service.savings"
                         type="number"
-                        label="savings"
+                        label={t("savings")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -216,7 +224,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="service.quantityAvailable"
                         name="service.quantityAvailable"
                         type="number"
-                        label="Quantity Available"
+                        label={t("Quantity Available")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -245,15 +253,12 @@ export default function FlightsForm({ handleUpdate }) {
                       />
                     </div>
 
-
-
-
                     <div>
                       <Input
                         id="flight.airline"
                         name="flight.airline"
                         type="text"
-                        label="Airline"
+                        label={t("Airline")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -271,7 +276,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="flight.seatType"
                         name="flight.seatType"
                         type="text"
-                        label="Seat Type"
+                        label={t("Seat Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -309,7 +314,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="flight.departureCity"
                         name="flight.departureCity"
                         type="text"
-                        label="Departure City"
+                        label={t("Departure City")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -327,7 +332,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="flight.arrivalAddress"
                         name="flight.arrivalAddress"
                         type="text"
-                        label="Arrival Address"
+                        label={t("Arrival Address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -345,7 +350,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="flight.arrivalCity"
                         name="flight.arrivalCity"
                         type="text"
-                        label="Arrival City"
+                        label={t("Arrival City")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -378,7 +383,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="flight.departureTime"
                         name="flight.departureTime"
                         type="text"
-                        label="Departure Time"
+                        label={t("Departure Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -396,7 +401,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="flight.arrivalTime"
                         name="flight.arrivalTime"
                         type="text"
-                        label="Arrival Time"
+                        label={t("Arrival Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -414,7 +419,7 @@ export default function FlightsForm({ handleUpdate }) {
                         id="service.cancellationPolicy"
                         name="service.cancellationPolicy"
                         type="text"
-                        label="Cancelation Policy"
+                        label={t("Cancelation Policy")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -432,7 +437,7 @@ export default function FlightsForm({ handleUpdate }) {
                       <Checkbox
                         id="serviceIsOffer"
                         name="flight.arrivalTime"
-                        label="Is Offer"
+                        label={t("is_offer")}
                         onChange={formHandler.handleChange("service.isOffer")}
                         value={formHandler.values.service?.isOffer}
                         isInvalid={
@@ -441,18 +446,16 @@ export default function FlightsForm({ handleUpdate }) {
                         }
                         errorMessage={formHandler.errors.service?.isOffer}
                       >
-                        Is Offer
+                        {t("is_offer")}
                       </Checkbox>
                     </div>
-
-
 
                     <div className="col-span-2">
                       <Textarea
                         id="service.description"
                         name="service.description"
                         type="text"
-                        label="Description"
+                        label={t("Description")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -464,7 +467,6 @@ export default function FlightsForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.description}
                       />
                     </div>
-
 
                     <div className="col-span-2">
                       {apiError ? <Alert text={apiError} /> : ""}
@@ -482,7 +484,7 @@ export default function FlightsForm({ handleUpdate }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -490,7 +492,7 @@ export default function FlightsForm({ handleUpdate }) {
                   type="submit"
                   className="text-white"
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

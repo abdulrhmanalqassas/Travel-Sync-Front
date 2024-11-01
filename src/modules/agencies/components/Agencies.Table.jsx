@@ -26,7 +26,8 @@ import DeleteModal from "../../core/components/DeleteModal";
 import { DeleteAgency } from "../Agencies.handlers";
 import AgenciesForm from "./Agencies.Add.Form";
 import AgenciesFormEdit from "./Agencies.edit.Form";
-import { capitalize } from "../../core/utils";
+
+import { useTranslation } from "react-i18next";
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "city", "postalCode", "actions"];
 
@@ -36,6 +37,8 @@ export default function AgenciesTable({
   isLoading,
   handleUpdate,
 }) {
+  const { t } = useTranslation();
+
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -101,7 +104,7 @@ export default function AgenciesTable({
               src: user.profilePhoto?.imageUrl,
             }}
             classNames={{
-              description: "text-default-500"
+              description: "text-default-500",
             }}
             description={user.email}
             name={cellValue}
@@ -157,7 +160,7 @@ export default function AgenciesTable({
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",
             }}
-            placeholder="Search by name..."
+            placeholder={t("Search_by_name")}
             size="sm"
             startContent={<SearchIcon className="text-default-300" />}
             value={filterValue}
@@ -173,7 +176,7 @@ export default function AgenciesTable({
                   size="sm"
                   variant="flat"
                 >
-                  Columns
+                  {t("Columns")}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -187,7 +190,7 @@ export default function AgenciesTable({
               >
                 {columns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
+                    {t(column.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -197,10 +200,10 @@ export default function AgenciesTable({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            {t("Total") + " " + users.length + " " + t("Users")}
           </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+            {t("Rows_per_page")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -286,7 +289,7 @@ export default function AgenciesTable({
             align={column.uid === "actions" ? "center" : "end"}
             allowsSorting={column.sortable}
           >
-            {column.name}
+            {t(column.name)}
           </TableColumn>
         )}
       </TableHeader>

@@ -19,8 +19,10 @@ import { uploadImage } from "../../core/core.handlers";
 import Alert from "../../core/components/Alert";
 import { editService } from "../services.handlers";
 import { EditIcon } from "../../core/components/icons/EditIcon";
+import { useTranslation } from "react-i18next";
 
 export default function SafariFormEdit({ handleUpdate, safariID, data }) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [safariImages, setsafariImages] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -54,27 +56,30 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
     validationSchema: () => {
       return Yup.object({
         service: Yup.object({
-          name: Yup.string().min(5).max(500).required("Required"),
-          description: Yup.string().required("Required"),
-          price: Yup.number().max(999999).min(0).required("Required"),
+          name: Yup.string().min(5).max(500).required(t("Required")),
+          description: Yup.string().required(t("Required")),
+          price: Yup.number().max(999999).min(0).required(t("Required")),
           quantityAvailable: Yup.number()
             .min(0)
             .max(9999)
-            .required("Required")
+            .required(t("Required"))
             .integer("Must be a number"),
-          savings: Yup.number().min(0).max(9999).required("Required"),
-          isOffer: Yup.boolean().required("Required"),
-          cancellationPolicy: Yup.string().min(2).max(500).required("Required"),
+          savings: Yup.number().min(0).max(9999).required(t("Required")),
+          isOffer: Yup.boolean().required(t("Required")),
+          cancellationPolicy: Yup.string()
+            .min(2)
+            .max(500)
+            .required(t("Required")),
         }),
         safari: Yup.object({
-          address: Yup.string().min(3).max(250).required("Required"),
-          city: Yup.string().min(3).max(60).required("Required"),
-          country: Yup.string().min(3).max(60).required("Required"),
-          startTime: Yup.string().required("Required"),
-          endTime: Yup.string().required("Required"),
-          includes: Yup.string().min(2).max(2000).required("Required"),
-          excludes: Yup.string().min(2).max(2000).required("Required"),
-          days: Yup.number().max(999999).min(0).required("Required"),
+          address: Yup.string().min(3).max(250).required(t("Required")),
+          city: Yup.string().min(3).max(60).required(t("Required")),
+          country: Yup.string().min(3).max(60).required(t("Required")),
+          startTime: Yup.string().required(t("Required")),
+          endTime: Yup.string().required(t("Required")),
+          includes: Yup.string().min(2).max(2000).required(t("Required")),
+          excludes: Yup.string().min(2).max(2000).required(t("Required")),
+          days: Yup.number().max(999999).min(0).required(t("Required")),
         }),
       });
     },
@@ -125,7 +130,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="service.name"
                         type="text"
                         name="service.name"
-                        label="Title"
+                        label={t("Title")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -143,7 +148,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="service.description"
                         name="service.description"
                         type="text"
-                        label="Description"
+                        label={t("Description")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -160,7 +165,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="service.price"
                         name="service.price"
                         type="number"
-                        label="Price"
+                        label={t("Price")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -193,7 +198,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="service.savings"
                         name="service.savings"
                         type="number"
-                        label="savings"
+                        label={t("savings")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -227,7 +232,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="service.quantityAvailable"
                         name="service.quantityAvailable"
                         type="number"
-                        label="Quantity Available"
+                        label={t("Quantity Available")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -261,7 +266,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="service.cancellationPolicy"
                         name="service.cancellationPolicy"
                         type="text"
-                        label="Cancelation Policy"
+                        label={t("Cancelation Policy")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -281,7 +286,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="safari.address"
                         name="safari.address"
                         type="text"
-                        label="Address"
+                        label={t("address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -299,7 +304,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="safari.city"
                         name="safari.city"
                         type="text"
-                        label="City"
+                        label={t("city")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -317,7 +322,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="safari.country"
                         name="safari.country"
                         type="text"
-                        label="Country"
+                        label={t("country")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -335,7 +340,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="safari.startTime"
                         name="safari.startTime"
                         type="text"
-                        label="Start Time"
+                        label={t("Start Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -353,7 +358,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="safari.endTime"
                         name="safari.endTime"
                         type="text"
-                        label="End Time"
+                        label={t("End Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -371,7 +376,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="safari.days"
                         name="safari.days"
                         type="number"
-                        label="Quantity Available"
+                        label={t("Quantity Available")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -397,7 +402,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="safari.includes"
                         name="safari.includes"
                         type="text"
-                        label="Includes"
+                        label={t("Includes")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -415,7 +420,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         id="safari.excludes"
                         name="safari.excludes"
                         type="text"
-                        label="Excludes"
+                        label={t("Excludes")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -431,7 +436,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                     <div>
                       <Checkbox
                         id="serviceIsOffer"
-                        label="Is Offer"
+                        label={t("is_offer")}
                         onChange={formHandler.handleChange("service.isOffer")}
                         value={formHandler.values.service?.isOffer}
                         isSelected={formHandler.values.service.isOffer}
@@ -441,7 +446,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                         }
                         errorMessage={formHandler.errors.service?.isOffer}
                       >
-                        Is Offer
+                        {t("is_offer")}
                       </Checkbox>
                     </div>
 
@@ -461,7 +466,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -470,7 +475,7 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
                   className="text-white"
                   onclick={() => console.log("clicked")}
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

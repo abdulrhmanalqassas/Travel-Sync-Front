@@ -17,8 +17,11 @@ import { PlusIcon } from "../../core/components/icons/PlusIcon";
 import { uploadImage } from "../../core/core.handlers";
 import Alert from "../../core/components/Alert";
 import { addService } from "../services.handlers";
+import { useTranslation } from "react-i18next";
 
 export default function HotelsForm({ handleUpdate }) {
+  const { t } = useTranslation();
+
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [agencyImage, setAgencyImage] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -44,21 +47,21 @@ export default function HotelsForm({ handleUpdate }) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
 
       return Yup.object({
-        name: Yup.string().required("Required"),
-        address: Yup.string().required("Required"),
-        stars: Yup.number().integer().required("Required"),
-        city: Yup.string().required("Required"),
-        state: Yup.string().required("Required"),
-        zipCode: Yup.string().required("Required"),
-        mobileNumber: Yup.string().required("Required"),
+        name: Yup.string().required(t("Required")),
+        address: Yup.string().required(t("Required")),
+        stars: Yup.number().integer().required(t("Required")),
+        city: Yup.string().required(t("Required")),
+        state: Yup.string().required(t("Required")),
+        zipCode: Yup.string().required(t("Required")),
+        mobileNumber: Yup.string().required(t("Required")),
         phoneNumber: Yup.string()
           .matches(phoneRegex, "Invalid Egyptian phoneNumber number")
-          .required("Required"),
-        website: Yup.string().required("Required"),
+          .required(t("Required")),
+        website: Yup.string().required(t("Required")),
         email: Yup.string()
           .matches(emailRegex, "Invalid email address")
-          .required("Required"),
-        description: Yup.string().required("Required"),
+          .required(t("Required")),
+        description: Yup.string().required(t("Required")),
       });
     },
 
@@ -84,7 +87,7 @@ export default function HotelsForm({ handleUpdate }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        Add New
+        {t("add_new")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -97,7 +100,7 @@ export default function HotelsForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add new Agency
+                {t("Add_new_Agency")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -106,72 +109,76 @@ export default function HotelsForm({ handleUpdate }) {
                       <Input
                         id="name"
                         type="name"
-                        label="Name"
+                        label={t("Name")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.name}
-                        isInvalid={formHandler.touched.name && formHandler.errors.name}
+                        isInvalid={
+                          formHandler.touched.name && formHandler.errors.name
+                        }
                         errormessage={formHandler.errors.name}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="stars"
-                        label="stars"
-
+                        label={t("stars")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.stars}
-                        isInvalid={formHandler.touched.stars && formHandler.errors.stars}
+                        isInvalid={
+                          formHandler.touched.stars && formHandler.errors.stars
+                        }
                         errormessage={formHandler.errors.stars}
                       />
-
                     </div>
-
                     <div>
                       <Input
                         id="zipCode"
                         type="zipCode"
-                        label="zipCode"
+                        label={t("ZIP CODE")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.zipCode}
-                        isInvalid={formHandler.touched.zipCode && formHandler.errors.zipCode}
+                        isInvalid={
+                          formHandler.touched.zipCode &&
+                          formHandler.errors.zipCode
+                        }
                         errormessage={formHandler.errors.zipCode}
                       />
-
                     </div>
-
                     <div>
                       <Input
                         id="state"
                         type="state"
-                        label="state"
+                        label={t("state")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.state}
-                        isInvalid={formHandler.touched.state && formHandler.errors.state}
+                        isInvalid={
+                          formHandler.touched.state && formHandler.errors.state
+                        }
                         errormessage={formHandler.errors.state}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="city"
                         type="city"
-                        label="city"
+                        label={t("city")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.city}
-                        isInvalid={formHandler.touched.city && formHandler.errors.city}
+                        isInvalid={
+                          formHandler.touched.city && formHandler.errors.city
+                        }
                         errormessage={formHandler.errors.city}
                       />
                       {formHandler.touched.city && formHandler.errors.city ? (
@@ -185,7 +192,6 @@ export default function HotelsForm({ handleUpdate }) {
                       <Input
                         id="email"
                         label="email"
-
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -202,76 +208,85 @@ export default function HotelsForm({ handleUpdate }) {
                       <Input
                         id="phoneNumber"
                         type="phoneNumber"
-                        label="phoneNumber"
+                        label={t("phoneNumber")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.phoneNumber}
-                        isInvalid={formHandler.touched.phoneNumber && formHandler.errors.phoneNumber}
+                        isInvalid={
+                          formHandler.touched.phoneNumber &&
+                          formHandler.errors.phoneNumber
+                        }
                         errormessage={formHandler.errors.phoneNumber}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="mobileNumber"
                         type="mobileNumber"
-                        label="mobileNumber"
+                        label={t("mobileNumber")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.mobileNumber}
-                        isInvalid={formHandler.touched.mobileNumber && formHandler.errors.mobileNumber}
+                        isInvalid={
+                          formHandler.touched.mobileNumber &&
+                          formHandler.errors.mobileNumber
+                        }
                         errormessage={formHandler.errors.mobileNumber}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="address"
                         type="address"
-                        label="address"
+                        label={t("address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.address}
-                        isInvalid={formHandler.touched.address && formHandler.errors.address}
+                        isInvalid={
+                          formHandler.touched.address &&
+                          formHandler.errors.address
+                        }
                         errormessage={formHandler.errors.address}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="website"
                         type="website"
-                        label="website"
-
+                        label={t("address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.website}
-                        isInvalid={formHandler.touched.website && formHandler.errors.website}
+                        isInvalid={
+                          formHandler.touched.website &&
+                          formHandler.errors.website
+                        }
                         errormessage={formHandler.errors.website}
                       />
-
                     </div>
 
-                    <div className="col-span-2" >
+                    <div className="col-span-2">
                       <Input
                         id="description"
                         type="description"
-                        label="description"
+                        label={t("Description")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.description}
-                        isInvalid={formHandler.touched.description && formHandler.errors.description}
+                        isInvalid={
+                          formHandler.touched.description &&
+                          formHandler.errors.description
+                        }
                         errormessage={formHandler.errors.description}
                       />
-
                     </div>
 
                     <div className="col-span-2">
@@ -290,7 +305,7 @@ export default function HotelsForm({ handleUpdate }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -298,7 +313,7 @@ export default function HotelsForm({ handleUpdate }) {
                   type="submit"
                   className="text-white"
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

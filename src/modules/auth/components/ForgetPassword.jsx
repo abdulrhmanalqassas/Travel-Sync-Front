@@ -12,10 +12,10 @@ import {
 import { useTranslation } from "react-i18next";
 
 export default function ForgetPassword() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = React.useState("opaque");
-  const { t } = useTranslation();
   const handleOpen = (backdrop) => {
     setBackdrop(backdrop);
     onOpen();
@@ -57,16 +57,16 @@ export default function ForgetPassword() {
                   />
                   <br />
                   <Button color="primary" variant="light">
-                    Send
+                  {t("Send")}
                   </Button>
                 </form>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button color="primary" onPress={onClose}>
-                  Send
+                  {t("Send")}
                 </Button>
               </ModalFooter>
             </>

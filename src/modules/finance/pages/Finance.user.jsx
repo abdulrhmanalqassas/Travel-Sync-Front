@@ -4,8 +4,10 @@ import FinanceTable from "../components/FinanceTable";
 import { getAccounts, getTransactions } from "../Finance.handlers";
 import AccountDetails from "../components/AccountDetails";
 import useAuthTokens from "../../auth/context/use-auth-tokens";
+import { useTranslation } from "react-i18next";
 
 const UserAccount = () => {
+  const {t} = useTranslation()
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingT, setIsLoadingT] = useState(false);
   const [account, setAccount] = useState([]);
@@ -30,7 +32,7 @@ const UserAccount = () => {
         <>
           <AccountDetails account={account} isAdmin={false} />
           <div className="m-6 p-6 bg-white rounded-3xl">
-            <h1 className="text-xl font-bold mb-4">Last Transactions</h1>
+            <h1 className="text-xl font-bold mb-4">{t("Last_Transactions")}</h1>
             <FinanceTable users={transition} isLoading={isLoadingT} isAdmin={false} />
           </div>
         </>

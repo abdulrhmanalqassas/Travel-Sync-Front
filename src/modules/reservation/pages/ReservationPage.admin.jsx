@@ -9,8 +9,10 @@ import ReservationTable from "../components/Reservation.Table";
 import useAuthTokens from "../../auth/context/use-auth-tokens";
 import ActionRequired from "../components/ActionRequired";
 import StatusBadge from "../components/StatusBadge";
+import { useTranslation } from "react-i18next";
 
 const ReservationPage = () => {
+  const {t} = useTranslation()
   const tokenObj = useAuthTokens();
   const token = tokenObj.tokensInfoRef.current.token;
   const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +97,7 @@ const ReservationPage = () => {
                 <span className="text-gray-600">&nbsp;</span>
               </div>
               <div>
-                <h1 className="text-lg font-bold mb-2">Total price</h1>
+                <h1 className="text-lg font-bold mb-2">{t("total_price")}</h1>
                 <p className="text-sm text-center">{reservation.totalPrice}$</p>
               </div>
             </div>

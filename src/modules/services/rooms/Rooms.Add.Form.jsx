@@ -21,8 +21,10 @@ import { useEffect, useState } from "react";
 import { uploadImage } from "../../core/core.handlers";
 import Alert from "../../core/components/Alert";
 import { addService, getService } from "../services.handlers";
+import { useTranslation } from "react-i18next";
 
 export default function RoomsForm({ handleUpdate }) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [roomImages, setRoomImages] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -32,8 +34,6 @@ export default function RoomsForm({ handleUpdate }) {
   useEffect(() => {
     getService(setHotels, setIsLoading, "hotels");
   }, []);
-
-
 
   const handleCloseModal = () => {
     formHandler.resetForm();
@@ -62,24 +62,27 @@ export default function RoomsForm({ handleUpdate }) {
     validationSchema: () => {
       return Yup.object({
         service: Yup.object({
-          name: Yup.string().min(5).max(500).required("Required"),
-          description: Yup.string().required("Required"),
-          price: Yup.number().max(999999).min(0).required("Required"),
+          name: Yup.string().min(5).max(500).required(t("Required")),
+          description: Yup.string().required(t("Required")),
+          price: Yup.number().max(999999).min(0).required(t("Required")),
           quantityAvailable: Yup.number()
             .min(0)
             .max(9999)
-            .required("Required")
+            .required(t("Required"))
             .integer("Must be a number"),
-          savings: Yup.number().min(0).max(9999).required("Required"),
-          isOffer: Yup.boolean().required("Required"),
-          cancellationPolicy: Yup.string().min(2).max(500).required("Required"),
+          savings: Yup.number().min(0).max(9999).required(t("Required")),
+          isOffer: Yup.boolean().required(t("Required")),
+          cancellationPolicy: Yup.string()
+            .min(2)
+            .max(500)
+            .required(t("Required")),
         }),
         room: Yup.object({
-          type: Yup.string().required("Required"),
-          roomArea: Yup.number().min(0).max(9999).required("Required"),
-          numberOfBeds: Yup.number().min(0).max(9999).required("Required"),
-          numberOfSleeps: Yup.number().min(0).max(9999).required("Required"),
-          hotelId: Yup.number().required("Required"),
+          type: Yup.string().required(t("Required")),
+          roomArea: Yup.number().min(0).max(9999).required(t("Required")),
+          numberOfBeds: Yup.number().min(0).max(9999).required(t("Required")),
+          numberOfSleeps: Yup.number().min(0).max(9999).required(t("Required")),
+          hotelId: Yup.number().required(t("Required")),
         }),
       });
     },
@@ -112,7 +115,7 @@ export default function RoomsForm({ handleUpdate }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        Add New
+        {t("add_new")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -127,14 +130,14 @@ export default function RoomsForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add new Room Service
+              {t("Add_Room")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <Select
-                        label="Agency"
+                        label={t("Agency")}
                         id="room.hotelId"
                         placeholder="Select an agency"
                         value={formHandler.values.hotelId}
@@ -158,7 +161,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="service.name"
                         type="text"
                         name="service.name"
-                        label="Title"
+                        label={t("Title")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -176,7 +179,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="service.description"
                         name="service.description"
                         type="text"
-                        label="Description"
+                        label={t("Description")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -193,7 +196,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="service.price"
                         name="service.price"
                         type="number"
-                        label="Price"
+                        label={t("Price")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -226,7 +229,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="service.savings"
                         name="service.savings"
                         type="number"
-                        label="savings"
+                        label={t("savings")}
                         placeholder="0.00"
                         radius="lg"
                         onChange={(e) => {
@@ -260,7 +263,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="service.quantityAvailable"
                         name="service.quantityAvailable"
                         type="number"
-                        label="Quantity Available"
+                        label={t("Quantity Available")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -294,7 +297,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="service.cancellationPolicy"
                         name="service.cancellationPolicy"
                         type="text"
-                        label="Cancelation Policy"
+                        label={t("Cancelation Policy")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -314,7 +317,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="room.type"
                         name="room.type"
                         type="text"
-                        label="Room Type"
+                        label={t("Room Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -332,7 +335,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="room.roomArea"
                         name="room.roomArea"
                         type="number"
-                        label="Room Area"
+                        label={t("Room Area")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -357,7 +360,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="room.numberOfBeds"
                         name="room.numberOfBeds"
                         type="number"
-                        label="Number of Beds"
+                        label={t("Number of Beds")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -382,7 +385,7 @@ export default function RoomsForm({ handleUpdate }) {
                         id="room.numberOfSleeps"
                         name="room.numberOfSleeps"
                         type="number"
-                        label="Number of Sleeps"
+                        label={t("Number of Sleeps")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -413,7 +416,7 @@ export default function RoomsForm({ handleUpdate }) {
                       <Checkbox
                         id="serviceIsOffer"
                         name="service.isOffer"
-                        label="Is Offer"
+                        label={t("is_offer")}
                         onChange={formHandler.handleChange("service.isOffer")}
                         value={formHandler.values.service?.isOffer}
                         isInvalid={
@@ -422,7 +425,7 @@ export default function RoomsForm({ handleUpdate }) {
                         }
                         errorMessage={formHandler.errors.service?.isOffer}
                       >
-                        Is Offer
+                        {t("is_offer")}
                       </Checkbox>
                     </div>
 
@@ -442,7 +445,7 @@ export default function RoomsForm({ handleUpdate }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -450,7 +453,7 @@ export default function RoomsForm({ handleUpdate }) {
                   type="submit"
                   className="text-white"
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

@@ -1,8 +1,10 @@
 import { Avatar, Skeleton } from "@nextui-org/react";
 import useAuth from "../auth/context/use-auth";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
+  const { t } = useTranslation();
   // !Handling title (Need Actions) .
   const { user, isLoaded } = useAuth();
 
@@ -47,7 +49,9 @@ const NavBar = () => {
   return (
     <div className="h-[80px] bg-second flex items-center justify-between px-5">
       <div className="flex flex-col items-start  ">
-        <h1 className="text-2xl font-bold">Welcome, {user.firstName} </h1>
+        <h1 className="text-2xl font-bold">
+          {t("Welcome")}, {user.firstName}{" "}
+        </h1>
         <h3 className="text-small  text-[#8f9191] ">
           Today is {formattedDate}
         </h3>

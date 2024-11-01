@@ -17,8 +17,10 @@ import { useState } from "react";
 import { uploadImage } from "../../core/core.handlers";
 import { addAgency } from "../Agencies.handlers";
 import Alert from "../../core/components/Alert";
+import { useTranslation } from "react-i18next";
 
 export default function AgenciesForm({ handleUpdate }) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [agencyImage, setAgencyImage] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -41,18 +43,18 @@ export default function AgenciesForm({ handleUpdate }) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
 
       return Yup.object({
-        name: Yup.string().required("Required"),
-        state: Yup.string().required("Required"),
-        city: Yup.string().required("Required"),
+        name: Yup.string().required(t("Required")),
+        state: Yup.string().required(t("Required")),
+        city: Yup.string().required(t("Required")),
         email: Yup.string()
           .matches(emailRegex, "Invalid email address")
-          .required("Required"),
+          .required(t("Required")),
         phone: Yup.string()
           .matches(phoneRegex, "Invalid Egyptian phone number")
-          .required("Required"),
-        address: Yup.string().required("Required"),
-        country: Yup.string().required("Required"),
-        postalCode: Yup.string().required("Required"),
+          .required(t("Required")),
+        address: Yup.string().required(t("Required")),
+        country: Yup.string().required(t("Required")),
+        postalCode: Yup.string().required(t("Required")),
       });
     },
 
@@ -76,7 +78,7 @@ export default function AgenciesForm({ handleUpdate }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        Add New
+        {t("add_new")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -89,7 +91,7 @@ export default function AgenciesForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add new Agency
+                {t("Add_new_Agency")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -98,45 +100,48 @@ export default function AgenciesForm({ handleUpdate }) {
                       <Input
                         id="name"
                         type="name"
-                        label="Name"
+                        label={t("Name")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.name}
-                        isInvalid={formHandler.touched.name && formHandler.errors.name}
+                        isInvalid={
+                          formHandler.touched.name && formHandler.errors.name
+                        }
                         errorMessage={formHandler.errors.name}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="state"
                         type="state"
-                        label="state"
+                        label={t("state")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.state}
-                        isInvalid={formHandler.touched.state && formHandler.errors.state}
+                        isInvalid={
+                          formHandler.touched.state && formHandler.errors.state
+                        }
                         errorMessage={formHandler.errors.state}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="city"
                         type="city"
-                        label="city"
+                        label={t("city")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.city}
-                        isInvalid={formHandler.touched.city && formHandler.errors.city}
+                        isInvalid={
+                          formHandler.touched.city && formHandler.errors.city
+                        }
                         errorMessage={formHandler.errors.city}
                       />
-
                     </div>
 
                     <div>
@@ -147,10 +152,11 @@ export default function AgenciesForm({ handleUpdate }) {
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.email}
-                        isInvalid={formHandler.touched.email && formHandler.errors.email}
+                        isInvalid={
+                          formHandler.touched.email && formHandler.errors.email
+                        }
                         errorMessage={formHandler.errors.email}
                       />
-
                     </div>
 
                     <div>
@@ -163,20 +169,24 @@ export default function AgenciesForm({ handleUpdate }) {
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.phone}
                         errorMessage={formHandler.errors.phone}
-                        isInvalid={formHandler.touched.phone && formHandler.errors.phone}
+                        isInvalid={
+                          formHandler.touched.phone && formHandler.errors.phone
+                        }
                       />
-
                     </div>
                     <div>
                       <Input
                         id="address"
                         type="address"
-                        label="address"
+                        label={t("address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.address}
-                        isInvalid={formHandler.touched.address && formHandler.errors.address}
+                        isInvalid={
+                          formHandler.touched.address &&
+                          formHandler.errors.address
+                        }
                         errorMessage={formHandler.errors.address}
                       />
                     </div>
@@ -184,15 +194,17 @@ export default function AgenciesForm({ handleUpdate }) {
                       <Input
                         id="country"
                         type="country"
-                        label="country"
+                        label={t("country")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.country}
-                        isInvalid={formHandler.touched.country && formHandler.errors.country}
+                        isInvalid={
+                          formHandler.touched.country &&
+                          formHandler.errors.country
+                        }
                         errorMessage={formHandler.errors.country}
                       />
-
                     </div>
 
                     <div>
@@ -204,7 +216,10 @@ export default function AgenciesForm({ handleUpdate }) {
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.postalCode}
-                        isInvalid={formHandler.touched.postalCode && formHandler.errors.postalCode}
+                        isInvalid={
+                          formHandler.touched.postalCode &&
+                          formHandler.errors.postalCode
+                        }
                         errorMessage={formHandler.errors.postalCode}
                       />
                     </div>
@@ -225,7 +240,7 @@ export default function AgenciesForm({ handleUpdate }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -233,7 +248,7 @@ export default function AgenciesForm({ handleUpdate }) {
                   type="submit"
                   className="text-white"
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

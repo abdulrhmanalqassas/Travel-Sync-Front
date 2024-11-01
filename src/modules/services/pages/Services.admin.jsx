@@ -15,8 +15,10 @@ import SafariTable from "../safari/Safari.Table";
 import CruisesTable from "../cruises/Cruises.Table";
 import TransportationTable from "../transportation/Transportation.Table";
 import PackagesTable from "../packages/Packages.Table";
-
+import { useTranslation } from "react-i18next";
 export default function Services() {
+  const { t } = useTranslation();
+
   const [selected, setSelected] = useState("hotels");
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,9 +44,11 @@ export default function Services() {
         <Tab
           key="hotels"
           title={
-            <div className={`flex items-center space-x-2  ${selected == "hotels" ? "text-black" : " "} `}>
+            <div
+              className={`flex items-center space-x-2  ${selected == "hotels" ? "text-black" : " "} `}
+            >
               <FaHotel className="w-4 h-4" />
-              <span>Hotels</span>
+              <span>{t("Hotels")}</span>
             </div>
           }
         >
@@ -57,9 +61,11 @@ export default function Services() {
         <Tab
           key="hotel-rooms"
           title={
-            <div className={`flex items-center space-x-2  ${selected == "hotel-rooms" ? "text-black" : " "} `}>
+            <div
+              className={`flex items-center space-x-2  ${selected == "hotel-rooms" ? "text-black" : " "} `}
+            >
               <RiHotelBedFill className="w-5 h-5" />
-              <span>Rooms</span>
+              <span>{t("Rooms")}</span>
             </div>
           }
         >
@@ -72,9 +78,11 @@ export default function Services() {
         <Tab
           key="flights"
           title={
-            <div className={`flex items-center space-x-2  ${selected == "flights" ? "text-black" : " "} `}>
+            <div
+              className={`flex items-center space-x-2  ${selected == "flights" ? "text-black" : " "} `}
+            >
               <BiSolidPlaneAlt className="w-5 h-5" />
-              <span>Flights</span>
+              <span>{t("Flights")}</span>
             </div>
           }
         >
@@ -87,9 +95,11 @@ export default function Services() {
         <Tab
           key="safari"
           title={
-            <div className={`flex items-center space-x-2  ${selected == "safari" ? "text-black" : " "} `}>
+            <div
+              className={`flex items-center space-x-2  ${selected == "safari" ? "text-black" : " "} `}
+            >
               <FaHouseTsunami className="w-4 h-4" />
-              <span>Safari</span>
+              <span>{t("Safari")}</span>
             </div>
           }
         >
@@ -99,12 +109,12 @@ export default function Services() {
             handleUpdate={handleUpdate}
           />
         </Tab>
-        <Tab
+        {/* <Tab
           key="cruises"
           title={
             <div className={`flex items-center space-x-2  ${selected == "cruises" ? "text-black" : " "} `}>
               <MdOutlineDirectionsBoat className="w-5 h-5" />
-              <span>Cruises</span>
+              <span>{t("Cruises")}</span>
             </div>
           }
         >
@@ -113,13 +123,15 @@ export default function Services() {
             isLoading={isLoading}
             handleUpdate={handleUpdate}
           />
-        </Tab>
+        </Tab> */}
         <Tab
           key="transportations"
           title={
-            <div className={`flex items-center space-x-2  ${selected == "transportations" ? "text-black" : " "} `}>
+            <div
+              className={`flex items-center space-x-2  ${selected == "transportations" ? "text-black" : " "} `}
+            >
               <FaCar className="w-4 h-4" />
-              <span>Transportation</span>
+              <span>{t("Transportation")}</span>
             </div>
           }
         >
@@ -132,9 +144,11 @@ export default function Services() {
         <Tab
           key="standard-packages"
           title={
-            <div className={`flex items-center space-x-2  ${selected == "standard-packages" ? "text-black" : " "} `}>
+            <div
+              className={`flex items-center space-x-2  ${selected == "standard-packages" ? "text-black" : " "} `}
+            >
               <FiPackage className="w-5 h-5" />
-              <span>Packages</span>
+              <span>{t("Packages")}</span>
             </div>
           }
         >

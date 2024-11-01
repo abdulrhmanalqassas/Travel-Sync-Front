@@ -18,8 +18,10 @@ import { editAgency } from "../Agencies.handlers";
 import { EditIcon } from "../../core/components/icons/EditIcon";
 import Alert from "../../core/components/Alert";
 import { RemoveEmptyValues } from "../../core/utils";
+import { useTranslation } from "react-i18next";
 
 export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [agencyImage, setAgencyImage] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -88,7 +90,7 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add new Agency
+                {t("Add_new_Agency")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -97,45 +99,48 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
                       <Input
                         id="name"
                         type="name"
-                        label="Name"
+                        label={t("Name")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.name}
-                        isInvalid={formHandler.touched.name && formHandler.errors.name}
+                        isInvalid={
+                          formHandler.touched.name && formHandler.errors.name
+                        }
                         errorMessage={formHandler.errors.name}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="state"
                         type="state"
-                        label="state"
+                        label={t("state")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.state}
-                        isInvalid={formHandler.touched.state && formHandler.errors.state}
+                        isInvalid={
+                          formHandler.touched.state && formHandler.errors.state
+                        }
                         errorMessage={formHandler.errors.state}
                       />
-
                     </div>
 
                     <div>
                       <Input
                         id="city"
                         type="city"
-                        label="city"
+                        label={t("city")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.city}
-                        isInvalid={formHandler.touched.city && formHandler.errors.city}
+                        isInvalid={
+                          formHandler.touched.city && formHandler.errors.city
+                        }
                         errorMessage={formHandler.errors.city}
                       />
-
                     </div>
 
                     <div>
@@ -146,10 +151,11 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.email}
-                        isInvalid={formHandler.touched.email && formHandler.errors.email}
+                        isInvalid={
+                          formHandler.touched.email && formHandler.errors.email
+                        }
                         errorMessage={formHandler.errors.email}
                       />
-
                     </div>
 
                     <div>
@@ -162,20 +168,24 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.phone}
                         errorMessage={formHandler.errors.phone}
-                        isInvalid={formHandler.touched.phone && formHandler.errors.phone}
+                        isInvalid={
+                          formHandler.touched.phone && formHandler.errors.phone
+                        }
                       />
-
                     </div>
                     <div>
                       <Input
                         id="address"
                         type="address"
-                        label="address"
+                        label={t("address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.address}
-                        isInvalid={formHandler.touched.address && formHandler.errors.address}
+                        isInvalid={
+                          formHandler.touched.address &&
+                          formHandler.errors.address
+                        }
                         errorMessage={formHandler.errors.address}
                       />
                     </div>
@@ -183,15 +193,17 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
                       <Input
                         id="country"
                         type="country"
-                        label="country"
+                        label={t("country")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.country}
-                        isInvalid={formHandler.touched.country && formHandler.errors.country}
+                        isInvalid={
+                          formHandler.touched.country &&
+                          formHandler.errors.country
+                        }
                         errorMessage={formHandler.errors.country}
                       />
-
                     </div>
 
                     <div>
@@ -203,7 +215,10 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.postalCode}
-                        isInvalid={formHandler.touched.postalCode && formHandler.errors.postalCode}
+                        isInvalid={
+                          formHandler.touched.postalCode &&
+                          formHandler.errors.postalCode
+                        }
                         errorMessage={formHandler.errors.postalCode}
                       />
                     </div>
@@ -224,7 +239,7 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}

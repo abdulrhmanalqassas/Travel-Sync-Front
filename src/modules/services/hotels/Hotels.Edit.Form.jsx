@@ -18,8 +18,11 @@ import Alert from "../../core/components/Alert";
 import { editService } from "../services.handlers";
 import { RemoveEmptyValues } from "../../core/utils";
 import { EditIcon } from "../../core/components/icons/EditIcon";
+import { useTranslation } from "react-i18next";
 
 export default function HotelsFormEdit({ handleUpdate, hotelID }) {
+  const { t } = useTranslation();
+
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [agencyImage, setAgencyImage] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -106,7 +109,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="name"
                         type="name"
-                        label="Name"
+                        label={t("Name")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -125,7 +128,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="stars"
                         // type=""
-                        label="stars"
+                        label={t("stars")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -144,7 +147,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="zipCode"
                         type="zipCode"
-                        label="zipCode"
+                        label={t("ZIP CODE")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -164,7 +167,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="state"
                         type="state"
-                        label="state"
+                        label={t("state")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -183,7 +186,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="city"
                         type="city"
-                        label="city"
+                        label={t("city")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -220,7 +223,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="phoneNumber"
                         type="phoneNumber"
-                        label="phoneNumber"
+                        label={t("phoneNumber")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -240,7 +243,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="mobileNumber"
                         type="mobileNumber"
-                        label="mobileNumber"
+                        label={t("mobileNumber")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -260,7 +263,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="address"
                         type="address"
-                        label="address"
+                        label={t("address")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -280,7 +283,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="website"
                         type="website"
-                        label="website"
+                        label={t("address")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -300,7 +303,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                       <Input
                         id="description"
                         type="description"
-                        label="description"
+                        label={t("Description")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -332,7 +335,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}
@@ -340,7 +343,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                   type="submit"
                   className="text-white"
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </ModalFooter>
             </form>

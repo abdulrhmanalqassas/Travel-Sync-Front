@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import { getAccounts, getTransactions } from "../Finance.handlers";
 import FinanceTable from "../components/FinanceTable";
 import useAuthTokens from "../../auth/context/use-auth-tokens";
+import { useTranslation } from "react-i18next";
 
 export default function Finance() {
+ const {t} = useTranslation()
   const [accounts, setAccounts] = useState([]);
   const [transitions, setTransitions] = useState([]);
   // ! We need to add loader here to the page. 
@@ -27,10 +29,10 @@ export default function Finance() {
       <div className="m-5 mt-1 bg-white rounded-lg">
         <div className="p-4">
           <div className="flex justify-between px-1">
-            <h1 className="font-bold">Users Balance</h1>
+            <h1 className="font-bold">{t("Users_Balance")}</h1>
             <Link to={"/Accounts"}>
               <div className="flex items-center  transition-all duration-300 hover:text-blue-800    ">
-                <h1 className="font  ">See All</h1>
+                <h1 className="font  ">{t("See_All")}</h1>
                 <MdKeyboardArrowRight className="w-5 h-5" />
               </div>
             </Link>
@@ -54,7 +56,7 @@ export default function Finance() {
         </div>
       </div>
       <div className="m-5 p-5 bg-white rounded-lg">
-        <h1 className="text-xl font-bold mb-4">Last Transactions</h1>
+        <h1 className="text-xl font-bold mb-4">{t("Last_Transactions")}</h1>
         <FinanceTable users={transitions} isLoading={isLoadingT} isAdmin={false} />
       </div>
     </div>

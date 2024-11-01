@@ -7,8 +7,9 @@ import { MdOutlineDirectionsBoat } from "react-icons/md";
 import { RiHotelBedFill } from "react-icons/ri";
 import { getService } from "../services.handlers";
 import ServicesWrapper from "../components/ServicesWrapper";
-
+import { useTranslation } from "react-i18next";
 export default function ServicesView() {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState("hotels");
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,43 +22,53 @@ export default function ServicesView() {
     {
       id: "hotels",
       label: (
-        <div className={`flex items-center space-x-2  ${selected == "hotels" ? "text-black" : " "} `}>
+        <div
+          className={`flex items-center space-x-2  ${selected == "hotels" ? "text-black" : " "} `}
+        >
           <FaHotel className="w-4 h-4" />
-          <span>Hotels</span>
+          <span>{t("Hotels")}</span>
         </div>
       ),
     },
     {
       id: "hotel-rooms",
       label: (
-        <div className={`flex items-center space-x-2  ${selected == "hotel-rooms" ? "text-black" : " "} `}>
+        <div
+          className={`flex items-center space-x-2  ${selected == "hotel-rooms" ? "text-black" : " "} `}
+        >
           <RiHotelBedFill className="w-5 h-5" />
-          <span>Rooms</span>
+          <span>{t("Rooms")}</span>
         </div>
       ),
     },
     {
       id: "flights",
       label: (
-        <div className={`flex items-center space-x-2  ${selected == "flights" ? "text-black" : " "} `}>
+        <div
+          className={`flex items-center space-x-2  ${selected == "flights" ? "text-black" : " "} `}
+        >
           <BiSolidPlaneAlt className="w-5 h-5" />
-          <span>Flights</span>
+          <span>{t("Flights")}</span>
         </div>
       ),
     },
     {
       id: "safari",
       label: (
-        <div className={`flex items-center space-x-2  ${selected == "safari" ? "text-black" : " "} `}>
+        <div
+          className={`flex items-center space-x-2  ${selected == "safari" ? "text-black" : " "} `}
+        >
           <FaHouseTsunami className="w-4 h-4" />
-          <span>Safari</span>
+          <span>{t("Safari")}</span>
         </div>
       ),
     },
     {
       id: "cruises",
       label: (
-        <div className={`flex items-center space-x-2  ${selected == "cruises" ? "text-black" : " "} `}>
+        <div
+          className={`flex items-center space-x-2  ${selected == "cruises" ? "text-black" : " "} `}
+        >
           <MdOutlineDirectionsBoat className="w-5 h-5" />
           <span>Cruises</span>
         </div>
@@ -66,23 +77,26 @@ export default function ServicesView() {
     {
       id: "transportations",
       label: (
-        <div className={`flex items-center space-x-2  ${selected == "transportations" ? "text-black" : " "} `}>
+        <div
+          className={`flex items-center space-x-2  ${selected == "transportations" ? "text-black" : " "} `}
+        >
           <FaCar className="w-4 h-4" />
-          <span>Transportation</span>
+          <span>{t("Transportation")}</span>
         </div>
       ),
     },
     {
       id: "standard-packages",
       label: (
-        <div className={`flex items-center space-x-2  ${selected == "standard-packages" ? "text-black" : " "} `}>
+        <div
+          className={`flex items-center space-x-2  ${selected == "standard-packages" ? "text-black" : " "} `}
+        >
           <FiPackage className="w-5 h-5" />
-          <span>Packages</span>
+          <span>{t("Packages")}</span>
         </div>
       ),
     },
   ];
-
 
   return (
     <div className="flex w-full flex-col m-5 mt-1 p-5 rounded-lg bg-white ">

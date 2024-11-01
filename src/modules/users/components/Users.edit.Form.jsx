@@ -19,8 +19,11 @@ import { EditIcon } from "../../core/components/icons/EditIcon";
 
 import Alert from "../../core/components/Alert";
 import { RemoveEmptyValues } from "../utils";
+import { useTranslation } from "react-i18next";
 
 export default function UsersFormEdit({ handleUpdate, userId }) {
+  const { t } = useTranslation();
+
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [userImage, setUserImage] = useState([]);
   const [isLoading, setIsLoading] = useState("");
@@ -153,7 +156,7 @@ export default function UsersFormEdit({ handleUpdate, userId }) {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   isLoading={isLoading}

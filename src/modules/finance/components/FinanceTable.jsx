@@ -18,13 +18,17 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
-import { capitalize } from "../../core/utils";
 import Transactions from "./Transaction";
+import { useTranslation } from "react-i18next";
 
 const INITIAL_VISIBLE_COLUMNS = ["amount", "currency", "Name"];
 
-export default function FinanceTable({ users = [], isLoading, handlechange, isAdmin }) {
-
+export default function FinanceTable({
+  users = [],
+  isLoading,
+  handlechange,
+  isAdmin,
+}) {
   const columns = [
     { name: "ID", uid: "id", sortable: true },
     { name: "NAME", uid: "Name", sortable: true },
@@ -32,6 +36,8 @@ export default function FinanceTable({ users = [], isLoading, handlechange, isAd
     { name: "amount", uid: "amount", sortable: true },
     { name: "currency", uid: "currency" },
   ];
+
+  const { t } = useTranslation();
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -62,7 +68,9 @@ export default function FinanceTable({ users = [], isLoading, handlechange, isAd
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.account?.travelOffice?.name.toLowerCase().includes(filterValue.toLowerCase()),
+        user.account?.travelOffice?.name
+          .toLowerCase()
+          .includes(filterValue.toLowerCase()),
       );
     }
     return filteredUsers;
@@ -96,12 +104,15 @@ export default function FinanceTable({ users = [], isLoading, handlechange, isAd
         );
       case "amount":
         return (
-          <h1 className={`${user.type === "deposit" ? "text-green-600" : "text-red-600"} flex `} ><p>{user.type === "deposit" ? "+" : "-"} </p>{user.amount}$</h1>
+          <h1
+            className={`${user.type === "deposit" ? "text-green-600" : "text-red-600"} flex `}
+          >
+            <p>{user.type === "deposit" ? "+" : "-"} </p>
+            {user.amount}$
+          </h1>
         );
       case "Name":
-        return (
-          <h1 >{user.account.travelOffice.name}</h1>
-        );
+        return <h1>{user.account.travelOffice.name}</h1>;
       default:
         return cellValue;
     }
@@ -132,7 +143,7 @@ export default function FinanceTable({ users = [], isLoading, handlechange, isAd
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",
             }}
-            placeholder="Search by name..."
+            placeholder={t("Search_by_name")}
             size="sm"
             startContent={<SearchIcon className="text-default-300" />}
             value={filterValue}
@@ -148,7 +159,7 @@ export default function FinanceTable({ users = [], isLoading, handlechange, isAd
                   size="sm"
                   variant="flat"
                 >
-                  Columns
+                {  t("Columns")}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -162,23 +173,22 @@ export default function FinanceTable({ users = [], isLoading, handlechange, isAd
               >
                 {columns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
+                    {t(column.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>
             {/* Here */}
-            {isAdmin ?
-              <Transactions handlechange={handlechange} />
-              : null}
+            {isAdmin ? <Transactions handlechange={handlechange} /> : null}
           </div>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+          {t("Total") + " " + users.length + " " + t("Users")}
+      
           </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+          {t("Rows_per_age")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -264,7 +274,7 @@ export default function FinanceTable({ users = [], isLoading, handlechange, isAd
             align={column.uid === "actions" ? "center" : "end"}
             allowsSorting={column.sortable}
           >
-            {column.name}
+            {t(column.name)}
           </TableColumn>
         )}
       </TableHeader>
