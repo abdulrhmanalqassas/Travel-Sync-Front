@@ -48,6 +48,7 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
         departureTime: data?.flight?.departureTime,
         arrivalTime: data?.flight?.arrivalTime,
         seatType: data?.flight?.seatType,
+        commission:data?.flight?.commission
       },
     },
 
@@ -75,6 +76,9 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
             .min(3)
             .max(250)
             .required(t("Required")),
+            commission:Yup.number().max(999999).min(0)
+            .required(t("Required")) 
+            .integer("Must be a number"),
           departureCity: Yup.string().min(3).max(60).required(t("Required")),
           arrivalAddress: Yup.string().min(3).max(250).required(t("Required")),
           arrivalCity: Yup.string().min(3).max(60).required(t("Required")),
@@ -311,7 +315,39 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
                         errorMessage={formHandler.errors.flight?.airline}
                       />
                     </div>
+                    <div>
+                      <Input
+                        id="flight.commission"
+                        name="flight.commission"
+                        type="number"
+                        label={t("commission")}
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue(
+                              "flight.commission",
+                              "",
+                            );
+                            return;
+                          }
 
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue(
+                            "flight.commission",
+                            value,
+                          );
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.flight.commission}
+                        isInvalid={
+                          formHandler.errors.flight?.commission &&
+                          formHandler.touched.flight?.commission
+                        }
+                        errorMessage={
+                          formHandler.errors.flight?.commission
+                        }
+                      />
+                    </div>
                     <div>
                       <Input
                         id="flight.seatType"
@@ -335,7 +371,7 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
                         id="flight.departureAddress"
                         name="flight.departureAddress"
                         type="text"
-                        label="Departure Address"
+                        label={t("Departure_Address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}

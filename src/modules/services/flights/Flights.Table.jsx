@@ -53,6 +53,7 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
     { name: "departureCity", uid: "departureCity" },
     { name: "arrivalCity", uid: "arrivalCity" },
     { name: "DESCRIPTION", uid: "description" },
+    { name: "commission", uid: "commission" },
     { name: "ACTIONS", uid: "actions" },
   ];
 

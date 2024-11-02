@@ -359,7 +359,7 @@ export default function TransportationFormEdit({
                         id="transportation.departureAddress"
                         name="transportation.departureAddress"
                         type="text"
-                        label="Departure Address"
+                        label={t("Departure_Address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -408,8 +408,10 @@ export default function TransportationFormEdit({
                           formHandler.values.transportation.ar_departureAddress
                         }
                         isInvalid={
-                          formHandler.errors.transportation?.ar_departureAddress &&
-                          formHandler.touched.transportation?.ar_departureAddress
+                          formHandler.errors.transportation
+                            ?.ar_departureAddress &&
+                          formHandler.touched.transportation
+                            ?.ar_departureAddress
                         }
                         errorMessage={
                           formHandler.errors.transportation?.ar_departureAddress
