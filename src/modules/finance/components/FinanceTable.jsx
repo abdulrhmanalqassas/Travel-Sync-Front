@@ -37,7 +37,8 @@ export default function FinanceTable({
     { name: "currency", uid: "currency" },
   ];
 
-  const { t } = useTranslation();
+  const { t ,i18n} = useTranslation();
+  const CurrentLang = i18n.language
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -61,7 +62,7 @@ export default function FinanceTable({
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns]);
+  }, [visibleColumns,CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...users];

@@ -59,7 +59,7 @@ export default function UsersTable({
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns]);
+  }, [visibleColumns,currentLanguage]);
 
   console.log(typeof users);
 

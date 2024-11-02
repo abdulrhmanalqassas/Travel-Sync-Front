@@ -77,7 +77,7 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns]);
+  }, [visibleColumns,CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredServices = [...data];

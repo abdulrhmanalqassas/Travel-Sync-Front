@@ -39,6 +39,8 @@ export default function PackagesForm({ handleUpdate }) {
       website: "",
       email: "",
       description: "",
+      ar_name: "",
+      ar_description: "",
       WholesalerId: 1,
     },
     validationSchema: () => {
@@ -115,6 +117,24 @@ export default function PackagesForm({ handleUpdate }) {
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.name}
+                      />
+                      {formHandler.touched.name && formHandler.errors.name ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.name}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="ar_name"
+                        type="ar_name"
+                        label={t("ar_name")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.ar_name}
                       />
                       {formHandler.touched.name && formHandler.errors.name ? (
                         <div className="text-red-600">
@@ -282,7 +302,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="website"
                         type="website"
-                        label={t("address")}
+                        label={t("website")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -312,6 +332,25 @@ export default function PackagesForm({ handleUpdate }) {
                       />
                       {formHandler.touched.description &&
                       formHandler.errors.description ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.description}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="ar_description"
+                        type="description"
+                        label={t("ar_description")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.ar_description}
+                      />
+                      {formHandler.touched.ar_description &&
+                      formHandler.errors.ar_description ? (
                         <div className="text-red-600">
                           {formHandler.errors.description}
                         </div>

@@ -67,7 +67,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns]);
+  }, [visibleColumns,CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...data];

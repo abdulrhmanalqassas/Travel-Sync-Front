@@ -40,6 +40,11 @@ export default function HotelsForm({ handleUpdate }) {
       website: "",
       email: "",
       description: "",
+      ar_name: "",
+      ar_address: "",
+      ar_city: "",
+      ar_state: "",
+      ar_description: "",
       WholesalerId: 1,
     },
     validationSchema: () => {
@@ -48,6 +53,7 @@ export default function HotelsForm({ handleUpdate }) {
 
       return Yup.object({
         name: Yup.string().required(t("Required")),
+        // ar_name: Yup.string().required(t("Required")),
         address: Yup.string().required(t("Required")),
         stars: Yup.number().integer().required(t("Required")),
         city: Yup.string().required(t("Required")),
@@ -120,7 +126,21 @@ export default function HotelsForm({ handleUpdate }) {
                         errormessage={formHandler.errors.name}
                       />
                     </div>
-
+                    <div>
+                      <Input
+                        id="ar_name"
+                        type="name"
+                        label={t("ar_name")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.ar_name}
+                        isInvalid={
+                          formHandler.touched.name && formHandler.errors.name
+                        }
+                        errormessage={formHandler.errors.name}
+                      />
+                    </div>
                     <div>
                       <Input
                         id="stars"
@@ -187,11 +207,31 @@ export default function HotelsForm({ handleUpdate }) {
                         </div>
                       ) : null}
                     </div>
+                    <div>
+                      <Input
+                        id="ar_city"
+                        type="city"
+                        label={t("ar_city")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.ar_city}
+                        isInvalid={
+                          formHandler.touched.city && formHandler.errors.city
+                        }
+                        errormessage={formHandler.errors.city}
+                      />
+                      {formHandler.touched.ar_city && formHandler.errors.ar_city ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.city}
+                        </div>
+                      ) : null}
+                    </div>
 
                     <div>
                       <Input
                         id="email"
-                        label="email"
+                        label={t("email")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -254,12 +294,28 @@ export default function HotelsForm({ handleUpdate }) {
                         errormessage={formHandler.errors.address}
                       />
                     </div>
+                    <div>
+                      <Input
+                        id="ar_address"
+                        type="ar_address"
+                        label={t("ar_address")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.ar_address}
+                        isInvalid={
+                          formHandler.touched.address &&
+                          formHandler.errors.address
+                        }
+                        errormessage={formHandler.errors.address}
+                      />
+                    </div>
 
                     <div>
                       <Input
                         id="website"
                         type="website"
-                        label={t("address")}
+                        label={t("website")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -271,7 +327,7 @@ export default function HotelsForm({ handleUpdate }) {
                         errormessage={formHandler.errors.website}
                       />
                     </div>
-
+                    
                     <div className="col-span-2">
                       <Input
                         id="description"
@@ -281,6 +337,22 @@ export default function HotelsForm({ handleUpdate }) {
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.description}
+                        isInvalid={
+                          formHandler.touched.description &&
+                          formHandler.errors.description
+                        }
+                        errormessage={formHandler.errors.description}
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <Input
+                        id="ar_description"
+                        type="description"
+                        label={t("ar_description")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.ar_description}
                         isInvalid={
                           formHandler.touched.description &&
                           formHandler.errors.description

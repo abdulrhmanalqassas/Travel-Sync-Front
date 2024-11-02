@@ -53,7 +53,7 @@ const NavBar = () => {
           {t("Welcome")}, {user.firstName}{" "}
         </h1>
         <h3 className="text-small  text-[#8f9191] ">
-          Today is {formattedDate}
+          {t("Today_is") }{formattedDate}
         </h3>
       </div>
       <div className="text-black py-3 px-[20px] gap-4  flex flex-col justify-center items-start">

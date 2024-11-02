@@ -52,6 +52,10 @@ export default function TransportationForm({ handleUpdate }) {
         arrivalTime: new Date().toISOString(),
         departingDate: new Date().toISOString(),
         returningDate: new Date().toISOString(),
+        ar_type:"",
+        ar_description:"",
+        ar_departureAddress:"",
+        ar_arrivalAddress: ""
       },
     },
 
@@ -136,7 +140,7 @@ export default function TransportationForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add new Transportation Service
+               {t("Add_new_Transportation")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -248,7 +252,7 @@ export default function TransportationForm({ handleUpdate }) {
                         id="service.quantityAvailable"
                         name="service.quantityAvailable"
                         type="number"
-                        label={t("Quantity Available")}
+                        label={t("Quantity_Available")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
@@ -282,7 +286,7 @@ export default function TransportationForm({ handleUpdate }) {
                         id="service.cancellationPolicy"
                         name="service.cancellationPolicy"
                         type="text"
-                        label={t("Cancelation Policy")}
+                        label={t("Cancelation_Policy")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -302,7 +306,7 @@ export default function TransportationForm({ handleUpdate }) {
                         id="transportation.type"
                         name="transportation.type"
                         type="text"
-                        label="Transportation Type"
+                        label={t("Transportation_Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -320,7 +324,7 @@ export default function TransportationForm({ handleUpdate }) {
                         id="transportation.description"
                         name="transportation.description"
                         type="text"
-                        label="Transportation Description"
+                        label={t("Transportation Description")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -334,13 +338,32 @@ export default function TransportationForm({ handleUpdate }) {
                         }
                       />
                     </div>
+                    <div>
+                      <Textarea
+                        id="transportation.ar_description"
+                        name="transportation.ar_description"
+                        type="text"
+                        label={t("ar_Transportation_Description")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.transportation.ar_description}
+                        isInvalid={
+                          formHandler.errors.transportation?.ar_description &&
+                          formHandler.touched.transportation?.ar_description
+                        }
+                        errorMessage={
+                          formHandler.errors.transportation?.ar_description
+                        }
+                      />
+                    </div>
 
                     <div>
                       <Input
                         id="transportation.departureAddress"
                         name="transportation.departureAddress"
                         type="text"
-                        label="Departure Address"
+                        label={t("Departure_Address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -362,7 +385,7 @@ export default function TransportationForm({ handleUpdate }) {
                         id="transportation.arrivalAddress"
                         name="transportation.arrivalAddress"
                         type="text"
-                        label={t("Arrival Address")}
+                        label={t("Arrival_Address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -379,10 +402,52 @@ export default function TransportationForm({ handleUpdate }) {
 
                     <div>
                       <Input
+                        id="transportation.ar_departureAddress"
+                        name="transportation.ar_departureAddress"
+                        type="text"
+                        label={t("ar_Departure_Address")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={
+                          formHandler.values.transportation.ar_departureAddress
+                        }
+                        isInvalid={
+                          formHandler.errors.transportation?.ar_departureAddress &&
+                          formHandler.touched.transportation?.ar_departureAddress
+                        }
+                        errorMessage={
+                          formHandler.errors.transportation?.ar_departureAddress
+                        }
+                      />
+                    </div>
+
+                    <div>
+                      <Input
+                        id="transportation.ar_arrivalAddress"
+                        name="transportation.ar_arrivalAddress"
+                        type="text"
+                        label={t("ar_Arrival_Address")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.transportation.ar_arrivalAddress}
+                        isInvalid={
+                          formHandler.errors.transportation?.ar_arrivalAddress &&
+                          formHandler.touched.transportation?.ar_arrivalAddress
+                        }
+                        errorMessage={
+                          formHandler.errors.transportation?.ar_arrivalAddress
+                        }
+                      />
+                    </div>
+
+                    <div>
+                      <Input
                         id="transportation.departureTime"
                         name="transportation.departureTime"
                         type="text"
-                        label={t("Departure Time")}
+                        label={t("Departure_Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -422,7 +487,7 @@ export default function TransportationForm({ handleUpdate }) {
                         id="transportation.departingDate"
                         name="transportation.departingDate"
                         type="text"
-                        label="Departing Date"
+                        label={t("Departing_Date")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -441,7 +506,7 @@ export default function TransportationForm({ handleUpdate }) {
                         id="transportation.returningDate"
                         name="transportation.returningDate"
                         type="text"
-                        label="Returning Date"
+                        label={t("returningDate")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}

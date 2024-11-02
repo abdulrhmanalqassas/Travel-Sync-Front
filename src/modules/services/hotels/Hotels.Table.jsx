@@ -79,7 +79,7 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns]);
+  }, [visibleColumns,CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...data];
@@ -232,6 +232,7 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
     onRowsPerPageChange,
     data.length,
     hasSearchFilter,
+    CurrentLang,
   ]);
 
   const bottomContent = React.useMemo(() => {

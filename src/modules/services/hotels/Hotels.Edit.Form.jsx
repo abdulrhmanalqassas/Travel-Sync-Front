@@ -41,6 +41,10 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
       website: "",
       email: "",
       description: "",
+      ar_name: "",
+      ar_address: "",
+      ar_city: "",
+      ar_description: "",
       WholesalerId: 1,
     },
     validationSchema: () => {
@@ -123,6 +127,24 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                         </div>
                       ) : null}
                     </div>
+                    <div>
+                      <Input
+                        id="ar_name"
+                        type="ar_name"
+                        label={t("ar_name")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.ar_name}
+                      />
+                      {formHandler.touched.ar_name && formHandler.errors.ar_name ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.ar_name}
+                        </div>
+                      ) : null}
+                    </div>
 
                     <div>
                       <Input
@@ -200,11 +222,29 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                         </div>
                       ) : null}
                     </div>
+                    <div>
+                      <Input
+                        id="ar_city"
+                        type="city"
+                        label={t("ar_city")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.ar_city}
+                      />
+                      {formHandler.touched.ar_city && formHandler.errors.ar_city ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.ar_city}
+                        </div>
+                      ) : null}
+                    </div>
 
                     <div>
                       <Input
                         id="email"
-                        label="email"
+                        label={t("email")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -278,12 +318,31 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                         </div>
                       ) : null}
                     </div>
+                    <div>
+                      <Input
+                        id="ar_address"
+                        type="ar_address"
+                        label={t("ar_address")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.address}
+                      />
+                      {formHandler.touched.ar_address &&
+                      formHandler.errors.ar_address ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.ar_address}
+                        </div>
+                      ) : null}
+                    </div>
 
                     <div>
                       <Input
                         id="website"
                         type="website"
-                        label={t("address")}
+                        label={t("website")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"
@@ -309,9 +368,28 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.description}
+                        value={formHandler.values.ar_description}
                       />
                       {formHandler.touched.description &&
+                      formHandler.errors.description ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.description}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="ar_description"
+                        type="ar_description"
+                        label={t("ar_description")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.description}
+                      />
+                      {formHandler.touched.ar_description &&
                       formHandler.errors.description ? (
                         <div className="text-red-600">
                           {formHandler.errors.description}

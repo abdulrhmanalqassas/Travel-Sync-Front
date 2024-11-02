@@ -44,6 +44,7 @@ export default function SafariForm({ handleUpdate }) {
         cancellationPolicy: "",
       },
       safari: {
+        type:"",
         address: "",
         city: "",
         country: "",
@@ -289,7 +290,23 @@ export default function SafariForm({ handleUpdate }) {
                         }
                       />
                     </div>
-
+                    <div>
+                      <Input
+                        id="safari.type"
+                        name="safari.type"
+                        type="text"
+                        label={t("safari Type")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.safari?.type}
+                        isInvalid={
+                          formHandler.errors.safari?.type &&
+                          formHandler.touched.safari?.type
+                        }
+                        errorMessage={formHandler.errors.safari?.type}
+                      />
+                    </div>
                     <div>
                       <Input
                         id="safari.address"

@@ -31,7 +31,8 @@ export default function ReservationTable({ users = [], isLoading }) {
     { name: "FILE", uid: "file" },
   ];
 
-  const { t } = useTranslation();
+  const { t ,i18n} = useTranslation();
+  const CurrentLang = i18n.language
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -55,7 +56,7 @@ export default function ReservationTable({ users = [], isLoading }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns]);
+  }, [visibleColumns,CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...users];

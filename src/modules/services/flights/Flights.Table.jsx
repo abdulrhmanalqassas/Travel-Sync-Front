@@ -28,6 +28,7 @@ import FlightsFormEdit from "./Flights.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
 import { useTranslation } from "react-i18next";
+import { displayByLanguage } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "airline",
@@ -55,7 +56,8 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
     { name: "ACTIONS", uid: "actions" },
   ];
 
-  const { t } = useTranslation();
+  const { t , i18n} = useTranslation();
+  const CurrentLang = i18n.language
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -79,7 +81,7 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns]);
+  }, [visibleColumns,CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredServices = [...data];
@@ -110,7 +112,7 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((service, columnKey) => {
-    const cellValue = service[columnKey];
+  const cellValue = displayByLanguage(CurrentLang, columnKey, service);
     switch (columnKey) {
       case "airline":
         return (
