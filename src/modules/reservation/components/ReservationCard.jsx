@@ -22,7 +22,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 
 export default function ReservationCard({ Reservation, isAdmin }) {
-  const{t}=useTranslation()
+  const { t } = useTranslation();
   const formattedDate = formatDuration(
     new Date(Reservation?.updatedAt),
     new Date(),
@@ -63,7 +63,7 @@ export default function ReservationCard({ Reservation, isAdmin }) {
       className="flex flex-col mb-4 rounded-lg p-4 border shadow-md"
     >
       <CardHeader className=" flex justify-between p-3">
-        <StatusBadge status={t(Reservation?.status)} />
+        <StatusBadge status={Reservation?.status} />
         <div className="text-right text-sm text-gray-500">{formattedDate}</div>
       </CardHeader>
       <CardBody>
