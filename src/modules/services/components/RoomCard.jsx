@@ -6,7 +6,6 @@ export default function RoomCard({ service }) {
   const { t, i18n } = useTranslation();
   const CurrentLang = i18n.language;
   const navigate = useNavigate();
-
   return (
     <div className="flex justify-between gap-6 p-3 border-2 rounded-xl m-2 ">
       <div className="flex  gap-6 justify-center  ">
@@ -34,7 +33,8 @@ export default function RoomCard({ service }) {
             </div>
           </div>
           <h3 className="text-[black2]">
-            <span className="text-black">{service.quantityAvailable}</span> Room
+            <span className="text-black">{service.quantityAvailable}</span>{" "}
+            {t("Room")}
             {service.quantityAvailable > 1 && "s "}
             {t("available_with")}
           </h3>
@@ -55,7 +55,7 @@ export default function RoomCard({ service }) {
           className="bg-[#616CA8] text-white font-semibold"
         >
           {t("Reserve_Room")}
-        </Button>
+        </Button> 
       </div>
     </div>
   );

@@ -35,18 +35,17 @@ export default function ServiceCard({
           </div>
           <div className="flex gap-4">
             <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              Free cancelation
+              {t("Wifi")}
             </div>
             <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              Parking
+              {t("Wifi")}
             </div>
             <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              WiFi
+              {t("Wifi")}
             </div>
           </div>
           <h3 className="text-[black2]">
-            <span className="text-black">{numberOfRooms}</span> Room available
-            with this price
+            <span className="text-black">{numberOfRooms}</span> {t("Rooms_with_price")}
           </h3>
         </div>
       </div>

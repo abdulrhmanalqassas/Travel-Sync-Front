@@ -102,7 +102,7 @@ const ReserveService = () => {
               <Input
                 id="quantity"
                 type="number"
-                label="Quantity"
+                label={t("Quantity")}
                 variant="bordered"
                 labelPlacement="outside"
                 radius="lg"
@@ -124,7 +124,7 @@ const ReserveService = () => {
                 <Input
                   id="checkInDate"
                   type="date"
-                  label="Check-In Date"
+                  label={t("Check-In_Date")}
                   variant="bordered"
                   labelPlacement="outside"
                   radius="lg"
@@ -145,7 +145,7 @@ const ReserveService = () => {
                 <Input
                   id="checkOutDate"
                   type="date"
-                  label="Check-Out Date"
+                  label={t("Check-Out_Date")}
                   variant="bordered"
                   labelPlacement="outside"
                   radius="lg"
@@ -163,27 +163,27 @@ const ReserveService = () => {
             </div>
           </div>
           <div className=" rounded-2xl border-2 p-5 flex-none">
-            <h2 className="text-2xl font-semibold mb-2">Price Details</h2>
+            <h2 className="text-2xl font-semibold mb-2">{t("Price Details")}</h2>
             <div className="flex justify-between">
-              <p>{formHandler.values.quantity} night</p>
+              <p>{formHandler.values.quantity}  {t("night")}</p>
               <p>120$</p>
             </div>
             <div className="flex justify-between">
-              <p>Taxes & fees</p>
+              <p> {t("Taxes & fees")}</p>
               <p>15$</p>
             </div>
             <div className="flex justify-between">
-              <p>Charter at</p>
-              <p>10 rooms</p>
+              <p>{t("Charter at")}</p>
+              <p>10 {t("rooms")}</p>
             </div>
             <div className="flex justify-between">
-              <p>charter percenteage</p>
+              <p>{t("charter percenteage")}</p>
               <p>10%</p>
             </div>
             <hr className="border-dashed border-2 my-3" />
 
             <div className="flex justify-between">
-              <p className="font-semibold">Total</p>
+              <p className="font-semibold">{t("Total")}</p>
               <p className="font-semibold">
                 {formHandler.values.quantity >= 10
                   ? formHandler.values.quantity * 120 +
@@ -199,13 +199,13 @@ const ReserveService = () => {
         {/* Travelers Section */}
         {travelers.map((_, idx) => (
           <div key={idx} className="my-5">
-            <h1 className="text-2xl font-semibold">Traveler {idx + 1}</h1>
+            <h1 className="text-2xl font-semibold">{t("Traveler")} {idx + 1}</h1>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
                   id={`travelers[${idx}].firstName`}
                   type="text"
-                  label="First Name"
+                  label={t("First_Name")}
                   variant="bordered"
                   labelPlacement="outside"
                   radius="lg"
@@ -226,7 +226,7 @@ const ReserveService = () => {
                   <Input
                     id={`travelers[${idx}].lastName`}
                     type="text"
-                    label="Last Name"
+                    label={t("last_name")}
                     variant="bordered"
                     labelPlacement="outside"
                     radius="lg"
@@ -249,7 +249,7 @@ const ReserveService = () => {
                 <Input
                   id={`travelers[${idx}].mobilePhone`}
                   type="text"
-                  label="Mobile Phone"
+                  label={t("mobileNumber")}
                   variant="bordered"
                   labelPlacement="outside"
                   radius="lg"
@@ -268,7 +268,7 @@ const ReserveService = () => {
                 <Input
                   id={`travelers[${idx}].email`}
                   type="email"
-                  label="Email"
+                  label={t("email")}
                   variant="bordered"
                   labelPlacement="outside"
                   radius="lg"
@@ -289,7 +289,7 @@ const ReserveService = () => {
               <Input
                 id={`travelers[${idx}].dateOfBirth`}
                 type="date"
-                label="Date of Birth"
+                label={t("Date_of_Birth")}
                 variant="bordered"
                 labelPlacement="outside"
                 radius="lg"
@@ -316,7 +316,7 @@ const ReserveService = () => {
 
         {/* Button to add a new traveler */}
         <Button color="warning" className="mr-2" onClick={addTraveler}>
-          Add Traveler
+          {t("Add_Traveler")}
         </Button>
 
         {/* Submit button */}
@@ -327,7 +327,7 @@ const ReserveService = () => {
           isLoading={isLoading}
           className={`btn ${isUploading ? "bg-gray-400" : "btn-primary"}  mt-4`}
         >
-          Submit
+          {t("Submit")}
         </Button>
       </div>
     </form>

@@ -158,5 +158,14 @@
   "ar_Departure_Address": "عنوان المغادرة بالعربية",
   "ar_Arrival_Address": "عنوان الوصول بالعربية",
   "Departure_Date": "تاريخ المغادرة",
-  "Departure_Time": "وقت المغادرة"
+  "Departure_Time": "وقت المغادرة",
+  "Reservation_details": "تفاصيل الحجز",
+  "Price_Details": "تفاصيل السعر",
+  "night": "ليلة",
+  "Taxes_fees": "الضرائب والرسوم",
+  "Traveler": "المسافر",
+  "First_Name": "الاسم الأول",
+  "Last_Name": "الاسم الأخير",
+  "Date_of_Birth": "تاريخ الميلاد",
+  "Add_Traveler": "إضافة مسافر"
 }

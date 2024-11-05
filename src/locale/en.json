@@ -158,5 +158,14 @@
   "ar_Departure_Address": "Departure address in Arabic",
   "ar_Arrival_Address": "Arrival address in Arabic",
   "Departure_Date": "Departure Date",
-  "Departure_Time": "Departure Time"
+  "Departure_Time": "Departure Time",
+  "Reservation_details": "Reservation details",
+  "Price_Details": "Price Details",
+  "night": "night",
+  "Taxes_fees": "Taxes & fees",
+  "Traveler": "Traveler",
+  "First_Name": "First Name",
+  "Last_Name": "Last Name",
+  "Date_of_Birth": "Date of Birth",
+  "Add_Traveler": "Add Traveler"
 }
