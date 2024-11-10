@@ -25,6 +25,7 @@ import ReserveService from "./modules/reservation/pages/ReserveService.user";
 import RoomsPage from "./modules/services/pages/Rooms.page";
 import ReservationPageUser from "./modules/reservation/pages/ReservationPage.user";
 import VisaApplicationForm from "./modules/visa/VisaApplicatoin";
+import VisaAdd from "./modules/visa/VisaAdd";
 
 function App() {
   const { i18n } = useTranslation();
@@ -279,6 +280,19 @@ function App() {
               >
                 <Layout>
                   <VisaApplicationForm />
+                  {/* <div>Hello world</div> */}
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route
+            path="/visa/add"
+            element={
+              <WithPageRequiredAuth
+                options={{ roles: [RoleEnum.admin, RoleEnum.travelAgent] }}
+              >
+                <Layout>
+                  <VisaAdd />
                   {/* <div>Hello world</div> */}
                 </Layout>
               </WithPageRequiredAuth>

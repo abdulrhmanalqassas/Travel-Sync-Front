@@ -30,6 +30,11 @@ const SideBar = () => {
       icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
     {
+      title: t("Visa"),
+      path: "/visa/add",
+      icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
+    },
+    {
       title: t("Agencies"),
       path: "/Agencies",
       icon: <SiOnlyoffice className={ICON_STYLE} />,
