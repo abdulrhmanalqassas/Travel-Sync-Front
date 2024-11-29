@@ -32,6 +32,8 @@ const HotelsPage = () => {
   return (
     <div className="p-5 m-3 rounded-lg bg-white w-full  ">
       <ImageGallery images={hotel?.images} />
+      {/* //TODO: add hotel image location */}
+      {/* <ImageGallery images={hotel?.images} /> */}
       <div className="my-5">
         <div className="flex justify-between mb-3">
           <h1 className="text-2xl font-semibold">{hotel?.name}</h1>

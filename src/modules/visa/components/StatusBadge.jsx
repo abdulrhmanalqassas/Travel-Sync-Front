@@ -7,8 +7,7 @@ import { MdFileDownloadDone } from "react-icons/md";
 
 export default function StatusBadge({ status }) {
   const { t } = useTranslation();
-  console.log(status)
-  const capitalizedStatus = status ? status.charAt(0).toUpperCase() + status.slice(1) : "";
+  const capitalizedStatus = status?.charAt(0)?.toUpperCase() + status?.slice(1);
   return (
     <>
       {status === "pending" ? (

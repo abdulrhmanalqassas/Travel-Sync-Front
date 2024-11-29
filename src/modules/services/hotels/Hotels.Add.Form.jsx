@@ -221,7 +221,8 @@ export default function HotelsForm({ handleUpdate }) {
                         }
                         errormessage={formHandler.errors.city}
                       />
-                      {formHandler.touched.ar_city && formHandler.errors.ar_city ? (
+                      {formHandler.touched.ar_city &&
+                      formHandler.errors.ar_city ? (
                         <div className="text-red-600">
                           {formHandler.errors.city}
                         </div>
@@ -327,7 +328,7 @@ export default function HotelsForm({ handleUpdate }) {
                         errormessage={formHandler.errors.website}
                       />
                     </div>
-                    
+
                     <div className="col-span-2">
                       <Input
                         id="description"

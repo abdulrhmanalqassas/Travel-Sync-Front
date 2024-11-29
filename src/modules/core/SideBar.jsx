@@ -74,6 +74,16 @@ const SideBar = () => {
       icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
     {
+      title: t("show Visa"),
+      path: "/visa/show",
+      icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
+    },
+    {
+      title: t("requested Visa"),
+      path: "/user/requestedVisa",
+      icon: <IoDocumentText className={ICON_STYLE} />,
+    },
+    {
       title: t("Finance"),
       path: "/user/Finance",
       icon: <PiCurrencyDollarFill className={ICON_STYLE} />,

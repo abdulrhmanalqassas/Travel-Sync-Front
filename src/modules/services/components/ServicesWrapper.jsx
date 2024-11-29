@@ -6,6 +6,7 @@ import RoomCard from "./RoomCard";
 import { Pagination } from "@nextui-org/react";
 import { displayByLanguage } from "../../../utils/helper";
 import { useTranslation } from "react-i18next";
+import VisaCard from "./VisaCard";
 
 const ServicesWrapper = ({ data, isLoading, type }) => {
   const { i18n } = useTranslation();
@@ -28,13 +29,15 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
           ))
         ) : type === "hotel-rooms" ? (
           data.map((service) => <RoomCard key={service.id} service={service} />)
+        ) : type === "ReadyVisa" ? (
+          data.map((service) => <VisaCard key={service.id} service={service} />)
         ) : (
           // <HotelsFilter>
           // {
           data.map((card) => {
             // card.arname = "test this shite"
 
-            const { id, images, stars } = card;
+            const { id, images, stars, locationUrl } = card;
             return (
               <ServiceCard
                 type={type}
@@ -42,6 +45,7 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
                 key={id}
                 img={images[0]?.imageUrl}
                 stars={stars}
+                locationUrl={locationUrl}
                 hotelName={displayByLanguage(CurrentLang, "name", card)}
                 numberOfRooms={52}
               />
@@ -51,7 +55,7 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
           // </HotelsFilter>
         )}
       </div>
-      <Pagination
+      {/* <Pagination
         className="self-center"
         showControls
         classNames={{ cursor: "bg-foreground text-background" }}
@@ -59,7 +63,7 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
         page={2}
         total={50}
         variant="light"
-      />
+      /> */}
     </div>
   );
 };

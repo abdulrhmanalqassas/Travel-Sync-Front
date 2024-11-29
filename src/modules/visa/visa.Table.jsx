@@ -20,44 +20,41 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 
-import { SearchIcon } from "../../core/components/icons/SearchIcon";
-import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
-import { capitalize } from "../../core/utils";
-import HotelsForm from "./Hotels.Add.Form";
-import HotelsFormEdit from "./Hotels.Edit.Form";
-import DeleteModal from "../../core/components/DeleteModal";
-import { DeleteService } from "../services.handlers";
+import { SearchIcon } from "../core/components/icons/SearchIcon";
+import { ChevronDownIcon } from "../core/components/icons/ChevronDownIcon";
+import { capitalize } from "../core/utils";
+import VisaForm from "./visa.Add.Form";
+// import RoomsFormEdit from "./Rooms.Edit.Form";
+import { DeleteService } from "../services/services.handlers";
+import DeleteModal from "../core/components/DeleteModal";
 import { useTranslation } from "react-i18next";
-import { displayByLanguage } from "../../../utils/helper";
+import { displayByLanguage } from "../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
-  "name",
-  "city",
-  "email",
-  "website",
-  "description",
+  "type",
+  "NAME",
+  "quantityAvailable",
+  "endTime",
   "actions",
 ];
 
-export default function HotelsTable({ data, isLoading, handleUpdate }) {
+export default function VisaTable({ data, isLoading, handleUpdate }) {
   const columns = [
     { name: "ID", uid: "id", sortable: true },
     { name: "NAME", uid: "name", sortable: true },
-    { name: "PHONE", uid: "phoneNumber", sortable: true },
-    { name: "ADDRESS", uid: "address" },
-    { name: "CITY", uid: "city" },
-    { name: "STATE", uid: "state", sortable: true },
-    { name: "ZIP CODE", uid: "zipCode", sortable: true },
-    { name: "STARS", uid: "stars", sortable: true },
-    { name: "MOBILE NUMBER", uid: "mobileNumber", sortable: true },
-    { name: "WEBSITE", uid: "website" },
-    { name: "EMAIL", uid: "email" },
-    { name: "DESCRIPTION", uid: "description" },
-    { name: "locationUrl", uid: "locationUrl" },
+    { name: "price", uid: "price" },
+    { name: "quantityAvailable", uid: "quantityAvailable" },
+    { name: "savings", uid: "savings", sortable: true },
+    { name: "type", uid: "type", sortable: true },
+    { name: "roomArea", uid: "roomArea" },
+    { name: "hotelId", uid: "hotelId" },
+    { name: "numberOfBeds`", uid: "numberOfBeds" },
+    { name: "numberOfSleeps", uid: "numberOfSleeps" },
     { name: "ACTIONS", uid: "actions" },
   ];
   const { t, i18n } = useTranslation();
   const CurrentLang = i18n.language;
+
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -83,27 +80,21 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
   }, [visibleColumns, CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...data];
+    let filteredServices = [...data];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) => {
-        console.log(
-          "filterd user opj ##",
-          user,
-          "value : ",
-          user.name.toLowerCase().includes(filterValue.toLowerCase()),
-        );
-        const nameMatches = user.name
+      filteredServices = filteredServices.filter((service) => {
+        const nameMatches = service.name
           .toLowerCase()
           .includes(filterValue.toLowerCase());
-        const arNameMatches = user.ar_name
-          ? user.ar_name.toLowerCase().includes(filterValue.toLowerCase())
+        const arNameMatches = service.ar_name
+          ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase())
           : false;
         return nameMatches || arNameMatches;
       });
     }
-    return filteredUsers;
-  }, [data, filterValue, CurrentLang]);
+    return filteredServices;
+  }, [data, filterValue]);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -122,30 +113,103 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    console.log(
-      "user>>>>>>>>>>",
-      user,
-      "::::",
-      columnKey,
-      "::::",
-      user[columnKey],
-    );
-
-    const cellValue = displayByLanguage(CurrentLang, columnKey, user);
+  const renderCell = React.useCallback((service, columnKey) => {
+    const cellValue = displayByLanguage(CurrentLang, columnKey, service);
+    console.log("servises in room", service);
     switch (columnKey) {
+      case "departureAddress":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.departureAddress}
+          </div>
+        );
+
+      case "type":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.type}
+          </div>
+        );
+      case "arrivalAddress":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.arrivalAddress}
+          </div>
+        );
+      case "departureTime":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.departureTime}
+          </div>
+        );
+      case "arrivalTime":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.arrivalTime}
+          </div>
+        );
+      case "departingDate":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.departingDate}
+          </div>
+        );
+      case "returningDate":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.returningDate}
+          </div>
+        );
+      case "Rooms Description":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.description}
+          </div>
+        );
+
+      case "roomArea":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.roomArea}
+          </div>
+        );
+      case "hotelId":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.hotelId}
+          </div>
+        );
+
+      case "numberOfBeds":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.numberOfBeds}
+          </div>
+        );
+
+      case "numberOfSleeps":
+        return (
+          <div className="relative flex items-center   gap-2">
+            {service.room?.numberOfSleeps}
+          </div>
+        );
+
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Edit user">
-              <HotelsFormEdit handleUpdate={handleUpdate} hotelID={user.id} />
+            <Tooltip content="Edit service">
+              {/* <RoomsFormEdit
+                handleUpdate={handleUpdate}
+                roomID={service.id}
+                data={service}
+              /> */}
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
+            <Tooltip color="danger" content="Delete service">
               <DeleteModal
                 deleteFun={() => {
-                  DeleteService(user.id, handleUpdate, "hotels");
+                  DeleteService(service.id, handleUpdate, "ReadyVisa");
                 }}
-                text={"hotel"}
+                text={"room"}
               />
             </Tooltip>
           </div>
@@ -199,6 +263,7 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
+                className="max-h-80 overflow-scroll overflow-x-hidden"
                 disallowEmptySelection
                 aria-label="Table Columns"
                 closeOnSelect={false}
@@ -213,12 +278,12 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <HotelsForm handleUpdate={handleUpdate} />
+            <VisaForm handleUpdate={handleUpdate} />
           </div>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            {t("Total") + " " + data.length + " " + t("Users")}
+            {t("Total") + " " + data.length + " " + t("services")}
           </span>
           <label className="flex items-center text-default-400 text-small">
             {t("Rows_per_age")}
@@ -241,7 +306,6 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
     onRowsPerPageChange,
     data.length,
     hasSearchFilter,
-    CurrentLang,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -288,10 +352,12 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
       removeWrapper
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
-      aria-label="Hotels Table."
+      aria-label="Rooms Table."
       checkboxesProps={{
         classNames: {
-          wrapper: "after:bg-foreground after:text-background text-background",
+          wrapper: " after:bg-foreground after:text-background text-background",
+          base: "overflow-scroll",
+          table: "overflow-scroll",
         },
       }}
       classNames={classNames}
@@ -316,7 +382,7 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
       <TableBody
         isLoading={isLoading}
         loadingContent={<Spinner label="Loading..." />}
-        emptyContent={t("No hotels found")}
+        emptyContent={"No hotels found"}
         items={sortedItems}
       >
         {(item) => (

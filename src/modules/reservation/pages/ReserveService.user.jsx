@@ -9,7 +9,7 @@ import TravellerFileUploader from "../components/TravellerFileUploader";
 import { useTranslation } from "react-i18next";
 
 const ReserveService = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -36,12 +36,14 @@ const ReserveService = () => {
     setTravelers(() => {
       // Create the new traveler object
       const newTraveler = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobilePhone: "",
-        dateOfBirth: "",
-        fileIds: [],
+        travelerData: {
+          firstName: "",
+          lastName: "",
+          email: "",
+          mobilePhone: "",
+          dateOfBirth: "",
+          fileIds: [],
+        },
       };
 
       // Append the new traveler to the existing travelers array
@@ -95,7 +97,10 @@ const ReserveService = () => {
       <div className="flex-grow">
         <div className="grid grid-cols-3 gap-5">
           <div className="col-span-2 ">
-            <h1 className="text-2xl font-semibold"> {t("Reservation details")}</h1>
+            <h1 className="text-2xl font-semibold">
+              {" "}
+              {t("Reservation details")}
+            </h1>
 
             {/* Quantity Input */}
             <div className="mb-2">
@@ -163,9 +168,13 @@ const ReserveService = () => {
             </div>
           </div>
           <div className=" rounded-2xl border-2 p-5 flex-none">
-            <h2 className="text-2xl font-semibold mb-2">{t("Price Details")}</h2>
+            <h2 className="text-2xl font-semibold mb-2">
+              {t("Price Details")}
+            </h2>
             <div className="flex justify-between">
-              <p>{formHandler.values.quantity}  {t("night")}</p>
+              <p>
+                {formHandler.values.quantity} {t("night")}
+              </p>
               <p>120$</p>
             </div>
             <div className="flex justify-between">
@@ -199,7 +208,9 @@ const ReserveService = () => {
         {/* Travelers Section */}
         {travelers.map((_, idx) => (
           <div key={idx} className="my-5">
-            <h1 className="text-2xl font-semibold">{t("Traveler")} {idx + 1}</h1>
+            <h1 className="text-2xl font-semibold">
+              {t("Traveler")} {idx + 1}
+            </h1>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
@@ -316,7 +327,7 @@ const ReserveService = () => {
 
         {/* Button to add a new traveler */}
         <Button color="warning" className="mr-2" onClick={addTraveler}>
-          {t("Add_Traveler")}
+          {t("Add_Traveler_visa")}
         </Button>
 
         {/* Submit button */}

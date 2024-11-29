@@ -26,6 +26,15 @@ import RoomsPage from "./modules/services/pages/Rooms.page";
 import ReservationPageUser from "./modules/reservation/pages/ReservationPage.user";
 import VisaApplicationForm from "./modules/visa/VisaApplicatoin";
 import VisaAdd from "./modules/visa/VisaAdd";
+import ShowVisa from "./modules/visa/showVisa";
+import GetVisaData from "./modules/visa/getVisaData";
+import VisaRequired from "./modules/visa/pages.js/VisaRequired";
+import UserAppliedVisa from "./modules/visa/pages.js/UserAppliedVisa";
+import { User } from "@nextui-org/react";
+import VisaViewPage from "./modules/visa/pages.js/visa.page";
+import VisaReserveService from "./modules/visa/pages.js/VisaReserveService.user";
+import VisaReservationPageUser from "./modules/visa/pages.js/VisaReservationPage.user";
+import VisaReservationPage from "./modules/visa/pages.js/ReservationPage.admin";
 
 function App() {
   const { i18n } = useTranslation();
@@ -173,6 +182,16 @@ function App() {
             }
           />
           <Route
+            path="/reservation/visa/:id"
+            element={
+              <WithPageRequiredAuth options={{ roles: [RoleEnum.admin] }}>
+                <Layout>
+                  <VisaReservationPage />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route
             path="/finance"
             element={
               <WithPageRequiredAuth options={{ roles: [RoleEnum.admin] }}>
@@ -243,6 +262,16 @@ function App() {
             }
           />
           <Route
+            path="/user/Reserve/visa/:id"
+            element={
+              <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
+                <Layout>
+                  <VisaReserveService />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route
             path="/user/hotels/:id"
             element={
               <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
@@ -263,11 +292,31 @@ function App() {
             }
           />
           <Route
+            path="/user/readyvisa/:id"
+            element={
+              <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
+                <Layout>
+                  <VisaViewPage />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route
             path="/user/ReservationUser/:id"
             element={
               <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
                 <Layout>
                   <ReservationPageUser />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route
+            path="/user/VisaReservationUser/:id"
+            element={
+              <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
+                <Layout>
+                  <VisaReservationPageUser />
                 </Layout>
               </WithPageRequiredAuth>
             }
@@ -298,6 +347,34 @@ function App() {
               </WithPageRequiredAuth>
             }
           />
+
+          <Route
+            path="/visa/show"
+            element={
+              <WithPageRequiredAuth
+                options={{ roles: [RoleEnum.admin, RoleEnum.travelAgent] }}
+              >
+                <Layout>
+                  <ShowVisa />
+                  {/* <div>Hello world</div> */}
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route
+            path="/user/requestedVisa"
+            element={
+              <WithPageRequiredAuth
+                options={{ roles: [RoleEnum.admin, RoleEnum.travelAgent] }}
+              >
+                <Layout>
+                  <UserAppliedVisa />
+                  {/* <ShowVisa /> */}
+                  {/* <div>Hello world</div> */}
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
           <Route
             path="/visa/applications"
             element={
@@ -305,10 +382,14 @@ function App() {
                 options={{ roles: [RoleEnum.admin, RoleEnum.travelAgent] }}
               >
                 <Layout>
-                  <Reservation />
+                  <VisaRequired />
                 </Layout>
               </WithPageRequiredAuth>
             }
+          />
+          <Route
+            path="/visa/getvisadata/:type/:country"
+            element={<GetVisaData />}
           />
         </Routes>
       </BrowserRouter>

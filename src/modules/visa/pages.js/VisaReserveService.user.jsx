@@ -1,11 +1,11 @@
-// import CountrySelector from "../core/components/countrySelector.jsx";
-import TravellerFileUploader from "../reservation/components/TravellerFileUploader.jsx";
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import * as Yup from "yup"; // For validation.
 import { useFormik } from "formik";
 import { Button, Input } from "@nextui-org/react";
-import { ReserveVisa } from "./reservation.handlers";
+import { ReserveVisa } from "../reservation.handlers";
+import TravellerFileUploader from "../components/TravellerFileUploader";
 import { useTranslation } from "react-i18next";
 
 const ReserveService = () => {
@@ -14,17 +14,21 @@ const ReserveService = () => {
   const [isUploading, setIsUploading] = useState(false);
 
   // Get ID from URL
+  const location = useLocation();
 
-  const id = 1;
+  const { pathname } = location;
+  const id = parseInt(pathname.slice(pathname.lastIndexOf("/") + 1));
 
   // State to manage travelers
   const [travelers, setTravelers] = useState([
     {
-      firstName: "",
-      lastName: "",
-      email: "",
-      mobilePhone: "",
-      dateOfBirth: "",
+      travelerData: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        mobilePhone: "",
+        dateOfBirth: "",
+      },
       fileIds: [],
     },
   ]);
@@ -34,11 +38,13 @@ const ReserveService = () => {
     setTravelers(() => {
       // Create the new traveler object
       const newTraveler = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobilePhone: "",
-        dateOfBirth: "",
+        travelerData: {
+          firstName: "",
+          lastName: "",
+          email: "",
+          mobilePhone: "",
+          dateOfBirth: "",
+        },
         fileIds: [],
       };
 
@@ -50,9 +56,10 @@ const ReserveService = () => {
   // Use useFormik for form handling
   const formHandler = useFormik({
     initialValues: {
-      country: "india",
-      // visaRequirementId: id,
+      serviceId: id,
+
       quantity: 1,
+
       travelers: travelers,
     },
     validationSchema: Yup.object({
@@ -60,13 +67,13 @@ const ReserveService = () => {
 
       travelers: Yup.array().of(
         Yup.object({
-          firstName: Yup.string().required(t("Required")),
-          lastName: Yup.string().required(t("Required")),
-          email: Yup.string()
-            .email("Invalid email address")
-            .required(t("Required")),
-          mobilePhone: Yup.string().required(t("Required")),
-          dateOfBirth: Yup.string().required(t("Required")),
+          travelerData: Yup.object({
+            firstName: Yup.string().required(t("Required")),
+            lastName: Yup.string().required(t("Required")),
+            email: Yup.string().email("Invalid email address"),
+            mobilePhone: Yup.string(),
+            dateOfBirth: Yup.string(),
+          }),
         }),
       ),
     }),
@@ -88,14 +95,6 @@ const ReserveService = () => {
       onSubmit={formHandler.handleSubmit}
       className="m-5 p-5 rounded-lg bg-white"
     >
-      {/* <CountrySelector
-       id="countries"
-       open={isOpen}
-       onToggle={() => setIsOpen(!isOpen)}
-       onChange={(val) => setCountry(val)}
-       selectedValue={COUNTRIES.find(
-         (option) => option.value === country,
-       )}></CountrySelector> */}
       <div className="flex-grow">
         <div className="grid grid-cols-3 gap-5">
           <div className="col-span-2 ">
@@ -133,7 +132,7 @@ const ReserveService = () => {
             </h2>
             <div className="flex justify-between">
               <p>
-                {formHandler.values.quantity} {t("night")}
+                {formHandler.values.quantity} {t(" visa")}
               </p>
               <p>120$</p>
             </div>
@@ -174,7 +173,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].firstName`}
+                  id={`travelers[${idx}].travelerData.firstName`}
                   type="text"
                   label={t("First_Name")}
                   variant="bordered"
@@ -182,12 +181,16 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.firstName || ""}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.firstName || ""
+                  }
                 />
-                {formHandler.touched.travelers?.[idx]?.firstName &&
-                formHandler.errors.travelers?.[idx]?.firstName ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.firstName &&
+                formHandler.errors.travelers?.[idx]?.travelerData?.firstName ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].firstName}
+                    {formHandler.errors.travelers[idx].travelerData.firstName}
                   </div>
                 ) : null}
               </div>
@@ -195,7 +198,7 @@ const ReserveService = () => {
               <div>
                 <div>
                   <Input
-                    id={`travelers[${idx}].lastName`}
+                    id={`travelers[${idx}].travelerData.lastName`}
                     type="text"
                     label={t("last_name")}
                     variant="bordered"
@@ -203,12 +206,17 @@ const ReserveService = () => {
                     radius="lg"
                     onChange={formHandler.handleChange}
                     onBlur={formHandler.handleBlur}
-                    value={formHandler.values.travelers[idx]?.lastName || ""}
+                    value={
+                      formHandler.values.travelers[idx]?.travelerData
+                        ?.lastName || ""
+                    }
                   />
-                  {formHandler.touched.travelers?.[idx]?.lastName &&
-                  formHandler.errors.travelers?.[idx]?.lastName ? (
+                  {formHandler.touched.travelers?.[idx]?.travelerData
+                    ?.lastName &&
+                  formHandler.errors.travelers?.[idx]?.travelerData
+                    ?.lastName ? (
                     <div className="text-red-600">
-                      {formHandler.errors.travelers[idx].lastName}
+                      {formHandler.errors.travelers[idx].travelerData.lastName}
                     </div>
                   ) : null}
                 </div>
@@ -218,7 +226,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].mobilePhone`}
+                  id={`travelers[${idx}].travelerData.mobilePhone`}
                   type="text"
                   label={t("mobileNumber")}
                   variant="bordered"
@@ -226,18 +234,23 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.mobilePhone || ""}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.mobilePhone || ""
+                  }
                 />
-                {formHandler.touched.travelers?.[idx]?.mobilePhone &&
-                formHandler.errors.travelers?.[idx]?.mobilePhone ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.mobilePhone &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.mobilePhone ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].mobilePhone}
+                    {formHandler.errors.travelers[idx].travelerData.mobilePhone}
                   </div>
                 ) : null}
               </div>
               <div>
                 <Input
-                  id={`travelers[${idx}].email`}
+                  id={`travelers[${idx}].travelerData.email`}
                   type="email"
                   label={t("email")}
                   variant="bordered"
@@ -245,12 +258,14 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.email || ""}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData?.email || ""
+                  }
                 />
-                {formHandler.touched.travelers?.[idx]?.email &&
-                formHandler.errors.travelers?.[idx]?.email ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.email &&
+                formHandler.errors.travelers?.[idx]?.travelerData?.email ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].email}
+                    {formHandler.errors.travelers[idx].travelerData.email}
                   </div>
                 ) : null}
               </div>
@@ -287,7 +302,7 @@ const ReserveService = () => {
 
         {/* Button to add a new traveler */}
         <Button color="warning" className="mr-2" onClick={addTraveler}>
-          {t("Add_Traveler")}
+          {t("Add_Traveler_visa")}
         </Button>
 
         {/* Submit button */}

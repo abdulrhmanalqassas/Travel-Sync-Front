@@ -10,6 +10,7 @@ export default function ServiceCard({
   numberOfRooms,
   id,
   type,
+  locationUrl,
 }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -33,20 +34,22 @@ export default function ServiceCard({
               <FaStar key={index} color="#F2F2F2" width={30} />
             ))}
           </div>
-          <div className="flex gap-4">
-            <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              {t("Wifi")}
-            </div>
-            <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              {t("Wifi")}
-            </div>
-            <div className="text-[#415A77] p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
-              {t("Wifi")}
-            </div>
-          </div>
+         
           <h3 className="text-[black2]">
-            <span className="text-black">{numberOfRooms}</span> {t("Rooms_with_price")}
+            <span className="text-black">{numberOfRooms}</span>{" "}
+            {t("Rooms_with_price")}
           </h3>
+        </div>
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-4 justify-between">
+            {locationUrl && (
+              <div className="w-full text-[#415A77]  p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
+                <a href={locationUrl} target="_blank" rel="noreferrer">
+                  {t("location")} : {locationUrl}
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div

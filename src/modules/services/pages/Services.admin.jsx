@@ -16,6 +16,8 @@ import CruisesTable from "../cruises/Cruises.Table";
 import TransportationTable from "../transportation/Transportation.Table";
 import PackagesTable from "../packages/Packages.Table";
 import { useTranslation } from "react-i18next";
+import VisaAdd from "../../visa/VisaAdd";
+import VisaTable from "../../visa/visa.Table";
 export default function Services() {
   const { t } = useTranslation();
 
@@ -109,21 +111,6 @@ export default function Services() {
             handleUpdate={handleUpdate}
           />
         </Tab>
-        {/* <Tab
-          key="cruises"
-          title={
-            <div className={`flex items-center space-x-2  ${selected == "cruises" ? "text-black" : " "} `}>
-              <MdOutlineDirectionsBoat className="w-5 h-5" />
-              <span>{t("Cruises")}</span>
-            </div>
-          }
-        >
-          <CruisesTable
-            data={data}
-            isLoading={isLoading}
-            handleUpdate={handleUpdate}
-          />
-        </Tab> */}
         <Tab
           key="transportations"
           title={
@@ -158,7 +145,27 @@ export default function Services() {
             handleUpdate={handleUpdate}
           />
         </Tab>
+        <Tab
+          key="ReadyVisa"
+          title={
+            <div
+              className={`flex items-center space-x-2  ${selected == "ReadyVisa" ? "text-black" : " "} `}
+            >
+              <RiHotelBedFill className="w-5 h-5" />
+              <span>{t("ReadyVisa")}</span>
+            </div>
+          }
+        >
+          {/* <VisaAdd /> */}
+
+          <VisaTable
+            data={data}
+            isLoading={isLoading}
+            handleUpdate={handleUpdate}
+          />
+        </Tab>
       </Tabs>
+
       {/* </div> */}
     </div>
   );

@@ -63,17 +63,6 @@ export default function ServicesView() {
         </div>
       ),
     },
-    // {
-    //   id: "cruises",
-    //   label: (
-    //     <div
-    //       className={`flex items-center space-x-2  ${selected == "cruises" ? "text-black" : " "} `}
-    //     >
-    //       <MdOutlineDirectionsBoat className="w-5 h-5" />
-    //       <span>Cruises</span>
-    //     </div>
-    //   ),
-    // },
     {
       id: "transportations",
       label: (
@@ -93,6 +82,17 @@ export default function ServicesView() {
         >
           <FiPackage className="w-5 h-5" />
           <span>{t("Packages")}</span>
+        </div>
+      ),
+    },
+    {
+      id: "ReadyVisa",
+      label: (
+        <div
+          className={`flex items-center space-x-2  ${selected == "ReadyVisa" ? "text-black" : " "} `}
+        >
+          <FiPackage className="w-5 h-5" />
+          <span>{t("ReadyVisa")}</span>
         </div>
       ),
     },

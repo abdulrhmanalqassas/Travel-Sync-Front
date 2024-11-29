@@ -4,14 +4,14 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getReservation } from "../reservation.handlers";
 import { ClockLoader } from "react-spinners";
-import ReservationTable from "../components/Reservation.Table";
+import VisaReservationTable from "../components/VisaReservation.Table";
 import useAuthTokens from "../../auth/context/use-auth-tokens";
 import { FaExclamationCircle } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
 import { MdFileDownloadDone } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 
-const ReservationPageUser = () => {
+const VisaReservationPageUser = () => {
   const { t } = useTranslation();
 
   const tokenObj = useAuthTokens();
@@ -29,16 +29,16 @@ const ReservationPageUser = () => {
   }, [id, token]);
 
   const { name, email, phone } = reservation.travelOffice || {};
-  const { airline, arrivalAddress, arrivalCity } =
-    reservation.service?.flight || {};
-  const { status, checkInDate, CancelReason, travelers } = reservation;
-  const { price, type, description } = reservation.service || {};
+  const visaName = reservation.service?.name;
+  const { status, CancelReason, travelers, country, createdAt } = reservation;
+  const { type, description } = reservation.service || {};
 
-  const date = new Date(checkInDate);
+  const date = new Date(createdAt);
   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
   return (
     <div className="m-5 p-5 rounded-lg bg-white">
+      {console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>", reservation)}
       {isLoading ? (
         <div className="flex justify-center items-center h-96">
           <ClockLoader color="#36d7b7" size={100} />
@@ -144,15 +144,15 @@ const ReservationPageUser = () => {
                 <span className="text-gray-600">&nbsp;</span>
               </div>
               <div>
-                <h1 className="text-lg font-bold mb-2">{airline}</h1>
-                <p className="mb-2 text-sm">{arrivalAddress}</p>
-                <p className="text-sm">{arrivalCity}</p>
+                <h1 className="text-lg font-bold mb-2">{visaName}</h1>
+                <p className="mb-2 text-sm">{country}</p>
+                <p className="text-sm">{}</p>
               </div>
               <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
                 <span className="text-gray-600">&nbsp;</span>
               </div>
               <div>
-                <h1 className="text-lg font-bold mb-2">{airline}</h1>
+                <h1 className="text-lg font-bold mb-2">{}</h1>
                 <p className="mb-2 text-sm">{type}</p>
                 <p className="text-sm">{description}</p>
               </div>
@@ -161,7 +161,7 @@ const ReservationPageUser = () => {
               </div>
               <div>
                 <h1 className="text-lg font-bold mb-2">{t("total_price")}</h1>
-                <p className="text-sm text-center">{price}$</p>
+                <p className="text-sm text-center">{reservation.totalPrice}$</p>
               </div>
             </div>
             {/* Actions */}
@@ -175,11 +175,11 @@ const ReservationPageUser = () => {
               ""
             )}
           </div>
-          <ReservationTable users={travelers} isLoading={isLoading} />
+          <VisaReservationTable users={travelers} isLoading={isLoading} />
         </>
       )}
     </div>
   );
 };
 
-export default ReservationPageUser;
+export default VisaReservationPageUser;

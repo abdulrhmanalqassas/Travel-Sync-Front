@@ -13,14 +13,14 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
-import { PlusIcon } from "../../core/components/icons/PlusIcon.jsx";
+import { PlusIcon } from "../core/components/icons/PlusIcon.jsx";
 import * as Yup from "yup"; // For validation.
 import { useFormik } from "formik";
-import ImagesUploader from "../../core/components/ImageUploader/ImageUploader";
+import ImagesUploader from "../core/components/ImageUploader/ImageUploader";
 import { useEffect, useState } from "react";
-import { uploadImage } from "../../core/core.handlers";
-import Alert from "../../core/components/Alert";
-import { addService, getService } from "../services.handlers";
+import { uploadImage } from "../core/core.handlers";
+import Alert from "../core/components/Alert";
+import { addService, getService } from "../services/services.handlers.js";
 import { useTranslation } from "react-i18next";
 const initialValues = [
   { key: "dog", label: "Dog" },
@@ -28,19 +28,15 @@ const initialValues = [
   { key: "bird", label: "Bird" },
   { key: "fish", label: "Fish" },
 ];
-export default function RoomsForm({ handleUpdate }) {
+export default function VisaForm({ handleUpdate }) {
   const { t } = useTranslation();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [roomImages, setRoomImages] = useState([]);
   const [isLoading, setIsLoading] = useState("");
   const [apiError, setApiError] = useState("");
-  const [hotels, setHotels] = useState([]);
   const [roomFeatures, setRoomFeatures] = useState(initialValues);
   const [customFeature, setCustomFeature] = useState({ name: "", ar_name: "" });
   const [customFeatureVisible, setCustomFeatureVisible] = useState(false);
-  useEffect(() => {
-    getService(setHotels, setIsLoading, "hotels");
-  }, []);
 
   const handleCloseModal = () => {
     formHandler.resetForm();
@@ -48,7 +44,7 @@ export default function RoomsForm({ handleUpdate }) {
   const x = (selectedKeys) => {
     console.log(selectedKeys.target.value);
     const selectedValues = Array.from(selectedKeys.target.value.split(","));
-    formHandler.setFieldValue("room.roomFeatures", selectedValues);
+    formHandler.setFieldValue("ReadyVisa.roomFeatures", selectedValues);
     console.log(selectedValues);
   };
   const handleSelectChange = (selectedKeys) => {
@@ -60,12 +56,12 @@ export default function RoomsForm({ handleUpdate }) {
       setCustomFeatureVisible(false);
       const selectedValues = Array.from(selectedKeys.target.value.split(","));
       console.log(selectedValues);
-      formHandler.setFieldValue("room.roomFeatures", selectedValues);
+      formHandler.setFieldValue("ReadyVisa.roomFeatures", selectedValues);
     }
   };
   const handleAddCustomFeature = () => {
     if (customFeature.name.trim() && customFeature.ar_name.trim()) {
-      console.log("form hand val", ...formHandler.values.room.roomFeatures);
+      console.log("form hand val", ...formHandler?.values?.ReadyVisa?.name);
       setRoomFeatures((prevState) => [
         ...prevState,
         { key: customFeature.name, label: customFeature.ar_name },
@@ -81,6 +77,10 @@ export default function RoomsForm({ handleUpdate }) {
   const formHandler = useFormik({
     initialValues: {
       service: {
+        WholesalerId: 1,
+        isCharter: true,
+        charterAtQuantity: 5,
+        charterSalePercentage: 0,
         name: "",
         description: "",
         price: "",
@@ -89,42 +89,44 @@ export default function RoomsForm({ handleUpdate }) {
         isOffer: false,
         cancellationPolicy: "",
       },
-      room: {
-        type: "",
-        roomArea: "",
-        numberOfBeds: "",
-        numberOfSleeps: "",
-        hotelId: "",
-        roomFeatures: [],
+      ReadyVisa: {
+        name: "Schengen",
+        ar_name: "شنغن",
+        description: "Schengen visa",
+        ar_description: "تأشيرة شنغن",
+        type: "Tourist",
+        days: 1,
+        country: "France",
+        imageIds: [],
       },
     },
 
     validationSchema: () => {
       return Yup.object({
-        service: Yup.object({
-          name: Yup.string().min(5).max(500).required(t("Required")),
-          description: Yup.string().required(t("Required")),
-          price: Yup.number().max(999999).min(0).required(t("Required")),
-          quantityAvailable: Yup.number()
-            .min(0)
-            .max(9999)
-            .required(t("Required"))
-            .integer("Must be a number"),
-          savings: Yup.number().min(0).max(9999).required(t("Required")),
-          isOffer: Yup.boolean().required(t("Required")),
-          cancellationPolicy: Yup.string()
-            .min(2)
-            .max(500)
-            .required(t("Required")),
-        }),
-        room: Yup.object({
-          type: Yup.string().required(t("Required")),
-          roomArea: Yup.number().min(0).max(9999).required(t("Required")),
-          numberOfBeds: Yup.number().min(0).max(9999).required(t("Required")),
-          numberOfSleeps: Yup.number().min(0).max(9999).required(t("Required")),
-          hotelId: Yup.number().required(t("Required")),
-          roomFeatures: Yup.array().required(t("Required")),
-        }),
+        // service: Yup.object({
+        //   name: Yup.string().min(5).max(500).required(t("Required")),
+        //   description: Yup.string().required(t("Required")),
+        //   price: Yup.number().max(999999).min(0).required(t("Required")),
+        //   quantityAvailable: Yup.number()
+        //     .min(0)
+        //     .max(9999)
+        //     .required(t("Required"))
+        //     .integer("Must be a number"),
+        //   savings: Yup.number().min(0).max(9999).required(t("Required")),
+        //   isOffer: Yup.boolean().required(t("Required")),
+        //   cancellationPolicy: Yup.string()
+        //     .min(2)
+        //     .max(500)
+        //     .required(t("Required")),
+        // }),
+        // ReadyVisa: Yup.object({
+        //   type: Yup.string().required(t("Required")),
+        //   days: Yup.number().min(0).max(9999).required(t("Required")),
+        //   numberOfBeds: Yup.number().min(0).max(9999).required(t("Required")),
+        //   numberOfSleeps: Yup.number().min(0).max(9999).required(t("Required")),
+        //   // hotelId: Yup.number().required(t("Required")),
+        //   roomFeatures: Yup.array().required(t("Required")),
+        // }),
       });
     },
 
@@ -139,7 +141,7 @@ export default function RoomsForm({ handleUpdate }) {
         values.service.imageIds = imageIds ? imageIds : [];
 
         values.service.WholesalerId = 1;
-        await addService(values, setIsLoading, handleUpdate, "hotel-rooms");
+        await addService(values, setIsLoading, handleUpdate, "ReadyVisa");
         onClose();
         resetForm();
       } catch (error) {
@@ -147,7 +149,22 @@ export default function RoomsForm({ handleUpdate }) {
       }
     },
   });
-
+  const handleNameChange = (event) => {
+    const newName = event.target.value;
+    formHandler.setValues((prevValues) => ({
+      ...prevValues,
+      service: { ...prevValues.service, name: newName },
+      ReadyVisa: { ...prevValues.ReadyVisa, name: newName },
+    }));
+  };
+  const handleDescriptionChange = (event) => {
+    const newDescription = event.target.value;
+    formHandler.setValues((prevValues) => ({
+      ...prevValues,
+      service: { ...prevValues.service, description: newDescription },
+      ReadyVisa: { ...prevValues.ReadyVisa, description: newDescription },
+    }));
+  };
   return (
     <div className="flex flex-col gap-2">
       <Button
@@ -176,19 +193,19 @@ export default function RoomsForm({ handleUpdate }) {
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
                   <div className="grid grid-cols-2 gap-3">
-                    <div>
+                    {/* <div>
                       <Select
                         label={t("Agency")}
-                        id="room.hotelId"
+                        id="ReadyVisa?.hotelId"
                         placeholder="Select an agency"
                         value={formHandler.values.hotelId}
                         // onClick={handleUpdateHotel}
-                        onChange={formHandler.handleChange("room.hotelId")}
+                        onChange={formHandler.handleChange("ReadyVisa?.hotelId")}
                         isInvalid={
-                          formHandler.errors.room?.hotelId &&
-                          formHandler.touched.room?.hotelId
+                          formHandler.errors.ReadyVisa?.hotelId &&
+                          formHandler.touched.ReadyVisa?.hotelId
                         }
-                        errorMessage={formHandler.errors.room?.hotelId}
+                        errorMessage={formHandler.errors.ReadyVisa?.hotelId}
                       >
                         {hotels.map(({ id, name }) => (
                           <SelectItem key={id} value={id}>
@@ -196,34 +213,9 @@ export default function RoomsForm({ handleUpdate }) {
                           </SelectItem>
                         ))}
                       </Select>
-                    </div>
+                    </div> */}
                     <div>
-                      <Select
-                        label="features"
-                        id="room.roomFeatures"
-                        value={formHandler.values.room.roomFeatures}
-                        onChange={handleSelectChange}
-                        onBlur={formHandler.handleBlur}
-                        isInvalid={
-                          formHandler.errors.room?.roomFeatures &&
-                          formHandler.touched.room?.roomFeatures
-                        }
-                        errorMessage={formHandler.errors.room?.roomFeatures}
-                        placeholder="Select an feature"
-                        selectionMode="multiple"
-                        className="max-w-xs"
-                      >
-                        {roomFeatures.map((feat) => (
-                          <SelectItem key={feat.key} value={feat.key}>
-                            {feat.label}
-                          </SelectItem>
-                        ))}
-                        <SelectItem key="add_custom" value="add_custom">
-                          {" "}
-                          Add Custom Feature{" "}
-                        </SelectItem>
-                      </Select>
-                      {customFeatureVisible && (
+                      {/* {customFeatureVisible && (
                         <div className="mt-4">
                           {" "}
                           <input
@@ -259,7 +251,7 @@ export default function RoomsForm({ handleUpdate }) {
                             Add{" "}
                           </button>{" "}
                         </div>
-                      )}
+                      )} */}
                     </div>
                     <div>
                       <Input
@@ -268,7 +260,7 @@ export default function RoomsForm({ handleUpdate }) {
                         name="service.name"
                         label={t("Title")}
                         radius="lg"
-                        onChange={formHandler.handleChange}
+                        onChange={handleNameChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.service.name}
                         isInvalid={
@@ -286,7 +278,7 @@ export default function RoomsForm({ handleUpdate }) {
                         type="text"
                         label={t("Description")}
                         radius="lg"
-                        onChange={formHandler.handleChange}
+                        onChange={handleDescriptionChange}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.service.description}
                         isInvalid={
@@ -419,101 +411,45 @@ export default function RoomsForm({ handleUpdate }) {
 
                     <div>
                       <Input
-                        id="room.type"
-                        name="room.type"
+                        id="ReadyVisa.type"
+                        name="ReadyVisa.type"
                         type="text"
                         label={t("Room Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.room?.type}
+                        value={formHandler.values?.ReadyVisa?.type}
                         isInvalid={
-                          formHandler.errors.room?.type &&
-                          formHandler.touched.room?.type
+                          formHandler.errors?.ReadyVisa?.type &&
+                          formHandler.touched?.ReadyVisa?.type
                         }
-                        errorMessage={formHandler.errors.room?.type}
+                        errorMessage={formHandler?.errors?.ReadyVisa?.type}
                       />
                     </div>
 
                     <div>
                       <Input
-                        id="room.roomArea"
-                        name="room.roomArea"
+                        id="ReadyVisa.days"
+                        name="ReadyVisa.days"
                         type="number"
-                        label={t("Room Area")}
+                        label={t("visa days")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
-                            formHandler.setFieldValue("room.roomArea", "");
+                            formHandler.setFieldValue("ReadyVisa.days", "");
                             return;
                           }
 
                           const value = Math.max(0, parseFloat(e.target.value));
-                          formHandler.setFieldValue("room.roomArea", value);
+                          formHandler.setFieldValue("ReadyVisa.days", value);
                         }}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.room.roomArea}
+                        value={formHandler.values.ReadyVisa?.days}
                         isInvalid={
-                          formHandler.errors.room?.roomArea &&
-                          formHandler.touched.room?.roomArea
+                          formHandler.errors.ReadyVisa?.days &&
+                          formHandler.touched.ReadyVisa?.days
                         }
-                        errorMessage={formHandler.errors.room?.roomArea}
-                      />
-                    </div>
-                    <div>
-                      <Input
-                        id="room.numberOfBeds"
-                        name="room.numberOfBeds"
-                        type="number"
-                        label={t("Number of Beds")}
-                        radius="lg"
-                        onChange={(e) => {
-                          if (e.target.value === "") {
-                            formHandler.setFieldValue("room.numberOfBeds", "");
-                            return;
-                          }
-
-                          const value = Math.max(0, parseFloat(e.target.value));
-                          formHandler.setFieldValue("room.numberOfBeds", value);
-                        }}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.room.numberOfBeds}
-                        isInvalid={
-                          formHandler.errors.room?.numberOfBeds &&
-                          formHandler.touched.room?.numberOfBeds
-                        }
-                        errorMessage={formHandler.errors.room?.numberOfBeds}
-                      />
-                    </div>
-                    <div>
-                      <Input
-                        id="room.numberOfSleeps"
-                        name="room.numberOfSleeps"
-                        type="number"
-                        label={t("Number of Sleeps")}
-                        radius="lg"
-                        onChange={(e) => {
-                          if (e.target.value === "") {
-                            formHandler.setFieldValue(
-                              "room.numberOfSleeps",
-                              "",
-                            );
-                            return;
-                          }
-
-                          const value = Math.max(0, parseFloat(e.target.value));
-                          formHandler.setFieldValue(
-                            "room.numberOfSleeps",
-                            value,
-                          );
-                        }}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.room.numberOfSleeps}
-                        isInvalid={
-                          formHandler.errors.room?.numberOfSleeps &&
-                          formHandler.touched.room?.numberOfSleeps
-                        }
-                        errorMessage={formHandler.errors.room?.numberOfSleeps}
+                        errorMessage={formHandler.errors.ReadyVisa?.days}
                       />
                     </div>
 
