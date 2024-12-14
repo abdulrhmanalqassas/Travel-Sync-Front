@@ -48,7 +48,7 @@ export default function FlightsForm({ handleUpdate }) {
         airline: "",
         departureAddress: "",
         departureCity: "",
-        commission:"",
+        commission: "",
         arrivalAddress: "",
         arrivalCity: "",
         departureTime: new Date().toISOString(),
@@ -82,8 +82,10 @@ export default function FlightsForm({ handleUpdate }) {
             .min(3)
             .max(250)
             .required(t("Required")),
-            commission:Yup.number().max(999999).min(0)
-            .required(t("Required")) 
+          commission: Yup.number()
+            .max(999999)
+            .min(0)
+            .required(t("Required"))
             .integer("Must be a number"),
           departureCity: Yup.string().min(3).max(60).required(t("Required")),
           arrivalAddress: Yup.string().min(3).max(250).required(t("Required")),
@@ -96,6 +98,7 @@ export default function FlightsForm({ handleUpdate }) {
     },
 
     onSubmit: async (values, { resetForm }) => {
+      console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", values);
       let imageIds;
       if (flightImages.length !== 0) {
         imageIds = await uploadImage(flightImages, setIsLoading, setApiError);
@@ -133,7 +136,7 @@ export default function FlightsForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add new Flight Service
+                {t("Add_new_Flight")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -283,18 +286,12 @@ export default function FlightsForm({ handleUpdate }) {
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
-                            formHandler.setFieldValue(
-                              "flight.commission",
-                              "",
-                            );
+                            formHandler.setFieldValue("flight.commission", "");
                             return;
                           }
 
                           const value = Math.max(0, parseFloat(e.target.value));
-                          formHandler.setFieldValue(
-                            "flight.commission",
-                            value,
-                          );
+                          formHandler.setFieldValue("flight.commission", value);
                         }}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.flight.commission}
@@ -302,9 +299,7 @@ export default function FlightsForm({ handleUpdate }) {
                           formHandler.errors.flight?.commission &&
                           formHandler.touched.flight?.commission
                         }
-                        errorMessage={
-                          formHandler.errors.flight?.commission
-                        }
+                        errorMessage={formHandler.errors.flight?.commission}
                       />
                     </div>
                     <div>
@@ -418,7 +413,7 @@ export default function FlightsForm({ handleUpdate }) {
                       <Input
                         id="flight.departureTime"
                         name="flight.departureTime"
-                        type="text"
+                        type="datetime-local"
                         label={t("Departure Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
@@ -436,7 +431,7 @@ export default function FlightsForm({ handleUpdate }) {
                       <Input
                         id="flight.arrivalTime"
                         name="flight.arrivalTime"
-                        type="text"
+                        type="datetime-local"
                         label={t("Arrival Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}

@@ -35,49 +35,12 @@ export default function RoomsForm({ handleUpdate }) {
   const [isLoading, setIsLoading] = useState("");
   const [apiError, setApiError] = useState("");
   const [hotels, setHotels] = useState([]);
-  const [roomFeatures, setRoomFeatures] = useState(initialValues);
+  const [features, setfeatures] = useState(initialValues);
   const [customFeature, setCustomFeature] = useState({ name: "", ar_name: "" });
   const [customFeatureVisible, setCustomFeatureVisible] = useState(false);
   useEffect(() => {
     getService(setHotels, setIsLoading, "hotels");
   }, []);
-
-  const handleCloseModal = () => {
-    formHandler.resetForm();
-  };
-  const x = (selectedKeys) => {
-    console.log(selectedKeys.target.value);
-    const selectedValues = Array.from(selectedKeys.target.value.split(","));
-    formHandler.setFieldValue("room.roomFeatures", selectedValues);
-    console.log(selectedValues);
-  };
-  const handleSelectChange = (selectedKeys) => {
-    if (
-      Array.from(selectedKeys.target.value.split(",")).includes("add_custom")
-    ) {
-      setCustomFeatureVisible(true);
-    } else {
-      setCustomFeatureVisible(false);
-      const selectedValues = Array.from(selectedKeys.target.value.split(","));
-      console.log(selectedValues);
-      formHandler.setFieldValue("room.roomFeatures", selectedValues);
-    }
-  };
-  const handleAddCustomFeature = () => {
-    if (customFeature.name.trim() && customFeature.ar_name.trim()) {
-      console.log("form hand val", ...formHandler.values.room.roomFeatures);
-      setRoomFeatures((prevState) => [
-        ...prevState,
-        { key: customFeature.name, label: customFeature.ar_name },
-      ]);
-      // formHandler.setFieldValue("room.roomFeatures", [
-      //   ...formHandler.values.room.roomFeatures,
-      //   { ...customFeature },
-      // ]);
-      setCustomFeature({ name: "", ar_name: "" });
-      setCustomFeatureVisible(false);
-    }
-  };
   const formHandler = useFormik({
     initialValues: {
       service: {
@@ -95,7 +58,7 @@ export default function RoomsForm({ handleUpdate }) {
         numberOfBeds: "",
         numberOfSleeps: "",
         hotelId: "",
-        roomFeatures: [],
+        features: [],
       },
     },
 
@@ -123,12 +86,13 @@ export default function RoomsForm({ handleUpdate }) {
           numberOfBeds: Yup.number().min(0).max(9999).required(t("Required")),
           numberOfSleeps: Yup.number().min(0).max(9999).required(t("Required")),
           hotelId: Yup.number().required(t("Required")),
-          roomFeatures: Yup.array().required(t("Required")),
+          features: Yup.array().required(t("Required")),
         }),
       });
     },
 
     onSubmit: async (values, { resetForm }) => {
+      console.log("valuse for room:", values);
       try {
         console.log("valuse for room:", values);
         let imageIds;
@@ -147,6 +111,41 @@ export default function RoomsForm({ handleUpdate }) {
       }
     },
   });
+  const handleCloseModal = () => {
+    formHandler.resetForm();
+  };
+
+  const handleSelectChange = (selectedKeys) => {
+    console.log("selected keys", selectedKeys);
+    if (
+      Array.from(selectedKeys.target.value.split(",")).includes("add_custom")
+    ) {
+      setCustomFeatureVisible(true);
+    } else {
+      setCustomFeatureVisible(false);
+      const selectedValues = Array.from(selectedKeys.target.value.split(","));
+      console.log(selectedValues);
+      formHandler.setFieldValue("room.features", selectedValues);
+      formHandler.setFieldValue("room.features", selectedValues);
+    }
+  };
+  const handleAddCustomFeature = () => {
+    if (customFeature.name.trim() && customFeature.ar_name.trim()) {
+      console.log("form hand val", ...formHandler.values.room.features);
+      setfeatures((prevState) => [
+        ...prevState,
+        { key: customFeature.name, label: customFeature.ar_name },
+      ]);
+
+      setCustomFeature({ name: "", ar_name: "" });
+      setCustomFeatureVisible(false);
+    } else {
+      formHandler.setFieldValue("room.features", [
+        ...formHandler.values.room.features,
+        { ...customFeature },
+      ]);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -199,21 +198,21 @@ export default function RoomsForm({ handleUpdate }) {
                     </div>
                     <div>
                       <Select
-                        label="features"
-                        id="room.roomFeatures"
-                        value={formHandler.values.room.roomFeatures}
+                        label="my features"
+                        id="room.features"
+                        value={formHandler.values.room.features}
                         onChange={handleSelectChange}
                         onBlur={formHandler.handleBlur}
                         isInvalid={
-                          formHandler.errors.room?.roomFeatures &&
-                          formHandler.touched.room?.roomFeatures
+                          formHandler.errors.room?.features &&
+                          formHandler.touched.room?.features
                         }
-                        errorMessage={formHandler.errors.room?.roomFeatures}
+                        errorMessage={formHandler.errors.room?.features}
                         placeholder="Select an feature"
                         selectionMode="multiple"
                         className="max-w-xs"
                       >
-                        {roomFeatures.map((feat) => (
+                        {features.map((feat) => (
                           <SelectItem key={feat.key} value={feat.key}>
                             {feat.label}
                           </SelectItem>

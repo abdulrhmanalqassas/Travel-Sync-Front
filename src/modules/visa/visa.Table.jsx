@@ -32,24 +32,20 @@ import { displayByLanguage } from "../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "type",
-  "NAME",
+  "name",
   "quantityAvailable",
   "endTime",
   "actions",
 ];
 
 export default function VisaTable({ data, isLoading, handleUpdate }) {
+  console.log("data in visa table", data);
   const columns = [
     { name: "ID", uid: "id", sortable: true },
-    { name: "NAME", uid: "name", sortable: true },
+    { name: "name", uid: "name", sortable: true },
     { name: "price", uid: "price" },
     { name: "quantityAvailable", uid: "quantityAvailable" },
-    { name: "savings", uid: "savings", sortable: true },
     { name: "type", uid: "type", sortable: true },
-    { name: "roomArea", uid: "roomArea" },
-    { name: "hotelId", uid: "hotelId" },
-    { name: "numberOfBeds`", uid: "numberOfBeds" },
-    { name: "numberOfSleeps", uid: "numberOfSleeps" },
     { name: "ACTIONS", uid: "actions" },
   ];
   const { t, i18n } = useTranslation();
@@ -84,11 +80,13 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
 
     if (hasSearchFilter) {
       filteredServices = filteredServices.filter((service) => {
-        const nameMatches = service.name
+        const nameMatches = service?.ReadyVisa?.name
           .toLowerCase()
           .includes(filterValue.toLowerCase());
         const arNameMatches = service.ar_name
-          ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase())
+          ? service.ReadyVisa?.ar_name
+              .toLowerCase()
+              .includes(filterValue.toLowerCase())
           : false;
         return nameMatches || arNameMatches;
       });
@@ -120,77 +118,77 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
       case "departureAddress":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.departureAddress}
+            {service.ReadyVisa?.departureAddress}
           </div>
         );
 
       case "type":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.type}
+            {service.ReadyVisa?.type}
           </div>
         );
       case "arrivalAddress":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.arrivalAddress}
+            {service.ReadyVisa?.arrivalAddress}
           </div>
         );
       case "departureTime":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.departureTime}
+            {service.ReadyVisa?.departureTime}
           </div>
         );
       case "arrivalTime":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.arrivalTime}
+            {service.ReadyVisa?.arrivalTime}
           </div>
         );
       case "departingDate":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.departingDate}
+            {service.ReadyVisa?.departingDate}
           </div>
         );
       case "returningDate":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.returningDate}
+            {service.ReadyVisa?.returningDate}
           </div>
         );
       case "Rooms Description":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.description}
+            {service.ReadyVisa?.description}
           </div>
         );
 
       case "roomArea":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.roomArea}
+            {service.ReadyVisa?.roomArea}
           </div>
         );
       case "hotelId":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.hotelId}
+            {service.ReadyVisa?.hotelId}
           </div>
         );
 
       case "numberOfBeds":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.numberOfBeds}
+            {service.ReadyVisa?.numberOfBeds}
           </div>
         );
 
       case "numberOfSleeps":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.room?.numberOfSleeps}
+            {service.ReadyVisa?.numberOfSleeps}
           </div>
         );
 

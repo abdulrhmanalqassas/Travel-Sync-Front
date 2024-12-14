@@ -28,7 +28,7 @@ import SafariFormEdit from "./Safari.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
 import { useTranslation } from "react-i18next";
-import { displayByLanguage } from "../../../utils/helper";
+import { displayByLanguage, formatDayAndTime } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "NAME",
@@ -82,7 +82,7 @@ export default function SafariTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns,CurrentLang]);
+  }, [visibleColumns, CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredServices = [...data];
@@ -138,13 +138,13 @@ export default function SafariTable({ data, isLoading, handleUpdate }) {
       case "startTime":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.safari?.startTime}
+            {formatDayAndTime(service.safari?.startTime)}
           </div>
         );
       case "endTime":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.safari?.endTime}
+            {formatDayAndTime(service.safari?.endTime)}
           </div>
         );
       case "city":

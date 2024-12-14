@@ -31,17 +31,17 @@ const AccountDetails = ({ account, isAdmin }) => {
         </div>
         <div>
           <h1 className="text-lg font-bold mb-2">{account?.name}</h1>
-          <p className="mb-2 text-sm">Lorem ipsum dolor sit.</p>
+          {/* <p className="mb-2 text-sm">Lorem ipsum dolor sit.</p> */}
           <p className="text-sm">{account?.name}</p>
         </div>
         <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
           <span className="text-gray-600">&nbsp;</span>
         </div>
-        <div>
+        {/* <div>
           <h1 className="text-lg font-bold mb-2">Lorem ipsum dolor sit.</h1>
           <p className="mb-2 text-sm">{account?.name}</p>
           <p className="text-sm">Lorem ipsum dolor sit.</p>
-        </div>
+        </div> */}
         <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
           <span className="text-gray-600">&nbsp;</span>
         </div>

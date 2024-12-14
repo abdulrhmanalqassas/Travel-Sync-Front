@@ -31,14 +31,16 @@ const VisaReservationPage = () => {
 
   const { name, email, phone } = reservation.travelOffice || {};
   const visaName = reservation.service?.name;
+  
   const { status, CancelReason, travelers, country ,createdAt} = reservation;
+  console.log("ono reservation", reservation)
   const { type, description } = reservation.service || {};
 
   const date = new Date(createdAt);
   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
   useEffect(() => {
-    console.log(travelers);
+    console.log("o travelers", travelers);
   }, [travelers]);
   console.log(">>>>>>>>>>reservationincontroler>>>>>>>>", reservation);
   return (

@@ -269,6 +269,40 @@ const ReserveService = () => {
                   </div>
                 ) : null}
               </div>
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.mobiPhone`}
+                  type="text"
+                  label={t("address")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.mobiPhone || ""
+                  }
+                />
+               
+             
+              </div>
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.text`}
+                  type="text"
+                  label={t("passport")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData?.text || ""
+                  }
+                />
+               
+              </div>
             </div>
 
             <div>

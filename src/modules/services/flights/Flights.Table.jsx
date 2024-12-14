@@ -38,6 +38,20 @@ const INITIAL_VISIBLE_COLUMNS = [
   "actions",
 ];
 
+function formatDayAndTime(isoString) {
+  const date = new Date(isoString);
+  // Options for date formatting
+  const timeOptions = {
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+
+  // Format the day and time
+
+  const time = date.toLocaleTimeString("en-US", timeOptions);
+
+  return ` ${time}`;
+}
 export default function FlightsTable({ data, isLoading, handleUpdate }) {
   const columns = [
     { name: "ID", uid: "id", sortable: true },
@@ -57,8 +71,8 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
     { name: "ACTIONS", uid: "actions" },
   ];
 
-  const { t , i18n} = useTranslation();
-  const CurrentLang = i18n.language
+  const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -82,7 +96,7 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns,CurrentLang]);
+  }, [visibleColumns, CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredServices = [...data];
@@ -113,7 +127,7 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((service, columnKey) => {
-  const cellValue = displayByLanguage(CurrentLang, columnKey, service);
+    const cellValue = displayByLanguage(CurrentLang, columnKey, service);
     switch (columnKey) {
       case "airline":
         return (
@@ -124,7 +138,8 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
       case "departureAddress":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.flight?.departureAddress}
+            {new Date(service.flight?.departureTime).toDateString()}
+            {formatDayAndTime(service.flight?.departureTime)}
           </div>
         );
       case "seatType":
@@ -142,7 +157,8 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
       case "arrivalTime":
         return (
           <div className="relative flex items-center   gap-2">
-            {service.flight?.arrivalTime}
+            {new Date(service?.flight?.departureTime).toDateString()}
+            {formatDayAndTime(service?.flight?.arrivalTime)}
           </div>
         );
       case "departureCity":

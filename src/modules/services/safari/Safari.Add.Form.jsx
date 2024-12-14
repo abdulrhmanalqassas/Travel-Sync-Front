@@ -365,8 +365,8 @@ export default function SafariForm({ handleUpdate }) {
                       <Input
                         id="safari.startTime"
                         name="safari.startTime"
-                        type="text"
-                        label={t("Start Time")}
+                        type="datetime-local"
+                        label={t("StartTime")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -383,8 +383,8 @@ export default function SafariForm({ handleUpdate }) {
                       <Input
                         id="safari.endTime"
                         name="safari.endTime"
-                        type="text"
-                        label={t("End Time")}
+                        type="datetime-local"
+                        label={t("endTime")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}

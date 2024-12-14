@@ -8,7 +8,8 @@ import { Reserve } from "../reservation.handlers";
 import TravellerFileUploader from "../components/TravellerFileUploader";
 import { useTranslation } from "react-i18next";
 
-const ReserveService = () => {
+const ReserveService = ({ type }) => {
+  console.log("type in reserve service", type);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -56,14 +57,17 @@ const ReserveService = () => {
     initialValues: {
       serviceId: id,
       quantity: 1,
-      checkInDate: "",
-      checkOutDate: "",
+      checkInDate: "1",
+      checkOutDate: "1",
       travelers: travelers,
     },
     validationSchema: Yup.object({
       quantity: Yup.string().required(t("Required")),
-      checkInDate: Yup.string().required(t("Required")),
-      checkOutDate: Yup.string().required(t("Required")),
+      checkInDate:
+        type == "room" ? Yup.string().required(t("Required")) : Yup.string(),
+      checkOutDate:
+        type == "room" ? Yup.string().required(t("Required")) : Yup.string(),
+
       travelers: Yup.array().of(
         Yup.object({
           firstName: Yup.string().required(t("Required")),
@@ -125,46 +129,49 @@ const ReserveService = () => {
 
             {/* Check-In Date Input */}
             <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Input
-                  id="checkInDate"
-                  type="date"
-                  label={t("Check-In_Date")}
-                  variant="bordered"
-                  labelPlacement="outside"
-                  radius="lg"
-                  onChange={formHandler.handleChange}
-                  onBlur={formHandler.handleBlur}
-                  value={formHandler.values.checkInDate}
-                />
-                {formHandler.touched.checkInDate &&
-                formHandler.errors.checkInDate ? (
-                  <div className="text-red-600">
-                    {formHandler.errors.checkInDate}
+              {type == "room" ? (
+                <>
+                  <div>
+                    <Input
+                      id="checkInDate"
+                      type="date"
+                      label={t("Check-In_Date")}
+                      variant="bordered"
+                      labelPlacement="outside"
+                      radius="lg"
+                      onChange={formHandler.handleChange}
+                      onBlur={formHandler.handleBlur}
+                      value={formHandler.values.checkInDate}
+                    />
+                    {formHandler.touched.checkInDate &&
+                    formHandler.errors.checkInDate ? (
+                      <div className="text-red-600">
+                        {formHandler.errors.checkInDate}
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
-              </div>
 
-              {/* Check-Out Date Input */}
-              <div>
-                <Input
-                  id="checkOutDate"
-                  type="date"
-                  label={t("Check-Out_Date")}
-                  variant="bordered"
-                  labelPlacement="outside"
-                  radius="lg"
-                  onChange={formHandler.handleChange}
-                  onBlur={formHandler.handleBlur}
-                  value={formHandler.values.checkOutDate}
-                />
-                {formHandler.touched.checkOutDate &&
-                formHandler.errors.checkOutDate ? (
-                  <div className="text-red-600">
-                    {formHandler.errors.checkOutDate}
+                  <div>
+                    <Input
+                      id="checkOutDate"
+                      type="date"
+                      label={t("Check-Out_Date")}
+                      variant="bordered"
+                      labelPlacement="outside"
+                      radius="lg"
+                      onChange={formHandler.handleChange}
+                      onBlur={formHandler.handleBlur}
+                      value={formHandler.values.checkOutDate}
+                    />
+                    {formHandler.touched.checkOutDate &&
+                    formHandler.errors.checkOutDate ? (
+                      <div className="text-red-600">
+                        {formHandler.errors.checkOutDate}
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
-              </div>
+                </>
+              ) : null}
             </div>
           </div>
           <div className=" rounded-2xl border-2 p-5 flex-none">

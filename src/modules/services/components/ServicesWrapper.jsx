@@ -3,7 +3,6 @@ import FlightCard from "./FlightCard";
 import ServiceCard from "./ServiceCard";
 // import HotelsFilter from "../components/HotelsFilters";
 import RoomCard from "./RoomCard";
-import { Pagination } from "@nextui-org/react";
 import { displayByLanguage } from "../../../utils/helper";
 import { useTranslation } from "react-i18next";
 import VisaCard from "./VisaCard";
@@ -11,6 +10,7 @@ import VisaCard from "./VisaCard";
 const ServicesWrapper = ({ data, isLoading, type }) => {
   const { i18n } = useTranslation();
   const CurrentLang = i18n.language;
+
   // data.arName = "test ar at hotel";
   return (
     <div className="flex flex-col  gap-4">
@@ -21,8 +21,9 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
             <ClockLoader color="#36d7b7" size={100} />
           </div>
         ) : type === "flights" ? (
-          data.map(({ id }) => (
+          data.map(({ id, flight }) => (
             <FlightCard
+              flight={flight}
               key={id}
               img="https://img.freepik.com/premium-vector/airline-logo-plane-travel-icon-airport-flight-world-aviation-aircraft-business-tourism-logo_41737-1254.jpg"
             />
@@ -37,9 +38,10 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
           data.map((card) => {
             // card.arname = "test this shite"
 
-            const { id, images, stars, locationUrl } = card;
+            const { id, images, stars, locationUrl, isOffer } = card;
             return (
               <ServiceCard
+                isOffer={isOffer}
                 type={type}
                 id={id}
                 key={id}
@@ -48,6 +50,7 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
                 locationUrl={locationUrl}
                 hotelName={displayByLanguage(CurrentLang, "name", card)}
                 numberOfRooms={52}
+                data={card}
               />
             );
           })

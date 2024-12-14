@@ -93,14 +93,14 @@ export default function VisaReservationTable({ users = [], isLoading }) {
         return (
           <div>
             <h1>
-              {user.travelerData.firstName} {user.travelerData.lastName}
+              {user?.travelerData?.firstName} {user?.travelerData?.lastName}
             </h1>
           </div>
         );
       case "phone":
         return (
           <div>
-            <h1>{user.travelerData.mobilePhone}</h1>
+            <h1>{user?.travelerData?.mobilePhone}</h1>
           </div>
         );
       case "file":

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { HiMiniPresentationChartBar } from "react-icons/hi2";
 import NavItem from "./components/NavItem";
 import ChangeLocale from "./components/ChangeLocale";
@@ -12,11 +13,12 @@ import { IoHome } from "react-icons/io5";
 import { RoleEnum } from "../../enums/role-enum";
 import { useTranslation } from "react-i18next";
 
-const ICON_STYLE = "flex-shrink-0 w-6 h-6   ease-in-out";
+const ICON_STYLE = "flex-shrink-0 w-6 h-6 ease-in-out";
 
 const SideBar = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const [activeItem, setActiveItem] = useState("");
 
   const ADMIN_ITEMS = [
     {
@@ -61,7 +63,6 @@ const SideBar = () => {
     },
   ];
 
-  // eslint-disable-next-line no-unused-vars
   const USER_ITEMS = [
     {
       title: t("Dashboard"),
@@ -74,12 +75,12 @@ const SideBar = () => {
       icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
     {
-      title: t("show Visa"),
+      title: t("Show Visa"),
       path: "/visa/show",
       icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
     {
-      title: t("requested Visa"),
+      title: t("Requested Visa"),
       path: "/user/requestedVisa",
       icon: <IoDocumentText className={ICON_STYLE} />,
     },
@@ -95,45 +96,53 @@ const SideBar = () => {
     },
   ];
 
+  const handleItemClick = (path) => {
+    setActiveItem(path);
+  };
+
   return (
-    <div className="bg-main h-screen col-span-2  flex flex-col justify-between  text-black">
+    <div className="bg-main h-screen col-span-2 flex flex-col justify-between text-black">
       <div>
-        <header
-          className={`bg-main px-[20px] h-[80px] flex items-center justify-start gap-2 text-2xl font-bold`}
-        >
+        <header className="bg-main px-[20px] h-[80px] flex items-center justify-start gap-2 text-2xl font-bold">
           <img
             width={50}
             height={50}
             src="https://static.thenounproject.com/png/62578-200.png"
             alt="logo"
           />
-          <h1 className="text-2xl ">BookIt</h1>
+          <h1 className="text-2xl">BookIt</h1>
         </header>
         <div>
-          {/* I will add a condition here to add other users ITEMS. */}
-          <ul className="my-2 font-medium ">
+          <ul className="my-2 font-medium">
             {user.role.id === RoleEnum.admin &&
-              ADMIN_ITEMS.map(({ title, path, icon }, idx) => {
-                return (
-                  <NavItem title={title} path={path} key={idx}>
-                    {icon}
-                  </NavItem>
-                );
-              })}
+              ADMIN_ITEMS.map(({ title, path, icon }, idx) => (
+                <NavItem
+                  title={title}
+                  path={path}
+                  key={idx}
+                  activeItem={activeItem}
+                  onItemClicked={handleItemClick}
+                >
+                  {icon}
+                </NavItem>
+              ))}
             {user.role.id === RoleEnum.travelAgent &&
-              USER_ITEMS.map(({ title, path, icon }, idx) => {
-                return (
-                  <NavItem title={title} path={path} key={idx}>
-                    {icon}
-                  </NavItem>
-                );
-              })}
+              USER_ITEMS.map(({ title, path, icon }, idx) => (
+                <NavItem
+                  title={title}
+                  path={path}
+                  key={idx}
+                  activeItem={activeItem}
+                  onItemClicked={handleItemClick}
+                >
+                  {icon}
+                </NavItem>
+              ))}
           </ul>
         </div>
       </div>
-
       <div>
-        <div className="flex flex-col justify-center items-start ">
+        <div className="flex flex-col justify-center items-start">
           <ChangeLocale />
           <Logout />
         </div>

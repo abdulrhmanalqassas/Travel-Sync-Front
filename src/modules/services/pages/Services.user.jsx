@@ -1,8 +1,9 @@
 import { Tabs, Tab } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { BiSolidPlaneAlt } from "react-icons/bi";
-import { FaCar, FaHotel, FaHouseTsunami } from "react-icons/fa6";
+import { BiSolidPlaneAlt, BiSolidOffer } from "react-icons/bi";
+import { FaCar, FaHotel, FaHouseTsunami, FaNewspaper } from "react-icons/fa6";
 import { FiPackage } from "react-icons/fi";
+
 // import { MdOutlineDirectionsBoat } from "react-icons/md";
 import { RiHotelBedFill } from "react-icons/ri";
 import { getService } from "../services.handlers";
@@ -91,8 +92,19 @@ export default function ServicesView() {
         <div
           className={`flex items-center space-x-2  ${selected == "ReadyVisa" ? "text-black" : " "} `}
         >
-          <FiPackage className="w-5 h-5" />
+          <FaNewspaper className="w-5 h-5" />
           <span>{t("ReadyVisa")}</span>
+        </div>
+      ),
+    },
+    {
+      id: "offers",
+      label: (
+        <div
+          className={`flex items-center space-x-2  ${selected == "offers" ? "text-black" : " "} `}
+        >
+          <BiSolidOffer className="w-5 h-5" />
+          <span>{t("Offers")}</span>
         </div>
       ),
     },

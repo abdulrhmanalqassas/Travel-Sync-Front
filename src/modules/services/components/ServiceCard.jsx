@@ -3,19 +3,24 @@ import { Button } from "@nextui-org/react";
 import { FaStar } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { BiSolidOffer } from "react-icons/bi";
 export default function ServiceCard({
   img,
   hotelName,
   stars,
   numberOfRooms,
   id,
+  isOffer,
   type,
   locationUrl,
+  data
 }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  console.log("data in service card", data);
   return (
     <div className="flex justify-between gap-6 p-3 border-2 rounded-lg bg-slate-50 m-2 shadow-md">
+      {console.log("type in service card", type)}
       <div className="flex  gap-6 justify-center  ">
         <div className="w-64  h-44">
           <img
@@ -34,10 +39,19 @@ export default function ServiceCard({
               <FaStar key={index} color="#F2F2F2" width={30} />
             ))}
           </div>
-         
+
+          {console.log("isOffer", isOffer)}
+          {isOffer && (
+            <div className="flex ">
+              <BiSolidOffer className="w-5 h-5" />
+            </div>
+          )}
           <h3 className="text-[black2]">
             <span className="text-black">{numberOfRooms}</span>{" "}
-            {t("Rooms_with_price")}
+            {t(`${type}_with_price`)}
+          </h3>
+          <h3 className="text-[black2]">
+            <span className="text-black">{type}</span>{" "}
           </h3>
         </div>
         <div className="flex flex-col gap-2">
@@ -66,7 +80,7 @@ export default function ServiceCard({
           }}
           className="bg-black text-white font-semibold"
         >
-          {t("Reserve_Room")}
+          {t(`Reserve_${type}`)}
         </Button>
       </div>
     </div>

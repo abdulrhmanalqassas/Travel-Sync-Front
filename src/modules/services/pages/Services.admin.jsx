@@ -3,10 +3,8 @@ import { Tabs, Tab } from "@nextui-org/react";
 import { FaCar, FaHotel } from "react-icons/fa6";
 import HotelsTable from "../hotels/Hotels.Table";
 import { useEffect, useMemo, useState } from "react";
-import { RiHotelBedFill } from "react-icons/ri";
-import { BiSolidPlaneAlt } from "react-icons/bi";
-import { FaHouseTsunami } from "react-icons/fa6";
-import { MdOutlineDirectionsBoat } from "react-icons/md";
+import { BiSolidPlaneAlt, BiSolidOffer } from "react-icons/bi";
+import { FaHouseTsunami, FaNewspaper } from "react-icons/fa6";
 import { FiPackage } from "react-icons/fi";
 import { getService } from "../services.handlers";
 import RoomsTable from "../rooms/Rooms.Table";
@@ -66,7 +64,7 @@ export default function Services() {
             <div
               className={`flex items-center space-x-2  ${selected == "hotel-rooms" ? "text-black" : " "} `}
             >
-              <RiHotelBedFill className="w-5 h-5" />
+              {/* <RiHotelBedFill className="w-5 h-5" /> */}
               <span>{t("Rooms")}</span>
             </div>
           }
@@ -145,13 +143,14 @@ export default function Services() {
             handleUpdate={handleUpdate}
           />
         </Tab>
+
         <Tab
           key="ReadyVisa"
           title={
             <div
               className={`flex items-center space-x-2  ${selected == "ReadyVisa" ? "text-black" : " "} `}
             >
-              <RiHotelBedFill className="w-5 h-5" />
+              <FaNewspaper className="w-5 h-5" />
               <span>{t("ReadyVisa")}</span>
             </div>
           }
@@ -164,6 +163,23 @@ export default function Services() {
             handleUpdate={handleUpdate}
           />
         </Tab>
+        {/* <Tab
+          key="standard-packages"
+          title={
+            <div
+              className={`flex items-center space-x-2  ${selected == "standard-packages" ? "text-black" : " "} `}
+            >
+              <BiSolidOffer className="w-5 h-5" />
+              <span>{t("offers")}</span>
+            </div>
+          }
+        >
+          <PackagesTable
+            data={data}
+            isLoading={isLoading}
+            handleUpdate={handleUpdate}
+          />
+        </Tab> */}
       </Tabs>
 
       {/* </div> */}

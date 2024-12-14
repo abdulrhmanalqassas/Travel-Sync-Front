@@ -256,7 +256,7 @@ function App() {
             element={
               <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
                 <Layout>
-                  <ReserveService />
+                  <ReserveService type={"room"} />
                 </Layout>
               </WithPageRequiredAuth>
             }
@@ -271,6 +271,49 @@ function App() {
               </WithPageRequiredAuth>
             }
           />
+          <Route
+            path="/user/Reserve/flight/:id"
+            element={
+              <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
+                <Layout>
+                  {/* TODO FLIGT ReserveService */} */
+                  {" replace with fligh"}
+                  <ReserveService type="flight" />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route
+            path="/user/safari/:id"
+            element={
+              <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
+                <Layout>
+                  {/* TODO FLIGT ReserveService */} */
+                  {" replace with safari"}
+                  <ReserveService type="safari" />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+           <Route
+            path="/user/transportations/:id"
+            element={
+              <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
+                <Layout>
+                  {/* TODO FLIGT ReserveService */} */
+                  {" replace with transportation"}
+                  <ReserveService type="teansportation" />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route path="/user/standard-packages/:id" element={
+            <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
+              <Layout>
+            <ReserveService type={"standard-packages"} />
+              </Layout>
+            </WithPageRequiredAuth>
+            } />
           <Route
             path="/user/hotels/:id"
             element={
