@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { addVisaByImg } from "./visa.handlers";
 import { RiVisaLine } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 // Helper function to create form inputs based on validation schema
 // Example validation schema
@@ -104,6 +105,7 @@ const initialValues ={
 // Handle submit function
 
 const VisaAdd = () => {
+  const { t } = useTranslation();
   const [extraField, setExtraField] = useState("");
 
   const [validationSchema, setValidationSchema] = useState(
@@ -157,7 +159,7 @@ const VisaAdd = () => {
 
   return (
     <div className="m-5 mt-1 p-5 rounded-lg bg-white flex flex-col justify-center">
-      <h1 className="text-2xl font-bold">Visa add Form</h1>
+      <h1 className="text-2xl font-bold">{t("add_visa_form")} </h1>
       <>
         <div id="accordionExample">
           <div className="rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800 ">
@@ -172,7 +174,7 @@ const VisaAdd = () => {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                Add Visa By Image
+                {t("addVisaByimage")}
                 <span
                   className={`${
                     activeElement === "element1"

@@ -147,7 +147,7 @@ export default function AgenciesForm({ handleUpdate }) {
                     <div>
                       <Input
                         id="email"
-                        label="email"
+                        label={t("email")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -163,7 +163,7 @@ export default function AgenciesForm({ handleUpdate }) {
                       <Input
                         id="phone"
                         type="phone"
-                        label="phone"
+                        label= {t("phone")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -211,7 +211,7 @@ export default function AgenciesForm({ handleUpdate }) {
                       <Input
                         id="postalCode"
                         type="postalCode"
-                        label="postalCode"
+                        label={t("postalCode")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}

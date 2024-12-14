@@ -126,7 +126,7 @@ export default function FlightCard(props) {
         <div className="mb-4">
           <h1 className="font-semibold">{flight?.price}$</h1>
 
-          <h1>Per Flight</h1>
+          <h1>{t("Per_Flight")}</h1>
         </div>
         <Button
           onClick={() => {
@@ -135,7 +135,7 @@ export default function FlightCard(props) {
           className="bg-[#616CA8] text-white font-semibold"
         >
           {" "}
-          {t("Reserve Flight")}
+          {t("Reserve_Flight")}
         </Button>
       </div>
     </div>

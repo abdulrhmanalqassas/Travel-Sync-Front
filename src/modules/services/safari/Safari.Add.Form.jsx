@@ -295,7 +295,7 @@ export default function SafariForm({ handleUpdate }) {
                         id="safari.type"
                         name="safari.type"
                         type="text"
-                        label={t("safari Type")}
+                        label={t("safari_Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -366,7 +366,7 @@ export default function SafariForm({ handleUpdate }) {
                         id="safari.startTime"
                         name="safari.startTime"
                         type="datetime-local"
-                        label={t("StartTime")}
+                        label={t("startTime")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}

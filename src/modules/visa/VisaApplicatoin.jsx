@@ -101,7 +101,7 @@ const ReserveService = () => {
           <div className="col-span-2 ">
             <h1 className="text-2xl font-semibold">
               {" "}
-              {t("Reservation details")}
+              {t("Reservation_details")}
             </h1>
 
             {/* Quantity Input */}
@@ -129,7 +129,7 @@ const ReserveService = () => {
           </div>
           <div className=" rounded-2xl border-2 p-5 flex-none">
             <h2 className="text-2xl font-semibold mb-2">
-              {t("Price Details")}
+              {t("Price_Details")}
             </h2>
             <div className="flex justify-between">
               <p>
@@ -138,12 +138,12 @@ const ReserveService = () => {
               <p>120$</p>
             </div>
             <div className="flex justify-between">
-              <p> {t("Taxes & fees")}</p>
+              <p> {t("Taxes_fees")}</p>
               <p>15$</p>
             </div>
             <div className="flex justify-between">
               <p>{t("Charter at")}</p>
-              <p>10 {t("rooms")}</p>
+              <p>10 {t("Rooms")}</p>
             </div>
             <div className="flex justify-between">
               <p>{t("charter percenteage")}</p>
@@ -197,7 +197,7 @@ const ReserveService = () => {
                   <Input
                     id={`travelers[${idx}].lastName`}
                     type="text"
-                    label={t("last_name")}
+                    label={t("Last_Name")}
                     variant="bordered"
                     labelPlacement="outside"
                     radius="lg"

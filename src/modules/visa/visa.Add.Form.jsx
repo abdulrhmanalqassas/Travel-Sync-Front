@@ -432,7 +432,7 @@ export default function VisaForm({ handleUpdate }) {
                         id="ReadyVisa.days"
                         name="ReadyVisa.days"
                         type="number"
-                        label={t("visa days")}
+                        label={t("visa_days")}
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {

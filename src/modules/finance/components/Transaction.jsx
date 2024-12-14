@@ -67,7 +67,7 @@ export default function Transactions({ handlechange }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        Add Transactions
+        {t("Add_Transactions")}
       </Button>
       <Modal
         isOpen={isOpen}

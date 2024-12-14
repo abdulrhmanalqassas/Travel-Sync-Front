@@ -75,12 +75,12 @@ const SideBar = () => {
       icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
     {
-      title: t("Show Visa"),
+      title: t("Show_Visa"),
       path: "/visa/show",
       icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
     {
-      title: t("Requested Visa"),
+      title: t("Requested_Visa"),
       path: "/user/requestedVisa",
       icon: <IoDocumentText className={ICON_STYLE} />,
     },

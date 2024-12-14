@@ -6,8 +6,10 @@ import CountrySelector from "../core/components/countrySelector";
 import { COUNTRIES } from "../core/components/countries";
 import QrCodeGenerator from "../core/components/QrCodeGenerator";
 import { instance } from "../../network/axios";
+import { useTranslation } from "react-i18next";
 
 const ShowVisa = () => {
+  const {t} = useTranslation();
   const [activeElement, setActiveElement] = useState("");
   const baseURL = window.location.origin;
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +44,7 @@ const ShowVisa = () => {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                Add Visa By Image
+                {t("Ready_Visa")}
                 <span
                   className={`${
                     activeElement === "element1"

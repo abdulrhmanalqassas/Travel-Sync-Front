@@ -26,7 +26,7 @@ export default function ServiceCard({
           <img
             className="w-full h-full rounded-lg object-center overflow-hidden "
             src={img}
-            alt="nature image"
+            alt="image"
           />
         </div>
         <div className="flex flex-col gap-3">
@@ -51,7 +51,7 @@ export default function ServiceCard({
             {t(`${type}_with_price`)}
           </h3>
           <h3 className="text-[black2]">
-            <span className="text-black">{type}</span>{" "}
+            <span className="text-black">{t(`_${type}`)}</span>{" "}
           </h3>
         </div>
         <div className="flex flex-col gap-2">
@@ -59,7 +59,7 @@ export default function ServiceCard({
             {locationUrl && (
               <div className="w-full text-[#415A77]  p-1 px-2 bg-[#f6f0f0] flex justify-center rounded-lg ">
                 <a href={locationUrl} target="_blank" rel="noreferrer">
-                  {t("location")} : {locationUrl}
+                  {t("location")}
                 </a>
               </div>
             )}

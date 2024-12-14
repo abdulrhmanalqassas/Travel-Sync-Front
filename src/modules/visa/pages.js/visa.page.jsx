@@ -39,7 +39,7 @@ const VisaViewPage = () => {
         <div>
           <p className="flex  items-center gap-2"> </p>
           <div className="mt-2">
-            <h1 className="font-semibold">About Visa</h1>
+            <h1 className="font-semibold">{t("About_Visa")} </h1>
             <h1 className="text-lg font-semibold">{data?.type}</h1>
             <h1 className="text-lg font-semibold">
               {data?.ReadyVisa?.country}

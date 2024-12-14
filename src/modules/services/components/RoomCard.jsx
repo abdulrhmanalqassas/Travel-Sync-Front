@@ -49,7 +49,7 @@ export default function RoomCard({ service }) {
       >
         <div className="mb-4">
           <h1 className="font-semibold">{service.price}$</h1>
-          <h1>{t("Per Night")}</h1>
+          <h1>{t("Per_Night")}</h1>
         </div>
         <Button
           onClick={() => {

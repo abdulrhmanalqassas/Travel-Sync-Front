@@ -100,7 +100,7 @@ export default function ReservationCard({ Reservation, isAdmin }) {
               <div className="flex items-center space-x-2 mt-2">
                 <IoCartOutline className="w-4 h-4 text-gray-500" />
                 <span className="text-sm text-gray-500">
-                  {Reservation?.quantity} Units
+                  {Reservation?.quantity} {t("Units")}
                 </span>
               </div>
               <div className="flex items-center space-x-2 mt-1">

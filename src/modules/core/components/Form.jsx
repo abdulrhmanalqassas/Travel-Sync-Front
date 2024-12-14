@@ -92,7 +92,7 @@ const Form = ({ initialValues, handleSubmit, validationSchema }) => {
           </div>
         </div>
         <Button type="submit" className="bg-foreground text-background mt-2" size="lg">
-          add visa
+          {t("add_visa")}
         </Button>
       </form>
     </div>

@@ -49,7 +49,7 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
                 stars={stars}
                 locationUrl={locationUrl}
                 hotelName={displayByLanguage(CurrentLang, "name", card)}
-                numberOfRooms={52}
+                // numberOfRooms={52}
                 data={card}
               />
             );
