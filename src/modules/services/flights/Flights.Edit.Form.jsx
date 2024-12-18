@@ -48,7 +48,7 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
         departureTime: data?.flight?.departureTime,
         arrivalTime: data?.flight?.arrivalTime,
         seatType: data?.flight?.seatType,
-        commission:data?.flight?.commission
+        commission: data?.flight?.commission,
       },
     },
 
@@ -76,8 +76,10 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
             .min(3)
             .max(250)
             .required(t("Required")),
-            commission:Yup.number().max(999999).min(0)
-            .required(t("Required")) 
+          commission: Yup.number()
+            .max(999999)
+            .min(0)
+            .required(t("Required"))
             .integer("Must be a number"),
           departureCity: Yup.string().min(3).max(60).required(t("Required")),
           arrivalAddress: Yup.string().min(3).max(250).required(t("Required")),
@@ -116,7 +118,7 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
 
     onSubmit: async (values, { resetForm }) => {
       // values = RemoveEmptyValues(values);
-      console.log("values:", values);
+
       if (flightImages.length !== 0) {
         const imageIds = await uploadImage(
           flightImages,
@@ -136,11 +138,11 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
       onClose();
       resetForm();
       // uploadImage(flightImages, setIsLoading, setApiError).then((ids) => {
-      //   console.log("checking the Image.", ids); // Check if image is properly updated
+      //     // Check if image is properly updated
       //   values["service"]["WholesalerId"] = 1;
       //   values["service"]["imageIds"] = ids ? ids : [];
-      //   console.log("checking the values.", values);
-      //   console.log("flightidididididi", flightID); // Check if values are properly updated
+      //
+      //     // Check if values are properly updated
       //   editService(
       //     values,
       //     flightID,
@@ -324,18 +326,12 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
                         radius="lg"
                         onChange={(e) => {
                           if (e.target.value === "") {
-                            formHandler.setFieldValue(
-                              "flight.commission",
-                              "",
-                            );
+                            formHandler.setFieldValue("flight.commission", "");
                             return;
                           }
 
                           const value = Math.max(0, parseFloat(e.target.value));
-                          formHandler.setFieldValue(
-                            "flight.commission",
-                            value,
-                          );
+                          formHandler.setFieldValue("flight.commission", value);
                         }}
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.flight.commission}
@@ -343,9 +339,7 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
                           formHandler.errors.flight?.commission &&
                           formHandler.touched.flight?.commission
                         }
-                        errorMessage={
-                          formHandler.errors.flight?.commission
-                        }
+                        errorMessage={formHandler.errors.flight?.commission}
                       />
                     </div>
                     <div>

@@ -59,7 +59,7 @@ export default function Reservation() {
         selectedKey={selected}
         onSelectionChange={setSelected}
       >
-        Tab for All Reservations
+        {t("tab_reservation")}
         <Tab
           key="all"
           title={

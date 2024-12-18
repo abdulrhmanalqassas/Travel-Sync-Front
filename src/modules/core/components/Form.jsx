@@ -8,6 +8,7 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
+import { useTranslation } from "react-i18next";
 // import TravellerFileUploader from "../reservation/components/TravellerFileUploader";
 
 // Helper function to create form inputs based on validation schema
@@ -79,6 +80,7 @@ const Form = ({ initialValues, handleSubmit, validationSchema }) => {
   const formHandler = useFormik(
     createFormikConfig(initialValues, validationSchema, handleSubmit),
   );
+  const { t } = useTranslation();
   return (
     <div className="flex w-full flex-col m-5 mt-1 p-5 rounded-lg bg-white mr-2 ">
       <h1 className="text-2xl font-bold">Visa Application Form</h1>
@@ -86,7 +88,7 @@ const Form = ({ initialValues, handleSubmit, validationSchema }) => {
         <div className="flex flex-col gap-4">
           <div className="w-1/2">
             <div className="grid grid-cols-2 gap-3">
-              {console.log(">>>>>>>>>>>2222222222>>>>>>>>>>", validationSchema)}
+             
               {generateFormInputs(validationSchema, formHandler)}
             </div>
           </div>

@@ -38,7 +38,7 @@ const VisaReservationPageUser = () => {
 
   return (
     <div className="m-5 p-5 rounded-lg bg-white">
-      {console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>", reservation)}
+
       {isLoading ? (
         <div className="flex justify-center items-center h-96">
           <ClockLoader color="#36d7b7" size={100} />

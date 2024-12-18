@@ -9,7 +9,6 @@ import TravellerFileUploader from "../components/TravellerFileUploader";
 import { useTranslation } from "react-i18next";
 
 const ReserveService = ({ type }) => {
-  console.log("type in reserve service", type);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -81,7 +80,6 @@ const ReserveService = ({ type }) => {
       ),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log("test values", values);
       // Handle form submission
       Reserve(setIsLoading, values);
       resetForm();

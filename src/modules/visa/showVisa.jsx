@@ -29,7 +29,7 @@ const ShowVisa = () => {
 
   return (
     <div className="m-5 mt-1 p-5 rounded-lg bg-white flex flex-col justify-center">
-      <h1 className="text-2xl font-bold">Visa add Form</h1>
+      <h1 className="text-2xl font-bold">{t("Visa_Application")}</h1>
       <>
         <div id="accordionExample">
           <div className="rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800 ">
@@ -104,7 +104,7 @@ const ShowVisa = () => {
               aria-expanded="true"
               aria-controls="collapseOne"
             >
-              Accordion Item #2
+              {t("VisaCountry")}
               <span
                 className={`${
                   activeElement === "element2"

@@ -44,7 +44,7 @@ export default function SafariForm({ handleUpdate }) {
         cancellationPolicy: "",
       },
       safari: {
-        type:"",
+        type: "",
         address: "",
         city: "",
         country: "",
@@ -88,7 +88,6 @@ export default function SafariForm({ handleUpdate }) {
     },
 
     onSubmit: async (values, { resetForm }) => {
-      console.log(values);
       try {
         let imageIds;
         if (safariImages.length !== 0) {
@@ -130,7 +129,7 @@ export default function SafariForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-               {t("Add_Safari")}
+                {t("Add_Safari")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">

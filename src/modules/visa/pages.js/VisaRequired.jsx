@@ -24,7 +24,7 @@ export default function VisaRequired() {
   const [reservations, setReservations] = useState([]);
   const [page, setPage] = useState(1);
   const limit = 8;
-console.log(">>>>reservations>>>>>>", reservations);
+
   //handlen slected and go to bage 1 when tab is changed
   useEffect(() => {
     setPage(1);
@@ -63,7 +63,7 @@ console.log(">>>>reservations>>>>>>", reservations);
         selectedKey={selected}
         onSelectionChange={setSelected}
       >
-        Tab for All Reservations
+        {t("tab_reservation")}
         <Tab
           key="all"
           title={

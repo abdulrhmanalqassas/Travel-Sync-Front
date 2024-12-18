@@ -125,7 +125,7 @@ export default function FinanceTable({
   }, []);
 
   const onSearchChange = React.useCallback((value) => {
-    console.log(users);
+   
     if (value) {
       setFilterValue(value);
       setPage(1);

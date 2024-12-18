@@ -123,7 +123,7 @@ async function acceptReservation(setIsLoading, id = "", callback) {
   const cookie = Cookies.get("auth-token-data");
   const token = JSON.parse(cookie ? cookie : "null")?.token;
 
-  console.log(token);
+ 
   setIsLoading(true);
   try {
     let data = await instance.patch(`/api/visa-reservations/${id}/confirm`, null, {
@@ -157,7 +157,7 @@ async function Reserve(setIsLoading, values) {
       // callback()
     }
   } catch (error) {
-    console.log(error);
+
     console.error(error);
   } finally {
     setIsLoading(false);
@@ -178,7 +178,7 @@ async function ReserveVisa(setIsLoading, values) {
       // callback()
     }
   } catch (error) {
-    console.log(error);
+ 
     console.error(error);
   } finally {
     setIsLoading(false);

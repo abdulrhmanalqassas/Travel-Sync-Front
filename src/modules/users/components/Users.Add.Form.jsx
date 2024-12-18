@@ -37,7 +37,6 @@ export default function UsersForm({ handleUpdate }) {
 
   const handleUpdateAgencies = () => {
     getAgencies(setAgencies, setIsLoading);
-    console.log("Agencies:", agencies);
   };
 
   const formHandler = useFormik({
@@ -63,9 +62,9 @@ export default function UsersForm({ handleUpdate }) {
     },
     onSubmit: (values, { resetForm }) => {
       uploadImage(userImage, setIsLoading, setApiError).then((id) => {
-        console.log("checking the Image.", id); // Check if image is properly updated
+        // Check if image is properly updated
         values["profilePhotoId"] = id ? id[0] : null;
-        console.log("checking the values.", values); // Check if values are properly updated
+        // Check if values are properly updated
         addUser(values, setIsLoading, handleUpdate).then(() => {
           onClose();
           resetForm();

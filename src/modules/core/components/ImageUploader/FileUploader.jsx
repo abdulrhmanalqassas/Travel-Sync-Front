@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 export default function FileUploader({ imageName, index, files, setFiles }) {
   const deleteFile = (files, setFiles, idx) => {
     // Check if files is iterable (in this case, an array)
-    console.log(files);
+
     if (!Array.isArray(files)) {
       console.error("Files is not an array.");
       return;

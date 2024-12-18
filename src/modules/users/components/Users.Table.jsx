@@ -59,9 +59,7 @@ export default function UsersTable({
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns,currentLanguage]);
-
-  console.log(typeof users);
+  }, [visibleColumns, currentLanguage]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...users];
@@ -130,7 +128,6 @@ export default function UsersTable({
           </div>
         );
       case "travelOffice":
-        console.log(user.travelOffice?.name, "travelOffice");
         return user.travelOffice?.name;
       default:
         return cellValue;

@@ -98,7 +98,6 @@ export default function FlightsForm({ handleUpdate }) {
     },
 
     onSubmit: async (values, { resetForm }) => {
-      console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", values);
       let imageIds;
       if (flightImages.length !== 0) {
         imageIds = await uploadImage(flightImages, setIsLoading, setApiError);

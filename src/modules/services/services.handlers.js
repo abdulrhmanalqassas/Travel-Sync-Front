@@ -84,8 +84,6 @@ async function DeleteService(id, callback, service) {
       console.error(error.message);
     });
 
-  console.log(data);
-
   if (data?.status === 204) {
     deleted();
     callback(service);

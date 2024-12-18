@@ -39,7 +39,7 @@ const INITIAL_VISIBLE_COLUMNS = [
 ];
 
 export default function VisaTable({ data, isLoading, handleUpdate }) {
-  console.log("data in visa table", data);
+
   const columns = [
     { name: "ID", uid: "id", sortable: true },
     { name: "name", uid: "name", sortable: true },
@@ -113,7 +113,6 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
 
   const renderCell = React.useCallback((service, columnKey) => {
     const cellValue = displayByLanguage(CurrentLang, columnKey, service);
-    console.log("servises in room", service);
     switch (columnKey) {
       case "departureAddress":
         return (

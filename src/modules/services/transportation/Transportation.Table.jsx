@@ -82,21 +82,21 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns,CurrentLang]);
+  }, [visibleColumns, CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredServices = [...data];
 
     if (hasSearchFilter) {
-      filteredServices = filteredServices.filter((service) =>
-      {
-        const nameMatches = service.name.toLowerCase().includes(filterValue.toLowerCase());
-        const arNameMatches = service.ar_name ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase()) : false;
-        return nameMatches || arNameMatches
-
-      },
-       
-      );
+      filteredServices = filteredServices.filter((service) => {
+        const nameMatches = service.name
+          .toLowerCase()
+          .includes(filterValue.toLowerCase());
+        const arNameMatches = service.ar_name
+          ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase())
+          : false;
+        return nameMatches || arNameMatches;
+      });
     }
     return filteredServices;
   }, [data, filterValue]);
@@ -119,9 +119,8 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((service, columnKey) => {
-    console.log("service:", service);
     const cellValue = displayByLanguage(CurrentLang, columnKey, service);
-    
+
     switch (columnKey) {
       case "departureAddress":
         return (
@@ -261,7 +260,7 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-          {t("Total") + " " + data.length + " " + t("services")}
+            {t("Total") + " " + data.length + " " + t("services")}
           </span>
           <label className="flex items-center text-default-400 text-small">
             {t("Rows_per_age")}

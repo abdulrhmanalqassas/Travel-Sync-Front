@@ -27,7 +27,7 @@ export default function ReservationCard({ Reservation, isAdmin }) {
     new Date(Reservation?.updatedAt),
     new Date(),
   );
-  console.log(">>>>>>>>>>reservationinCard>>>>>>>>", Reservation);
+
 
   function formatDuration(startDate, endDate) {
     const duration = endDate - startDate;

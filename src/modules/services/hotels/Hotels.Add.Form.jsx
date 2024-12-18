@@ -72,9 +72,8 @@ export default function HotelsForm({ handleUpdate }) {
     },
 
     onSubmit: (values, { resetForm }) => {
-      console.log("Is hre?", values);
       uploadImage(agencyImage, setIsLoading, setApiError).then((id) => {
-        console.log("checking the Image.", id); // Check if image is properly updated
+        // Check if image is properly updated
         values.imageIds = id || null;
         values.stars = Number(values.stars);
         addService(values, setIsLoading, handleUpdate, "hotels").then(() => {

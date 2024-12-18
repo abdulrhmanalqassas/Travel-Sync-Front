@@ -61,7 +61,7 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
     onSubmit: (values, { resetForm }) => {
       values = RemoveEmptyValues(values);
       uploadImage(agencyImage, setIsLoading, setApiError, "edit").then((id) => {
-        console.log("checking the Image.", id); // Check if image is properly updated
+      // Check if image is properly updated
         values["profilePhotoId"] = id ? id[0] : null;
         editAgency(values, agencyId, setIsLoading, handleUpdate).then(() => {
           onClose();

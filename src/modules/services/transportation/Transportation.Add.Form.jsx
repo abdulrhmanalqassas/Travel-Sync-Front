@@ -52,10 +52,10 @@ export default function TransportationForm({ handleUpdate }) {
         arrivalTime: new Date().toISOString(),
         departingDate: new Date().toISOString(),
         returningDate: new Date().toISOString(),
-        ar_type:"",
-        ar_description:"",
-        ar_departureAddress:"",
-        ar_arrivalAddress: ""
+        ar_type: "",
+        ar_description: "",
+        ar_departureAddress: "",
+        ar_arrivalAddress: "",
       },
     },
 
@@ -95,7 +95,6 @@ export default function TransportationForm({ handleUpdate }) {
 
     onSubmit: async (values, { resetForm }) => {
       try {
-        console.log("valuse for transportation:", values);
         let imageIds;
         if (transportationImages.length !== 0) {
           imageIds = await uploadImage(
@@ -140,7 +139,7 @@ export default function TransportationForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-               {t("Add_new_Transportation")}
+                {t("Add_new_Transportation")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -413,8 +412,10 @@ export default function TransportationForm({ handleUpdate }) {
                           formHandler.values.transportation.ar_departureAddress
                         }
                         isInvalid={
-                          formHandler.errors.transportation?.ar_departureAddress &&
-                          formHandler.touched.transportation?.ar_departureAddress
+                          formHandler.errors.transportation
+                            ?.ar_departureAddress &&
+                          formHandler.touched.transportation
+                            ?.ar_departureAddress
                         }
                         errorMessage={
                           formHandler.errors.transportation?.ar_departureAddress
@@ -431,9 +432,12 @@ export default function TransportationForm({ handleUpdate }) {
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.transportation.ar_arrivalAddress}
+                        value={
+                          formHandler.values.transportation.ar_arrivalAddress
+                        }
                         isInvalid={
-                          formHandler.errors.transportation?.ar_arrivalAddress &&
+                          formHandler.errors.transportation
+                            ?.ar_arrivalAddress &&
                           formHandler.touched.transportation?.ar_arrivalAddress
                         }
                         errorMessage={

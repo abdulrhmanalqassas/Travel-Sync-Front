@@ -21,9 +21,7 @@ const GetVisaData = () => {
           <div className="m-5 mt-1 p-5 rounded-lg bg-white flex flex-col justify-center">
             <h1 className="text-2xl font-bold">{country} </h1>
             <h1 className="text-2xl font-bold">{type} </h1>
-            {/* {getVisa("Usa", ()=>{console.log(">>>>>>>>>>>>>>>>>>>>>", data)}, setIsLoading)} */}
-            {console.log(">>>>>>>>>>>>>>>>>>>>>", window.location.pathname)}
-            {console.log(">>>>>>>>>>>>>>>>>>>>>", country)}
+
             {JSON.stringify(data)}
             {type == "text" && (
               <div>

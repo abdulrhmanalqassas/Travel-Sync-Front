@@ -60,7 +60,7 @@ export default function AgenciesForm({ handleUpdate }) {
 
     onSubmit: (values, { resetForm }) => {
       uploadImage(agencyImage, setIsLoading, setApiError).then((id) => {
-        console.log("checking the Image.", id); // Check if image is properly updated
+      
         values["profilePhotoId"] = id ? id[0] : null;
         addAgency(values, setIsLoading, handleUpdate).then(() => {
           onClose();

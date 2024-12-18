@@ -28,8 +28,6 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
   const [isLoading, setIsLoading] = useState("");
   const [apiError, setApiError] = useState("");
 
-  console.log("data", data);
-
   const formHandler = useFormik({
     initialValues: {
       service: {
@@ -85,7 +83,6 @@ export default function SafariFormEdit({ handleUpdate, safariID, data }) {
     },
 
     onSubmit: async (values, { resetForm }) => {
-      console.log("values:", values);
       if (safariImages.length !== 0) {
         const imageIds = await uploadImage(
           safariImages,

@@ -33,16 +33,16 @@ const VisaReservationPage = () => {
   const visaName = reservation.service?.name;
   
   const { status, CancelReason, travelers, country ,createdAt} = reservation;
-  console.log("ono reservation", reservation)
+
   const { type, description } = reservation.service || {};
 
   const date = new Date(createdAt);
   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
   useEffect(() => {
-    console.log("o travelers", travelers);
+
   }, [travelers]);
-  console.log(">>>>>>>>>>reservationincontroler>>>>>>>>", reservation);
+
   return (
     <div className="m-5 mt-1 p-5 rounded-lg bg-white">
       {isLoading ? (

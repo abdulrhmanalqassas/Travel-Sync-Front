@@ -40,7 +40,7 @@ async function DeleteAgency(id, callback) {
       console.error(error.message);
     });
 
-  console.log(data);
+
 
   if (data?.status === 204) {
     deleted();
@@ -49,7 +49,7 @@ async function DeleteAgency(id, callback) {
 }
 
 async function addAgency(values, setIsLoading, callback) {
-  console.log(values);
+
   // Set loading state to true
   setIsLoading(true);
 

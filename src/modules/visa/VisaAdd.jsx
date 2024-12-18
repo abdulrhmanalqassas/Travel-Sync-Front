@@ -124,9 +124,9 @@ const VisaAdd = () => {
     setExtraField("");
   };
   const handleSubmit = async (values) => {
-    console.log("valuse for :>>>>>>>55544", values);
+   
     try {
-      console.log("valuse for :>>>>>>>55544", values);
+
       let imageIds;
       if (visaImages.length !== 0) {
         imageIds = await uploadImage(visaImages, setIsLoading, setApiError);
@@ -277,7 +277,7 @@ const VisaAdd = () => {
             className="!mt-0 !rounded-b-none !shadow-none"
           >
             <div className="px-5 py-4">
-              {console.log(">>>>>>>>>>>>>>>>>>>>>", validationSchema)}
+
               <CountrySelector
                   id="countries2"
                   open={isOpen}
@@ -291,7 +291,7 @@ const VisaAdd = () => {
                <div className="w-1/2">
                
             <div className="grid grid-cols-1 gap-3">
-              {console.log(">>>>>>>>>>>2222222222>>>>>>>>>>", validationSchema)}
+
             
               <Input
                 id={"extra filed"}

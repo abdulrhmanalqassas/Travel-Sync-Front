@@ -29,7 +29,7 @@ export default function FlightCard(props) {
   //   "__entity": "FlightEntity"
   // }
   const { flight, img } = props;
-  console.log(">>>>>>>>flight", flight);
+
   // const formattedDate = formatDuration(
   //   new Date(Reservation?.updatedAt),
   //   new Date(),

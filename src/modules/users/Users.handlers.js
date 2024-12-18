@@ -45,7 +45,6 @@ async function getAgenciesUsers(SetUsers, setIsLoading) {
     });
 
   if (data?.status === 200) {
-    console.log(data.data.data, "heeeeeere");
     SetUsers(data.data.data);
     setIsLoading(false);
   }
@@ -62,8 +61,6 @@ async function DeleteUser(id, callback) {
       console.error(error.message);
     });
 
-  console.log(data);
-
   if (data?.status === 204) {
     deleted();
     callback();
@@ -71,7 +68,6 @@ async function DeleteUser(id, callback) {
 }
 
 async function addUser(values, setIsLoading, callback) {
-  console.log(values);
   // Set loading state to true
   setIsLoading(true);
   values["role"] = { id: 4 };

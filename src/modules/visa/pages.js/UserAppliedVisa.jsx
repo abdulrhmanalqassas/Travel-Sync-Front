@@ -62,7 +62,7 @@ export default function UserAppliedVisa() {
         selectedKey={selected}
         onSelectionChange={setSelected}
       >
-        Tab for All Reservations
+        {t("tab_reservation")}
         <Tab
           key="all"
           title={

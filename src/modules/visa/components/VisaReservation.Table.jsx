@@ -30,7 +30,7 @@ export default function VisaReservationTable({ users = [], isLoading }) {
     { name: "PHONE", uid: "phone", sortable: true },
     { name: "FILE", uid: "file" },
   ];
-  console.log(">>>>>>>>>>users>>>>>>>>", users);
+
   const { t, i18n } = useTranslation();
   const CurrentLang = i18n.language;
 

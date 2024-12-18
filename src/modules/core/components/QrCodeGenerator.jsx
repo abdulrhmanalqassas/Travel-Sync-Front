@@ -26,7 +26,7 @@ function QrCodeGenerator({ url }) {
         <div className="flex flex-col gap-4">
           <div className="w-1/2">
             <div className="grid grid-cols-2 gap-3">
-              {/* {console.log(">>>>>>>>>>>2222222222>>>>>>>>>>", validationSchema)}
+            
               {generateFormInputs(validationSchema, formHandler)} */}
               <div className="qrcode__container--parent" ref={qrCodeRef}>
                 {/* <input

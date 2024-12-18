@@ -48,7 +48,7 @@ export default function UsersFormEdit({ handleUpdate, userId }) {
     onSubmit: (values, { resetForm }) => {
       values = RemoveEmptyValues(values);
       uploadImage(userImage, setIsLoading, setApiError, "edit").then((id) => {
-        console.log("checking the Image.", id); // Check if image is properly updated
+        // Check if image is properly updated
         values["profilePhotoId"] = id ? id[0] : null;
         editUser(values, userId, setIsLoading, handleUpdate).then(() => {
           onClose();

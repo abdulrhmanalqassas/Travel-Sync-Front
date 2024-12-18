@@ -84,7 +84,6 @@ export default function RoomsFormEdit({ handleUpdate, roomID, data }) {
     },
 
     onSubmit: async (values, { resetForm }) => {
-      console.log("values:", values);
       if (roomImages.length !== 0) {
         const imageIds = await uploadImage(
           roomImages,

@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function CancelReservation({ id, handleUpdate }) {
-  const {t}=useTranslation()
+  const { t } = useTranslation();
 
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [isLoading, setIsLoading] = useState("");
@@ -46,17 +46,17 @@ export default function CancelReservation({ id, handleUpdate }) {
         variant="flat"
         className="font-semibold"
       >
-         {t("Cancel")}
+        {t("Cancel")}
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                 {t("Cancel_reservation")}
+                {t("Cancel_reservation")}
               </ModalHeader>
               <ModalBody>
-                Are you sure you wany to cancel this reservation?
+                {t("cancel_reason")}
                 <div>
                   <Textarea
                     id="cancelReason"
@@ -70,16 +70,16 @@ export default function CancelReservation({ id, handleUpdate }) {
                       formHandler.touched.cancelReason &&
                       formHandler.errors.cancelReason
                     }
-                    errorMessage="Please write the reason"
+                    errorMessage={t("please_reason")}
                   />
                 </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                   {t("Cancel")}
+                  {t("Cancel")}
                 </Button>
                 <Button color="danger" type="submit" isLoading={isLoading}>
-                   {t("Confirm")}
+                  {t("Confirm")}
                 </Button>
               </ModalFooter>
             </form>

@@ -119,7 +119,6 @@ export default function SafariTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((service, columnKey) => {
-    console.log("service:", service);
     const cellValue = displayByLanguage(CurrentLang, columnKey, service);
     switch (columnKey) {
       case "airline":

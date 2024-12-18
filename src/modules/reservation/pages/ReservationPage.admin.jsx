@@ -39,7 +39,7 @@ const ReservationPage = () => {
   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
   useEffect(() => {
-    console.log(travelers);
+   
   }, [travelers]);
 
   return (

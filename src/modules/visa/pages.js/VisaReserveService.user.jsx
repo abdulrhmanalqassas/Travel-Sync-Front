@@ -78,7 +78,7 @@ const ReserveService = () => {
       ),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log("test values", values);
+
       // Handle form submission
       ReserveVisa(setIsLoading, values);
       resetForm();

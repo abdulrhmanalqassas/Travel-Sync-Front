@@ -5,9 +5,7 @@ export const ImageGallery = ({ images }) => {
   const { t } = useTranslation();
   const [loadedImages, setLoadedImages] = useState([]);
 
-  useEffect(() => {
-    console.log("images", images);
-  }, [images]);
+  useEffect(() => {}, [images]);
 
   const handleImageLoad = (index) => {
     setLoadedImages((prev) => [...prev, index]);

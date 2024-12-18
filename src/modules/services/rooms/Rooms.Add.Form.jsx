@@ -92,9 +92,7 @@ export default function RoomsForm({ handleUpdate }) {
     },
 
     onSubmit: async (values, { resetForm }) => {
-      console.log("valuse for room:", values);
       try {
-        console.log("valuse for room:", values);
         let imageIds;
         if (roomImages.length !== 0) {
           imageIds = await uploadImage(roomImages, setIsLoading, setApiError);
@@ -116,7 +114,6 @@ export default function RoomsForm({ handleUpdate }) {
   };
 
   const handleSelectChange = (selectedKeys) => {
-    console.log("selected keys", selectedKeys);
     if (
       Array.from(selectedKeys.target.value.split(",")).includes("add_custom")
     ) {
@@ -124,14 +121,13 @@ export default function RoomsForm({ handleUpdate }) {
     } else {
       setCustomFeatureVisible(false);
       const selectedValues = Array.from(selectedKeys.target.value.split(","));
-      console.log(selectedValues);
+
       formHandler.setFieldValue("room.features", selectedValues);
       formHandler.setFieldValue("room.features", selectedValues);
     }
   };
   const handleAddCustomFeature = () => {
     if (customFeature.name.trim() && customFeature.ar_name.trim()) {
-      console.log("form hand val", ...formHandler.values.room.features);
       setfeatures((prevState) => [
         ...prevState,
         { key: customFeature.name, label: customFeature.ar_name },

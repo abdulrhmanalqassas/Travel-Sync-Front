@@ -7,12 +7,15 @@ import { useFormik } from "formik";
 import { Button, Input } from "@nextui-org/react";
 import { ReserveVisa } from "./reservation.handlers";
 import { useTranslation } from "react-i18next";
+import CountrySelector from "../core/components/countrySelector.jsx";
+import { COUNTRIES } from "../core/components/countries.js";
 
 const ReserveService = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-
+  const [country, setCountry] = useState("AF");
+  const [isOpen, setIsOpen] = useState(false);
   // Get ID from URL
 
   const id = 1;
@@ -71,7 +74,7 @@ const ReserveService = () => {
       ),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log("test values", values);
+
       // Handle form submission
       ReserveVisa(setIsLoading, values);
       resetForm();
@@ -88,14 +91,15 @@ const ReserveService = () => {
       onSubmit={formHandler.handleSubmit}
       className="m-5 p-5 rounded-lg bg-white"
     >
-      {/* <CountrySelector
-       id="countries"
-       open={isOpen}
-       onToggle={() => setIsOpen(!isOpen)}
-       onChange={(val) => setCountry(val)}
-       selectedValue={COUNTRIES.find(
-         (option) => option.value === country,
-       )}></CountrySelector> */}
+      <div className="px-5 py-4 h-40">
+        <CountrySelector
+          id="countries"
+          open={isOpen}
+          onToggle={() => setIsOpen(!isOpen)}
+          onChange={(val) => setCountry(val)}
+          selectedValue={COUNTRIES.find((option) => option.value === country)}
+        />
+      </div>
       <div className="flex-grow">
         <div className="grid grid-cols-3 gap-5">
           <div className="col-span-2 ">

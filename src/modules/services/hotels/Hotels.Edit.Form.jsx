@@ -72,7 +72,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
     onSubmit: (values, { resetForm }) => {
       values = RemoveEmptyValues(values);
       uploadImage(agencyImage, setIsLoading, setApiError, "edit").then((id) => {
-        console.log("checking the Image.", id); // Check if image is properly updated
+        // Check if image is properly updated
         values["imageIds"] = id ? id : null;
         values["stars"] = Number(values["stars"]);
         editService(values, hotelID, setIsLoading, handleUpdate, "hotels").then(
@@ -104,7 +104,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-              {t("Edit_Hotel")}
+                {t("Edit_Hotel")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -139,7 +139,8 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.ar_name}
                       />
-                      {formHandler.touched.ar_name && formHandler.errors.ar_name ? (
+                      {formHandler.touched.ar_name &&
+                      formHandler.errors.ar_name ? (
                         <div className="text-red-600">
                           {formHandler.errors.ar_name}
                         </div>
@@ -234,7 +235,8 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
                         onBlur={formHandler.handleBlur}
                         value={formHandler.values.ar_city}
                       />
-                      {formHandler.touched.ar_city && formHandler.errors.ar_city ? (
+                      {formHandler.touched.ar_city &&
+                      formHandler.errors.ar_city ? (
                         <div className="text-red-600">
                           {formHandler.errors.ar_city}
                         </div>

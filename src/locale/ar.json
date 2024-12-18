@@ -209,5 +209,16 @@
   "hotels_with_price":"فنادق بالسعر",
   "safari_with_price": "سفاري بالسعر",
   "_offers": "العروض",
-  "transportations_with_price": "نقل بالسعر"
+  "transportations_with_price": "نقل بالسعر", 
+  "action_required": "  يرجى تقديم الأسباب للتغيير.",
+  "accept":"تأكيد",
+  "accept_reservation":"تأكيد الحجز",
+  "confirm_this_reservation":"هل أنت متأكد من أنك تريد تأكيد هذا الحجز؟",
+  "Loading":"تحميل",
+  "Upload_Files":"تحميل الملفات",
+  "please_reason":"يرجى كتابة السبب",
+  "tab_reservation":"كل الحوزات",
+  "cancel_reason":"هل أنت متأكد من أنك تريد إلغاء هذا الحجز؟",
+  "visa_Application":"طلب تأشيرة",
+  "VisaCountry":"بلد الفيزا"
 }

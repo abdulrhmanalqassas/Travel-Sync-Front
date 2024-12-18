@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import uploadFile from "../reservation.handlers";
+import { useTranslation } from "react-i18next";
 
 export default function TravellerFileUploader({
   TravellerFiles,
@@ -9,7 +10,7 @@ export default function TravellerFileUploader({
 }) {
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState({}); // Manage loading state for each file
-
+  const { t } = useTranslation();
   const checkUploading = () => {
     for (let i = 0; i < files.length; i++) {
       if (!files[i].state) {
@@ -60,12 +61,12 @@ export default function TravellerFileUploader({
             console.error("File upload failed:", error);
             setIsLoading((prevLoading) => ({ ...prevLoading, [index]: false }));
           });
-      }
+      } 
     });
   }, [TravellerFiles, files, isLoading]);
 
   useEffect(() => {
-    console.log(idx);
+
   }, [idx]);
 
   useEffect(() => {
@@ -80,7 +81,7 @@ export default function TravellerFileUploader({
           <div key={index} className="flex items-center justify-between w-full">
             <span>{file.file.name}</span>
             {isLoading[index] ? (
-              <span>Loading...</span>
+              <span>{t("Loading")}</span>
             ) : (
               <button onClick={() => handleDeleteFile(index)}>
                 <svg
@@ -117,7 +118,7 @@ export default function TravellerFileUploader({
               htmlFor={`file-upload-${idx}`}
               className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
             >
-              <span>ارفع ملفات ذات صلة بالمسافر</span>
+              <span>{t("Upload_Files")}</span>
               <input
                 id={`file-upload-${idx}`}
                 name="file-upload"

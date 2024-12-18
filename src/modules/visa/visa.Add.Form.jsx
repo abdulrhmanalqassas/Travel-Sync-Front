@@ -42,10 +42,8 @@ export default function VisaForm({ handleUpdate }) {
     formHandler.resetForm();
   };
   const x = (selectedKeys) => {
-    console.log(selectedKeys.target.value);
     const selectedValues = Array.from(selectedKeys.target.value.split(","));
     formHandler.setFieldValue("ReadyVisa.roomFeatures", selectedValues);
-    console.log(selectedValues);
   };
   const handleSelectChange = (selectedKeys) => {
     if (
@@ -55,13 +53,12 @@ export default function VisaForm({ handleUpdate }) {
     } else {
       setCustomFeatureVisible(false);
       const selectedValues = Array.from(selectedKeys.target.value.split(","));
-      console.log(selectedValues);
+
       formHandler.setFieldValue("ReadyVisa.roomFeatures", selectedValues);
     }
   };
   const handleAddCustomFeature = () => {
     if (customFeature.name.trim() && customFeature.ar_name.trim()) {
-      console.log("form hand val", ...formHandler?.values?.ReadyVisa?.name);
       setRoomFeatures((prevState) => [
         ...prevState,
         { key: customFeature.name, label: customFeature.ar_name },
@@ -132,7 +129,6 @@ export default function VisaForm({ handleUpdate }) {
 
     onSubmit: async (values, { resetForm }) => {
       try {
-        console.log("valuse for room:", values);
         let imageIds;
         if (roomImages.length !== 0) {
           imageIds = await uploadImage(roomImages, setIsLoading, setApiError);

@@ -208,5 +208,16 @@
   "hotels_with_price": "Hotels with price",
   "safari_with_price": "Safari with price",
   "standard-packages_with_price": "Standard Packages with price",
-  "transportations_with_price": "Transportations with price"
+  "transportations_with_price": "Transportations with price",
+  "action_required": "  Please provide the reasons for the change.",
+  "accept":"Accept",
+  "accept_reservation":"Accept Reservation",
+  "confirm_this_reservation":"Are you sure you want to confirm this reservation?",
+  "Loading":"Loading",
+  "Upload_Files":"Upload Files",
+  "please_reason":"Please write the reason",
+  "tab_reservation":"All Reservations",
+  "cancel_reason":"Are you sure you want to cancel this reservation?",
+  "Visa_Application":"Visa Application"
+
 }

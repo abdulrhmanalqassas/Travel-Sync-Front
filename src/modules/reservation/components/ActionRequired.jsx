@@ -69,7 +69,7 @@ export default function ActionRequired({ id, handleUpdate }) {
                     isInvalid={
                       formHandler.touched.comment && formHandler.errors.comment
                     }
-                    errorMessage="Please write the reason"
+                    errorMessage={t("please_reason")}
                   />
                 </div>
               </ModalBody>

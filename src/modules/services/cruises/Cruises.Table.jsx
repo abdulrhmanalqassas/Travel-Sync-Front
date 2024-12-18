@@ -108,7 +108,6 @@ export default function CruisesTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((service, columnKey) => {
-    console.log("service:", service);
     const cellValue = service[columnKey];
     switch (columnKey) {
       case "airline":
@@ -248,7 +247,7 @@ export default function CruisesTable({ data, isLoading, handleUpdate }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            {t("Total") +" "+data.length +" "+t("services")}
+            {t("Total") + " " + data.length + " " + t("services")}
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:

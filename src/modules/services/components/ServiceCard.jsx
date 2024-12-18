@@ -13,11 +13,11 @@ export default function ServiceCard({
   isOffer,
   type,
   locationUrl,
-  data
+  data,
 }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  console.log("data in service card", data);
+
   return (
     <div className="flex justify-between gap-6 p-3 border-2 rounded-lg bg-slate-50 m-2 shadow-md">
       {console.log("type in service card", type)}

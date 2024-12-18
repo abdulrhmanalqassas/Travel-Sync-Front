@@ -41,7 +41,7 @@ async function DeleteVisa(id, callback) {
       console.error(error.message);
     });
 
-  console.log(data);
+
 
   if (data?.status === 204) {
     deleted();
@@ -50,7 +50,7 @@ async function DeleteVisa(id, callback) {
 }
 
 async function addVisa(values, setIsLoading, callback) {
-  console.log(values);
+
   // Set loading state to true
   setIsLoading(true);
 
@@ -123,7 +123,7 @@ async function getVisaByImg(country ,setData, setIsLoading) {
         console.error(error.message);
       });
   
-    console.log(data);
+
   
     if (data?.status === 204) {
       deleted();
@@ -132,7 +132,7 @@ async function getVisaByImg(country ,setData, setIsLoading) {
   }
   
   async function addVisaByImg(values, setIsLoading, callback) {
-    console.log(values);
+
     // Set loading state to true
     setIsLoading(true);
   

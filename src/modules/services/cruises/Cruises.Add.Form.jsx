@@ -91,7 +91,6 @@ export default function CruisesForm({ handleUpdate }) {
 
     onSubmit: async (values, { resetForm }) => {
       try {
-        console.log("valuse for cruise:", values);
         let imageIds;
         if (cruiseImages.length !== 0) {
           imageIds = await uploadImage(cruiseImages, setIsLoading, setApiError);

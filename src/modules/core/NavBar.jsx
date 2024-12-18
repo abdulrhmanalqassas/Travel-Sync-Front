@@ -4,12 +4,12 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   // !Handling title (Need Actions) .
   const { user, isLoaded } = useAuth();
-
+  const language = i18n.language;
   useEffect(() => {
-    console.log("pathname", user);
+  
   }, [user]);
 
   // const formattedDate = new Date().toLocaleDateString("en-UK", {
@@ -43,8 +43,23 @@ const NavBar = () => {
 
     return formattedDate;
   };
+  const formatDateInArabic = () => {
+    const date = new Date();
 
-  const formattedDate = formatDate();
+    const day = date.toLocaleString("ar-EG", { day: "numeric" });
+    const month = date.toLocaleString("ar-EG", { month: "long" });
+    const year = date.toLocaleString("ar-EG", { year: "numeric" });
+
+    const formattedDate = `${day} ${month} ${year}`;
+
+    return formattedDate;
+  };
+
+  
+
+  const formattedDate = language === "ar" ? formatDateInArabic() : formatDate();
+
+
 
   return (
     <div className="h-[80px] bg-second flex items-center justify-between px-5">
@@ -53,7 +68,8 @@ const NavBar = () => {
           {t("Welcome")}, {user.firstName}{" "}
         </h1>
         <h3 className="text-small  text-[#8f9191] ">
-          {t("Today_is") }{formattedDate}
+          {t("Today_is")}
+          {formattedDate}
         </h3>
       </div>
       <div className="text-black py-3 px-[20px] gap-4  flex flex-col justify-center items-start">

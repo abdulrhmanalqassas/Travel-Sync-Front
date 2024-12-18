@@ -28,8 +28,6 @@ export default function CruisesFormEdit({ handleUpdate, cruiseID, data }) {
   const [isLoading, setIsLoading] = useState("");
   const [apiError, setApiError] = useState("");
 
-  console.log("data", data);
-
   const formHandler = useFormik({
     initialValues: {
       service: {
@@ -84,7 +82,6 @@ export default function CruisesFormEdit({ handleUpdate, cruiseID, data }) {
     },
 
     onSubmit: async (values, { resetForm }) => {
-      console.log("values:", values);
       if (cruiseImages.length !== 0) {
         const imageIds = await uploadImage(
           cruiseImages,
