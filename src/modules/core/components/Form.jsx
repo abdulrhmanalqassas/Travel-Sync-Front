@@ -11,7 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 // import TravellerFileUploader from "../reservation/components/TravellerFileUploader";
 
-// Helper function to create form inputs based on validation schema
+// // Helper function to create form inputs based on validation schema
 // const generateFormInputs = (schema, formHandler, path = "") => {
 //   return Object.keys(schema?.fields).map((key) => {
 //     const field = schema.fields[key];
@@ -38,32 +38,32 @@ import { useTranslation } from "react-i18next";
 //     );
 //   });
 // };
-const generateFormInputs = (schema, formHandler) => {
-  return Object.keys(schema?.fields).map((key) => {
-    const field = schema.fields[key];
-    const fieldPath = key;
-    const fieldType = field.type === "number" ? "number" : "text";
-    return (
-      <div key={fieldPath}>
-        {" "}
-        <Input
-          id={fieldPath}
-          name={fieldPath}
-          type={fieldType}
-          label={key}
-          radius="lg"
-          onChange={formHandler.handleChange}
-          onBlur={formHandler.handleBlur}
-          value={formHandler.values[fieldPath] || ""}
-          isInvalid={
-            formHandler.errors[fieldPath] && formHandler.touched[fieldPath]
-          }
-          errorMessage={formHandler.errors[fieldPath]}
-        />{" "}
-      </div>
-    );
-  });
-};
+// const generateFormInputs = (schema, formHandler) => {
+//   return Object.keys(schema?.fields).map((key) => {
+//     const field = schema.fields[key];
+//     const fieldPath = key;
+//     const fieldType = field.type === "number" ? "number" : "text";
+//     return (
+//       <div key={fieldPath}>
+//         {" "}
+//         <Input
+//           id={fieldPath}
+//           name={fieldPath}
+//           type={fieldType}
+//           label={key}
+//           radius="lg"
+//           onChange={formHandler.handleChange}
+//           onBlur={formHandler.handleBlur}
+//           value={formHandler.values[fieldPath] || ""}
+//           isInvalid={
+//             formHandler.errors[fieldPath] && formHandler.touched[fieldPath]
+//           }
+//           errorMessage={formHandler.errors[fieldPath]}
+//         />{" "}
+//       </div>
+//     );
+//   });
+// };
 
 // Your custom function
 const createFormikConfig = (initialValues, validationSchema, handleSubmit) => {
@@ -88,12 +88,15 @@ const Form = ({ initialValues, handleSubmit, validationSchema }) => {
         <div className="flex flex-col gap-4">
           <div className="w-1/2">
             <div className="grid grid-cols-2 gap-3">
-             
-              {generateFormInputs(validationSchema, formHandler)}
+              {/* {generateFormInputs(validationSchema, formHandler)} */}
             </div>
           </div>
         </div>
-        <Button type="submit" className="bg-foreground text-background mt-2" size="lg">
+        <Button
+          type="submit"
+          className="bg-foreground text-background mt-2"
+          size="lg"
+        >
           {t("add_visa")}
         </Button>
       </form>

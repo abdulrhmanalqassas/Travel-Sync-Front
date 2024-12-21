@@ -6,6 +6,7 @@ import Logout from "../auth/components/Logout";
 import { IoPeopleSharp } from "react-icons/io5";
 import { SiOnlyoffice } from "react-icons/si";
 import { GrServices } from "react-icons/gr";
+import { LuPackageOpen } from "react-icons/lu";
 import { IoDocumentText } from "react-icons/io5";
 import { PiCurrencyDollarFill } from "react-icons/pi";
 import useAuth from "../auth/context/use-auth";
@@ -68,6 +69,11 @@ const SideBar = () => {
       title: t("Dashboard"),
       path: "/user/Home",
       icon: <IoHome className={ICON_STYLE} />,
+    },
+    {
+      title: t("Request_Package"),
+      path: "/user/requestPackage",
+      icon: <LuPackageOpen className={ICON_STYLE} />,
     },
     {
       title: t("Request_Visa"),

@@ -35,6 +35,7 @@ import VisaViewPage from "./modules/visa/pages.js/visa.page";
 import VisaReserveService from "./modules/visa/pages.js/VisaReserveService.user";
 import VisaReservationPageUser from "./modules/visa/pages.js/VisaReservationPage.user";
 import VisaReservationPage from "./modules/visa/pages.js/ReservationPage.admin";
+import RequestPackage from "./modules/Package/pages/requistPakage.user.page";
 
 function App() {
   const { i18n } = useTranslation();
@@ -295,7 +296,7 @@ function App() {
               </WithPageRequiredAuth>
             }
           />
-           <Route
+          <Route
             path="/user/transportations/:id"
             element={
               <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
@@ -307,13 +308,16 @@ function App() {
               </WithPageRequiredAuth>
             }
           />
-          <Route path="/user/standard-packages/:id" element={
-            <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
-              <Layout>
-            <ReserveService type={"standard-packages"} />
-              </Layout>
-            </WithPageRequiredAuth>
-            } />
+          <Route
+            path="/user/standard-packages/:id"
+            element={
+              <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
+                <Layout>
+                  <ReserveService type={"standard-packages"} />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
           <Route
             path="/user/hotels/:id"
             element={
@@ -404,6 +408,7 @@ function App() {
               </WithPageRequiredAuth>
             }
           />
+
           <Route
             path="/user/requestedVisa"
             element={
@@ -426,6 +431,18 @@ function App() {
               >
                 <Layout>
                   <VisaRequired />
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+          <Route
+            path="user/requestPackage"
+            element={
+              <WithPageRequiredAuth
+                options={{ roles: [RoleEnum.admin, RoleEnum.travelAgent] }}
+              >
+                <Layout>
+                  <RequestPackage />
                 </Layout>
               </WithPageRequiredAuth>
             }

@@ -53,7 +53,7 @@ const ReserveService = () => {
   // Use useFormik for form handling
   const formHandler = useFormik({
     initialValues: {
-      country: "india",
+      country: country,
       // visaRequirementId: id,
       quantity: 1,
       travelers: travelers,
@@ -74,7 +74,6 @@ const ReserveService = () => {
       ),
     }),
     onSubmit: (values, { resetForm }) => {
-
       // Handle form submission
       ReserveVisa(setIsLoading, values);
       resetForm();
@@ -130,42 +129,6 @@ const ReserveService = () => {
             </div>
 
             {/* Check-In Date Input */}
-          </div>
-          <div className=" rounded-2xl border-2 p-5 flex-none">
-            <h2 className="text-2xl font-semibold mb-2">
-              {t("Price_Details")}
-            </h2>
-            <div className="flex justify-between">
-              <p>
-                {formHandler.values.quantity} {t("night")}
-              </p>
-              <p>120$</p>
-            </div>
-            <div className="flex justify-between">
-              <p> {t("Taxes_fees")}</p>
-              <p>15$</p>
-            </div>
-            <div className="flex justify-between">
-              <p>{t("Charter at")}</p>
-              <p>10 {t("Rooms")}</p>
-            </div>
-            <div className="flex justify-between">
-              <p>{t("charter percenteage")}</p>
-              <p>10%</p>
-            </div>
-            <hr className="border-dashed border-2 my-3" />
-
-            <div className="flex justify-between">
-              <p className="font-semibold">{t("Total")}</p>
-              <p className="font-semibold">
-                {formHandler.values.quantity >= 10
-                  ? formHandler.values.quantity * 120 +
-                    15 * 0.9 +
-                    "$" +
-                    "   10% off"
-                  : formHandler.values.quantity * 120 + 15 + "$"}
-              </p>
-            </div>
           </div>
         </div>
 
