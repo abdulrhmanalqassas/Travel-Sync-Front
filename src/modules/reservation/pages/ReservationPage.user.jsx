@@ -13,15 +13,12 @@ import { useTranslation } from "react-i18next";
 
 const ReservationPageUser = () => {
   const { t } = useTranslation();
-
   const tokenObj = useAuthTokens();
   const token = tokenObj.tokensInfoRef.current.token;
-
   const [isLoading, setIsLoading] = useState(false);
   const [reservation, setReservation] = useState([]);
   const location = useLocation();
   const { pathname } = location;
-
   const id = parseInt(pathname.slice(pathname.lastIndexOf("/") + 1));
 
   useEffect(() => {
@@ -29,13 +26,49 @@ const ReservationPageUser = () => {
   }, [id, token]);
 
   const { name, email, phone } = reservation.travelOffice || {};
-  const { airline, arrivalAddress, arrivalCity } =
-    reservation.service?.flight || {};
   const { status, checkInDate, CancelReason, travelers } = reservation;
   const { price, type, description } = reservation.service || {};
+  const { name: packageName, description: packageDescription } =
+    reservation.customPackage || {};
+
+  // Get flight details only if service exists and has flight
+  const { airline, arrivalAddress, arrivalCity } =
+    reservation.service?.flight || {};
 
   const date = new Date(checkInDate);
   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+  const renderServiceOrPackageInfo = () => {
+    if (reservation.service) {
+      return (
+        <>
+          <div>
+            <h1 className="text-lg font-bold mb-2">{airline}</h1>
+            <p className="mb-2 text-sm">{arrivalAddress}</p>
+            <p className="text-sm">{arrivalCity}</p>
+          </div>
+          <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
+            <span className="text-gray-600">&nbsp;</span>
+          </div>
+          <div>
+            <h1 className="text-lg font-bold mb-2">{airline}</h1>
+            <p className="mb-2 text-sm">{type}</p>
+            <p className="text-sm">{description}</p>
+          </div>
+        </>
+      );
+    } else if (reservation.customPackage) {
+      return (
+        <>
+          <div>
+            <h1 className="text-lg font-bold mb-2">{packageName}</h1>
+            <p className="text-sm">{packageDescription}</p>
+          </div>
+        </>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="m-5 p-5 rounded-lg bg-white">
@@ -45,20 +78,19 @@ const ReservationPageUser = () => {
         </div>
       ) : (
         <>
-          <div className=" flex flex-col mb-4 rounded-3xl border-grey border-2">
-            <div className=" flex justify-between p-3">
+          <div className="flex flex-col mb-4 rounded-3xl border-grey border-2">
+            <div className="flex justify-between p-3">
               {status === "pending" ? (
                 <Tooltip
                   key={"warning"}
                   color={"warning"}
                   content={"Created at: " + formattedDate}
-                  className="capitalize "
+                  className="capitalize"
                 >
                   <Button
                     variant="flat"
                     color={"warning"}
-                    className="capitalize  h-[35px]  px-2 gap-0
-            "
+                    className="capitalize h-[35px] px-2 gap-0"
                   >
                     <LuClock3 className="w-4 h-4" /> &nbsp;
                     {"Pending"}
@@ -69,13 +101,12 @@ const ReservationPageUser = () => {
                   key={"danger"}
                   color={"danger"}
                   content={"Created at: " + formattedDate}
-                  className="capitalize "
+                  className="capitalize"
                 >
                   <Button
                     variant="flat"
                     color={"danger"}
-                    className="capitalize  h-[35px]  px-2 gap-0
-            "
+                    className="capitalize h-[35px] px-2 gap-0"
                   >
                     <ImCancelCircle className="w-4 h-4" /> &nbsp;
                     {"Canceled"}
@@ -86,13 +117,12 @@ const ReservationPageUser = () => {
                   key={"secondary"}
                   color={"secondary"}
                   content={"Created at: " + formattedDate}
-                  className="capitalize "
+                  className="capitalize"
                 >
                   <Button
                     variant="flat"
                     color={"secondary"}
-                    className="capitalize  h-[35px]  px-2 gap-0
-            "
+                    className="capitalize h-[35px] px-2 gap-0"
                   >
                     <FaExclamationCircle className="w-4 h-4" /> &nbsp;
                     {"Action required"}
@@ -103,13 +133,12 @@ const ReservationPageUser = () => {
                   key={"success"}
                   color={"success"}
                   content={"Created at: " + formattedDate}
-                  className="capitalize "
+                  className="capitalize"
                 >
                   <Button
                     variant="flat"
                     color={"success"}
-                    className="capitalize  h-[35px]  px-2 gap-0
-            "
+                    className="capitalize h-[35px] px-2 gap-0"
                   >
                     <MdFileDownloadDone className="w-4 h-4" /> &nbsp;
                     {"Reserved"}
@@ -119,7 +148,7 @@ const ReservationPageUser = () => {
               <p>{formattedDate}</p>
             </div>
             <div className="text-black flex justify-evenly items-center mb-5">
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center">
                 <Avatar
                   isBordered
                   color="success"
@@ -133,7 +162,6 @@ const ReservationPageUser = () => {
                     {name?.length > 20 ? "...." : ""}
                   </h4>
                   <h5 className="text-md text-gray-600">
-                    {" "}
                     {email?.slice(0, 20)}
                     {email?.length > 20 ? "...." : ""}
                   </h5>
@@ -143,36 +171,21 @@ const ReservationPageUser = () => {
               <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
                 <span className="text-gray-600">&nbsp;</span>
               </div>
-              <div>
-                <h1 className="text-lg font-bold mb-2">{airline}</h1>
-                <p className="mb-2 text-sm">{arrivalAddress}</p>
-                <p className="text-sm">{arrivalCity}</p>
-              </div>
-              <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
-                <span className="text-gray-600">&nbsp;</span>
-              </div>
-              <div>
-                <h1 className="text-lg font-bold mb-2">{airline}</h1>
-                <p className="mb-2 text-sm">{type}</p>
-                <p className="text-sm">{description}</p>
-              </div>
+              {renderServiceOrPackageInfo()}
               <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
                 <span className="text-gray-600">&nbsp;</span>
               </div>
               <div>
                 <h1 className="text-lg font-bold mb-2">{t("total_price")}</h1>
-                <p className="text-sm text-center">{price}$</p>
+                <p className="text-sm text-center">{reservation.totalPrice}$</p>
               </div>
             </div>
-            {/* Actions */}
           </div>
-          <div className="flex flex-col   ">
-            {CancelReason ? (
+          <div className="flex flex-col">
+            {CancelReason && (
               <div className="bg-gray-200 p-6 rounded-3xl mb-5">
                 <p>{CancelReason}</p>
               </div>
-            ) : (
-              ""
             )}
           </div>
           <ReservationTable users={travelers} isLoading={isLoading} />

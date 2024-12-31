@@ -33,21 +33,26 @@ import { displayByLanguage } from "../../utils/helper";
 const INITIAL_VISIBLE_COLUMNS = [
   "type",
   "name",
+  "country",
+  "days",
   "quantityAvailable",
-  "endTime",
+  "price",
   "actions",
 ];
 
 export default function VisaTable({ data, isLoading, handleUpdate }) {
-
   const columns = [
     { name: "ID", uid: "id", sortable: true },
-    { name: "name", uid: "name", sortable: true },
-    { name: "price", uid: "price" },
-    { name: "quantityAvailable", uid: "quantityAvailable" },
-    { name: "type", uid: "type", sortable: true },
+    { name: "Name", uid: "name", sortable: true },
+    { name: "Price", uid: "price", sortable: true },
+    { name: "Country", uid: "country", sortable: true },
+    { name: "Days", uid: "days", sortable: true },
+    { name: "Type", uid: "type", sortable: true },
+    { name: "Quantity", uid: "quantityAvailable", sortable: true },
+    { name: "Description", uid: "description", sortable: true },
     { name: "ACTIONS", uid: "actions" },
   ];
+
   const { t, i18n } = useTranslation();
   const CurrentLang = i18n.language;
 
@@ -58,37 +63,38 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "age",
+    column: "name",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
 
   const pages = Math.ceil(data?.length / rowsPerPage);
-
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
-
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns, CurrentLang]);
+  }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredServices = [...data];
+    let filteredServices = [...(data || [])];
 
     if (hasSearchFilter) {
       filteredServices = filteredServices.filter((service) => {
-        const nameMatches = service?.ReadyVisa?.name
-          .toLowerCase()
-          .includes(filterValue.toLowerCase());
-        const arNameMatches = service.ar_name
-          ? service.ReadyVisa?.ar_name
-              .toLowerCase()
-              .includes(filterValue.toLowerCase())
-          : false;
-        return nameMatches || arNameMatches;
+        // Safely handle null values and perform case-insensitive search
+        const searchValue = filterValue.toLowerCase();
+        const readyVisaName = service?.ReadyVisa?.name?.toLowerCase() || "";
+        const readyVisaArName =
+          service?.ReadyVisa?.ar_name?.toLowerCase() || "";
+        const serviceName = service?.name?.toLowerCase() || "";
+
+        return (
+          readyVisaName.includes(searchValue) ||
+          readyVisaArName.includes(searchValue) ||
+          serviceName.includes(searchValue)
+        );
       });
     }
     return filteredServices;
@@ -97,124 +103,74 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-
     return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
     return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column];
-      const second = b[sortDescriptor.column];
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+      let first = a[sortDescriptor.column];
+      let second = b[sortDescriptor.column];
 
+      // Handle ReadyVisa properties
+      if (sortDescriptor.column === "name") {
+        first = a.ReadyVisa?.name || a.name;
+        second = b.ReadyVisa?.name || b.name;
+      } else if (sortDescriptor.column === "country") {
+        first = a.ReadyVisa?.country;
+        second = b.ReadyVisa?.country;
+      } else if (sortDescriptor.column === "days") {
+        first = a.ReadyVisa?.days;
+        second = b.ReadyVisa?.days;
+      }
+
+      // Handle null values
+      if (first === null || first === undefined) first = "";
+      if (second === null || second === undefined) second = "";
+
+      const cmp = first < second ? -1 : first > second ? 1 : 0;
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((service, columnKey) => {
-    const cellValue = displayByLanguage(CurrentLang, columnKey, service);
-    switch (columnKey) {
-      case "departureAddress":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.departureAddress}
-          </div>
-        );
-
-      case "type":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.type}
-          </div>
-        );
-      case "arrivalAddress":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.arrivalAddress}
-          </div>
-        );
-      case "departureTime":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.departureTime}
-          </div>
-        );
-      case "arrivalTime":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.arrivalTime}
-          </div>
-        );
-      case "departingDate":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.departingDate}
-          </div>
-        );
-      case "returningDate":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.returningDate}
-          </div>
-        );
-      case "Rooms Description":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.description}
-          </div>
-        );
-
-      case "roomArea":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.roomArea}
-          </div>
-        );
-      case "hotelId":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.hotelId}
-          </div>
-        );
-
-      case "numberOfBeds":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.numberOfBeds}
-          </div>
-        );
-
-      case "numberOfSleeps":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.ReadyVisa?.numberOfSleeps}
-          </div>
-        );
-
-      case "actions":
-        return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Edit service">
-              {/* <RoomsFormEdit
-                handleUpdate={handleUpdate}
-                roomID={service.id}
-                data={service}
-              /> */}
-            </Tooltip>
-            <Tooltip color="danger" content="Delete service">
-              <DeleteModal
-                deleteFun={() => {
-                  DeleteService(service.id, handleUpdate, "ReadyVisa");
-                }}
-                text={"room"}
-              />
-            </Tooltip>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
+  const renderCell = React.useCallback(
+    (service, columnKey) => {
+      switch (columnKey) {
+        case "name":
+          return service.ReadyVisa?.name || service.name || "-";
+        case "country":
+          return service.ReadyVisa?.country || "-";
+        case "days":
+          return service.ReadyVisa?.days || "-";
+        case "type":
+          return service.ReadyVisa?.type || service.type || "-";
+        case "description":
+          return service.ReadyVisa?.description || service.description || "-";
+        case "price":
+          return `${service.price || 0} ${t("currency")}`;
+        case "quantityAvailable":
+          return service.quantityAvailable || 0;
+        case "actions":
+          return (
+            <div className="relative flex items-center gap-2">
+              <Tooltip content="Edit service">
+                {/* Add your edit component here */}
+              </Tooltip>
+              <Tooltip color="danger" content="Delete service">
+                <DeleteModal
+                  deleteFun={() => {
+                    DeleteService(service.id, handleUpdate, "ReadyVisa");
+                  }}
+                  text={"visa"}
+                />
+              </Tooltip>
+            </div>
+          );
+        default:
+          return service[columnKey];
+      }
+    },
+    [t],
+  );
 
   const onRowsPerPageChange = React.useCallback((e) => {
     setRowsPerPage(Number(e.target.value));
@@ -280,10 +236,10 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            {t("Total") + " " + data.length + " " + t("services")}
+            {t("Total") + " " + (data?.length || 0) + " " + t("services")}
           </span>
           <label className="flex items-center text-default-400 text-small">
-            {t("Rows_per_age")}
+            {t("Rows_per_page")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -301,8 +257,8 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
     visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
-    data.length,
-    hasSearchFilter,
+    data?.length,
+    t,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -322,26 +278,7 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
         />
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
-
-  const classNames = React.useMemo(
-    () => ({
-      wrapper: ["max-h-[382px]", "max-w-3xl"],
-      th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
-      td: [
-        // changing the rows border radius
-        // first
-        "group-data-[first=true]:first:before:rounded-none",
-        "group-data-[first=true]:last:before:rounded-none",
-        // middle
-        "group-data-[middle=true]:before:rounded-none",
-        // last
-        "group-data-[last=true]:first:before:rounded-none",
-        "group-data-[last=true]:last:before:rounded-none",
-      ],
-    }),
-    [],
-  );
+  }, [page, pages, hasSearchFilter]);
 
   return (
     <Table
@@ -349,15 +286,15 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
       removeWrapper
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
-      aria-label="Rooms Table."
-      checkboxesProps={{
-        classNames: {
-          wrapper: " after:bg-foreground after:text-background text-background",
-          base: "overflow-scroll",
-          table: "overflow-scroll",
-        },
+      classNames={{
+        wrapper: ["max-h-[382px]", "max-w-3xl"],
+        th: [
+          "bg-transparent",
+          "text-default-500",
+          "border-b",
+          "border-divider",
+        ],
       }}
-      classNames={classNames}
       selectedKeys={selectedKeys}
       sortDescriptor={sortDescriptor}
       topContent={topContent}
@@ -369,7 +306,7 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
         {(column) => (
           <TableColumn
             key={column.uid}
-            align={column.uid === "actions" ? "center" : "end"}
+            align={column.uid === "actions" ? "center" : "start"}
             allowsSorting={column.sortable}
           >
             {t(column.name)}
@@ -379,7 +316,7 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
       <TableBody
         isLoading={isLoading}
         loadingContent={<Spinner label="Loading..." />}
-        emptyContent={"No hotels found"}
+        emptyContent={t("No_visas_found")}
         items={sortedItems}
       >
         {(item) => (

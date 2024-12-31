@@ -28,6 +28,17 @@ const ReserveService = () => {
         email: "",
         mobilePhone: "",
         dateOfBirth: "",
+        pleacOfBirth: "",
+        MaritalStatus: "",
+        Nationality: "",
+        occupation: "",
+        passportNumber: "",
+        passportExpiryDate: "",
+        passportIssuedDate: "",
+        address: "",
+        purposeOfTravel: "",
+        nameOfRelatives: "",
+        AddressOfRelatives: "",
       },
       fileIds: [],
     },
@@ -44,6 +55,17 @@ const ReserveService = () => {
           email: "",
           mobilePhone: "",
           dateOfBirth: "",
+          pleacOfBirth: "",
+          MaritalStatus: "",
+          Nationality: "",
+          occupation: "",
+          passportNumber: "",
+          passportExpiryDate: "",
+          passportIssuedDate: "",
+          address: "",
+          purposeOfTravel: "",
+          nameOfRelatives: "",
+          AddressOfRelatives: "",
         },
         fileIds: [],
       };
@@ -73,12 +95,22 @@ const ReserveService = () => {
             email: Yup.string().email("Invalid email address"),
             mobilePhone: Yup.string(),
             dateOfBirth: Yup.string(),
+            pleacOfBirth: Yup.string(),
+            MaritalStatus: Yup.string(),
+            Nationality: Yup.string(),
+            occupation: Yup.string(),
+            passportNumber: Yup.string(),
+            passportExpiryDate: Yup.string(),
+            passportIssuedDate: Yup.string(),
+            address: Yup.string(),
+            purposeOfTravel: Yup.string(),
+            nameOfRelatives: Yup.string(),
+            AddressOfRelatives: Yup.string(),
           }),
         }),
       ),
     }),
     onSubmit: (values, { resetForm }) => {
-
       // Handle form submission
       ReserveVisa(setIsLoading, values);
       resetForm();
@@ -222,6 +254,304 @@ const ReserveService = () => {
                 </div>
               </div>
             </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.pleacOfBirth`}
+                  type="text"
+                  label={t("Place_of_Birth")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.pleacOfBirth || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.pleacOfBirth &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.pleacOfBirth ? (
+                  <div className="text-red-600">
+                    {
+                      formHandler.errors.travelers[idx].travelerData
+                        .pleacOfBirth
+                    }
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.MaritalStatus`}
+                  type="text"
+                  label={t("Marital_Status")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.MaritalStatus || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.MaritalStatus &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.MaritalStatus ? (
+                  <div className="text-red-600">
+                    {
+                      formHandler.errors.travelers[idx].travelerData
+                        .MaritalStatus
+                    }
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.Nationality`}
+                  type="text"
+                  label={t("Nationality")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.Nationality || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.Nationality &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.Nationality ? (
+                  <div className="text-red-600">
+                    {formHandler.errors.travelers[idx].travelerData.Nationality}
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.occupation`}
+                  type="text"
+                  label={t("occupation")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.occupation || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.occupation &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.occupation ? (
+                  <div className="text-red-600">
+                    {formHandler.errors.travelers[idx].travelerData.occupation}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.passportNumber`}
+                  type="text"
+                  label={t("passportNumber")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.passportNumber || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.passportNumber &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.passportNumber ? (
+                  <div className="text-red-600">
+                    {
+                      formHandler.errors.travelers[idx].travelerData
+                        .passportNumber
+                    }
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.passportExpiryDate`}
+                  type="text"
+                  label={t("passportExpiryDate")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.passportExpiryDate || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.passportExpiryDate &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.passportExpiryDate ? (
+                  <div className="text-red-600">
+                    {
+                      formHandler.errors.travelers[idx].travelerData
+                        .passportExpiryDate
+                    }
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.passportIssuedDate`}
+                  type="text"
+                  label={t("passportIssuedDate")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.passportIssuedDate || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.passportIssuedDate &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.passportIssuedDate ? (
+                  <div className="text-red-600">
+                    {
+                      formHandler.errors.travelers[idx].travelerData
+                        .passportIssuedDate
+                    }
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.address`}
+                  type="text"
+                  label={t("address")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData?.address ||
+                    ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData?.address &&
+                formHandler.errors.travelers?.[idx]?.travelerData?.address ? (
+                  <div className="text-red-600">
+                    {formHandler.errors.travelers[idx].travelerData.address}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.purposeOfTravel`}
+                  type="text"
+                  label={t("purposeOfTravel")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.purposeOfTravel || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.purposeOfTravel &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.purposeOfTravel ? (
+                  <div className="text-red-600">
+                    {
+                      formHandler.errors.travelers[idx].travelerData
+                        .purposeOfTravel
+                    }
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.nameOfRelatives`}
+                  type="text"
+                  label={t("Name_of_Relatives")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.nameOfRelatives || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.nameOfRelatives &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.nameOfRelatives ? (
+                  <div className="text-red-600">
+                    {
+                      formHandler.errors.travelers[idx].travelerData
+                        .nameOfRelatives
+                    }
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Input
+                  id={`travelers[${idx}].travelerData.AddressOfRelatives`}
+                  type="text"
+                  label={t("Address_of_Relatives")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.travelerData
+                      ?.AddressOfRelatives || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.travelerData
+                  ?.AddressOfRelatives &&
+                formHandler.errors.travelers?.[idx]?.travelerData
+                  ?.AddressOfRelatives ? (
+                  <div className="text-red-600">
+                    {
+                      formHandler.errors.travelers[idx].travelerData
+                        .AddressOfRelatives
+                    }
+                  </div>
+                ) : null}
+              </div>
+            </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -284,8 +614,6 @@ const ReserveService = () => {
                       ?.mobiPhone || ""
                   }
                 />
-               
-             
               </div>
               <div>
                 <Input
@@ -301,7 +629,6 @@ const ReserveService = () => {
                     formHandler.values.travelers[idx]?.travelerData?.text || ""
                   }
                 />
-               
               </div>
             </div>
 

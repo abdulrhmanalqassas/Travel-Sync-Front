@@ -12,7 +12,7 @@ import StatusBadge from "../components/StatusBadge";
 import { useTranslation } from "react-i18next";
 
 const ReservationPage = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const tokenObj = useAuthTokens();
   const token = tokenObj.tokensInfoRef.current.token;
   const [isLoading, setIsLoading] = useState(false);
@@ -30,17 +30,45 @@ const ReservationPage = () => {
   }, [id, token]);
 
   const { name, email, phone } = reservation.travelOffice || {};
+  const { status, checkInDate, CancelReason, travelers } = reservation;
   const { airline, arrivalAddress, arrivalCity } =
     reservation.service?.flight || {};
-  const { status, checkInDate, CancelReason, travelers } = reservation;
   const { type, description } = reservation.service || {};
+  const { name: packageName, description: packageDescription } =
+    reservation.customPackage || {};
 
   const date = new Date(checkInDate);
   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
-  useEffect(() => {
-   
-  }, [travelers]);
+  const renderServiceOrPackageInfo = () => {
+    if (reservation.service) {
+      return (
+        <>
+          <div>
+            <h1 className="text-lg font-bold mb-2">{airline}</h1>
+            <p className="mb-2 text-sm">{arrivalAddress}</p>
+            <p className="text-sm">{arrivalCity}</p>
+          </div>
+          <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
+            <span className="text-gray-600">&nbsp;</span>
+          </div>
+          <div>
+            <h1 className="text-lg font-bold mb-2">{airline}</h1>
+            <p className="mb-2 text-sm">{type}</p>
+            <p className="text-sm">{description}</p>
+          </div>
+        </>
+      );
+    } else if (reservation.customPackage) {
+      return (
+        <div>
+          <h1 className="text-lg font-bold mb-2">{packageName}</h1>
+          <p className="text-sm">{packageDescription}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="m-5 mt-1 p-5 rounded-lg bg-white">
@@ -50,13 +78,13 @@ const ReservationPage = () => {
         </div>
       ) : (
         <>
-          <div className=" flex flex-col mb-4 rounded-lg border-grey border-2">
-            <div className=" flex justify-between p-3">
+          <div className="flex flex-col mb-4 rounded-lg border-grey border-2">
+            <div className="flex justify-between p-3">
               <StatusBadge status={status} />
               <p>{formattedDate}</p>
             </div>
             <div className="text-black flex justify-evenly items-center mb-5">
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center">
                 <Avatar
                   isBordered
                   color="success"
@@ -70,7 +98,6 @@ const ReservationPage = () => {
                     {name?.length > 20 ? "...." : ""}
                   </h4>
                   <h5 className="text-md text-gray-600">
-                    {" "}
                     {email?.slice(0, 20)}
                     {email?.length > 20 ? "...." : ""}
                   </h5>
@@ -80,19 +107,7 @@ const ReservationPage = () => {
               <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
                 <span className="text-gray-600">&nbsp;</span>
               </div>
-              <div>
-                <h1 className="text-lg font-bold mb-2">{airline}</h1>
-                <p className="mb-2 text-sm">{arrivalAddress}</p>
-                <p className="text-sm">{arrivalCity}</p>
-              </div>
-              <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
-                <span className="text-gray-600">&nbsp;</span>
-              </div>
-              <div>
-                <h1 className="text-lg font-bold mb-2">{airline}</h1>
-                <p className="mb-2 text-sm">{type}</p>
-                <p className="text-sm">{description}</p>
-              </div>
+              {renderServiceOrPackageInfo()}
               <div className="bg-gray-300 w-[2px] h-16 mx-4 flex items-center">
                 <span className="text-gray-600">&nbsp;</span>
               </div>
@@ -101,31 +116,22 @@ const ReservationPage = () => {
                 <p className="text-sm text-center">{reservation.totalPrice}$</p>
               </div>
             </div>
-            {/* Actions */}
           </div>
-          <div className="flex flex-col   ">
-            {CancelReason ? (
+          <div className="flex flex-col">
+            {CancelReason && (
               <div className="bg-gray-200 p-6 rounded-lg mb-5">
                 <p>{CancelReason}</p>
               </div>
-            ) : (
-              ""
             )}
             <div className="flex gap-4 mb-5">
-              {status === "pending" ? (
+              {status === "pending" && (
                 <>
                   <CancelReservation id={id} handleUpdate={handleUpdate} />
                   <div className="ml-auto self-end">
                     <ActionRequired id={id} handleUpdate={handleUpdate} />
                   </div>
+                  <AcceptReservation id={id} handleUpdate={handleUpdate} />
                 </>
-              ) : (
-                ""
-              )}
-              {status === "pending" ? (
-                <AcceptReservation id={id} handleUpdate={handleUpdate} />
-              ) : (
-                ""
               )}
             </div>
           </div>

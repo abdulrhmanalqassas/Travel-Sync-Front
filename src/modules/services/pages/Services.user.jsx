@@ -16,6 +16,7 @@ export default function ServicesView() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log(">>selected", selected);
     getService(setData, setIsLoading, selected);
   }, [selected]);
 
@@ -108,6 +109,17 @@ export default function ServicesView() {
         </div>
       ),
     },
+    // {
+    //   id: "custom-packages",
+    //   label: (
+    //     <div
+    //       className={`flex items-center space-x-2  ${selected == "custom-packages" ? "text-black" : " "} `}
+    //     >
+    //       <FiPackage className="w-5 h-5" />
+    //       <span>{t("Packages")}</span>
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (

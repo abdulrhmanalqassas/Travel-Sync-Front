@@ -180,6 +180,23 @@ export default function Services() {
             handleUpdate={handleUpdate}
           />
         </Tab> */}
+        {/* <Tab
+          key="custom-packages"
+          title={
+            <div
+              className={`flex items-center space-x-2  ${selected == "custom-packages" ? "text-black" : " "} `}
+            >
+              <FiPackage className="w-5 h-5" />
+              <span>{t("Packages")}</span>
+            </div>
+          }
+        >
+          <PackagesTable
+            data={data}
+            isLoading={isLoading}
+            handleUpdate={handleUpdate}
+          />
+        </Tab> */}
       </Tabs>
 
       {/* </div> */}

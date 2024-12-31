@@ -19,7 +19,7 @@ import {
   Spinner,
   Tooltip,
 } from "@nextui-org/react";
-
+import PackagesForm from "./Packages.Add.Form";
 import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
 import { capitalize } from "../../core/utils";
@@ -28,6 +28,7 @@ import { displayByLanguage } from "../../../utils/helper";
 const INITIAL_VISIBLE_COLUMNS = ["name", "city", "website", "actions"];
 
 export default function PackagesTable({ data, isLoading, handleUpdate }) {
+  console.log("data package>>>>>>>>>>>", data);
   const columns = [
     { name: "ID", uid: "id", sortable: true },
     { name: "NAME", uid: "name", sortable: true },
@@ -67,20 +68,21 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns,CurrentLang]);
+  }, [visibleColumns, CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...data];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-       {
-        const nameMatches = user.name.toLowerCase().includes(filterValue.toLowerCase());
-        const arNameMatches = user.ar_name ? user.ar_name.toLowerCase().includes(filterValue.toLowerCase()) : false;
-        return nameMatches || arNameMatches
-
-       },
-      );
+      filteredUsers = filteredUsers.filter((user) => {
+        const nameMatches = user.name
+          .toLowerCase()
+          .includes(filterValue.toLowerCase());
+        const arNameMatches = user.ar_name
+          ? user.ar_name.toLowerCase().includes(filterValue.toLowerCase())
+          : false;
+        return nameMatches || arNameMatches;
+      });
     }
     return filteredUsers;
   }, [data, filterValue]);
@@ -103,8 +105,6 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback((user, columnKey) => {
-    
-    
     const cellValue = displayByLanguage(CurrentLang, columnKey, user);
     switch (columnKey) {
       case "actions":
@@ -182,7 +182,7 @@ export default function PackagesTable({ data, isLoading, handleUpdate }) {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            {/* <AgenciesForm handleUpdate={handleUpdate} /> */}
+            <PackagesForm handleUpdate={handleUpdate} />
           </div>
         </div>
         <div className="flex justify-between items-center">

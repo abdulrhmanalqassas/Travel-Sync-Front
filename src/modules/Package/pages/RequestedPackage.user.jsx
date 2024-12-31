@@ -1,14 +1,14 @@
 import { Tabs, Tab, Pagination } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
-import ReservationCard from "../components/ReservationCard";
+import ReservationCard from "../../reservation/components/ReservationCard";
 import { ClockLoader } from "react-spinners";
-import { getAllReservations } from "../reservation.handlers";
+import { getAllReservations } from "../../reservation/reservation.handlers";
 import useAuthTokens from "../../auth/context/use-auth-tokens";
 import useAuth from "../../auth/context/use-auth";
 import { RoleEnum } from "../../../enums/role-enum";
 import { useTranslation } from "react-i18next";
 
-export default function Reservation() {
+export default function UserRequestedPackage() {
   const { t } = useTranslation();
   // Get auth token and user info
   const tokenObj = useAuthTokens();
@@ -23,14 +23,16 @@ export default function Reservation() {
   const [isLoading, setIsLoading] = useState(false);
   const [reservations, setReservations] = useState([]);
   const [page, setPage] = useState(1);
-  const limit = 6;
-
+  const limit = 8;
+  //handlen slected and go to bage 1 when tab is changed
+  useEffect(() => {
+    setPage(1);
+  }, [selected]);
   // Effect to update the total number of pages based on reservations count
   useEffect(() => {
     if (reservations.count !== undefined) {
       setTotal(Math.ceil(parseInt(reservations.count[selected]) / limit));
     }
-    console.log("reservations>>>>>>>>>", reservations);
   }, [reservations, selected]);
 
   // Effect to check if the user is an admin

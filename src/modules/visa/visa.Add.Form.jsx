@@ -22,6 +22,8 @@ import { uploadImage } from "../core/core.handlers";
 import Alert from "../core/components/Alert";
 import { addService, getService } from "../services/services.handlers.js";
 import { useTranslation } from "react-i18next";
+import CountrySelector from "../core/components/countrySelector.jsx";
+import { COUNTRIES } from "../core/components/countries.js";
 const initialValues = [
   { key: "dog", label: "Dog" },
   { key: "cat", label: "Cat" },
@@ -37,6 +39,8 @@ export default function VisaForm({ handleUpdate }) {
   const [roomFeatures, setRoomFeatures] = useState(initialValues);
   const [customFeature, setCustomFeature] = useState({ name: "", ar_name: "" });
   const [customFeatureVisible, setCustomFeatureVisible] = useState(false);
+  const [country, setCountry] = useState("AF");
+  const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
   const handleCloseModal = () => {
     formHandler.resetForm();
@@ -93,7 +97,7 @@ export default function VisaForm({ handleUpdate }) {
         ar_description: "تأشيرة شنغن",
         type: "Tourist",
         days: 1,
-        country: "France",
+        country: country,
         imageIds: [],
       },
     },
@@ -210,6 +214,15 @@ export default function VisaForm({ handleUpdate }) {
                         ))}
                       </Select>
                     </div> */}
+                    <CountrySelector
+                      id="countries"
+                      open={isSelectorOpen}
+                      onToggle={() => setIsSelectorOpen(!isSelectorOpen)}
+                      onChange={(val) => setCountry(val)}
+                      selectedValue={COUNTRIES.find(
+                        (option) => option.value === country,
+                      )}
+                    />
                     <div>
                       {/* {customFeatureVisible && (
                         <div className="mt-4">

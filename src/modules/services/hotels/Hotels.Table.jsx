@@ -91,7 +91,7 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
           "filterd user opj ##",
           user,
           "value : ",
-          user.name.toLowerCase().includes(filterValue.toLowerCase()),
+          user?.name?.toLowerCase().includes(filterValue.toLowerCase()),
         );
         const nameMatches = user.name
           .toLowerCase()

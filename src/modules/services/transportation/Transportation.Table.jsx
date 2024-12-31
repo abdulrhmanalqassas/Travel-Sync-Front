@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import {
   Table,
@@ -19,42 +16,42 @@ import {
   Spinner,
   Tooltip,
 } from "@nextui-org/react";
-
 import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
-import { capitalize } from "../../core/utils";
 import TransportationForm from "./Transportation.Add.Form";
 import TransportationFormEdit from "./Transportation.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
 import { useTranslation } from "react-i18next";
-import { displayByLanguage } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "type",
-  "NAME",
-  "quantityAvailable",
-  "endTime",
+  "name",
+  "departureAddress",
+  "arrivalAddress",
+  "departureTime",
+  "price",
   "actions",
 ];
 
 export default function TransportationTable({ data, isLoading, handleUpdate }) {
   const columns = [
     { name: "ID", uid: "id", sortable: true },
-    { name: "NAME", uid: "name", sortable: true },
-    { name: "price", uid: "price" },
-    { name: "quantityAvailable", uid: "quantityAvailable" },
-    { name: "savings", uid: "savings", sortable: true },
-    { name: "departureAddress", uid: "departureAddress", sortable: true },
-    { name: "arrivalAddress", uid: "arrivalAddress", sortable: true },
-    { name: "type", uid: "type", sortable: true },
-    { name: "departureTime", uid: "departureTime" },
-    { name: "arrivalTime", uid: "arrivalTime" },
-    { name: "departingDate", uid: "departingDate" },
-    { name: "returningDate", uid: "returningDate" },
-    { name: "Transportation Description", uid: "description" },
-
-    { name: "ACTIONS", uid: "actions" },
+    { name: "Name", uid: "name", sortable: true },
+    { name: "Price", uid: "price", sortable: true },
+    { name: "Vehicle Type", uid: "type", sortable: true },
+    { name: "Departure", uid: "departureAddress", sortable: true },
+    { name: "Arrival", uid: "arrivalAddress", sortable: true },
+    { name: "Departure Time", uid: "departureTime", sortable: true },
+    { name: "Arrival Time", uid: "arrivalTime", sortable: true },
+    { name: "Departure Date", uid: "departingDate", sortable: true },
+    { name: "Return Date", uid: "returningDate", sortable: true },
+    { name: "Driver Name", uid: "driverName", sortable: true },
+    { name: "Car Model", uid: "carModel", sortable: true },
+    { name: "Car Plate", uid: "carPlate", sortable: true },
+    { name: "Quantity", uid: "quantityAvailable", sortable: true },
+    { name: "Description", uid: "description", sortable: true },
+    { name: "Actions", uid: "actions" },
   ];
 
   const { t, i18n } = useTranslation();
@@ -63,39 +60,40 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS),
+    new Set(INITIAL_VISIBLE_COLUMNS)
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "age",
+    column: "name",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
 
   const pages = Math.ceil(data?.length / rowsPerPage);
-
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
-
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid),
+      Array.from(visibleColumns).includes(column.uid)
     );
-  }, [visibleColumns, CurrentLang]);
+  }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredServices = [...data];
+    let filteredServices = [...(data || [])];
 
     if (hasSearchFilter) {
       filteredServices = filteredServices.filter((service) => {
-        const nameMatches = service.name
-          .toLowerCase()
-          .includes(filterValue.toLowerCase());
-        const arNameMatches = service.ar_name
-          ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase())
-          : false;
-        return nameMatches || arNameMatches;
+        const searchValue = filterValue.toLowerCase();
+        const serviceName = service?.name?.toLowerCase() || '';
+        const transportationType = service?.transportation?.type?.toLowerCase() || '';
+        const driverName = service?.transportation?.carDriver?.driverName?.toLowerCase() || '';
+        
+        return (
+          serviceName.includes(searchValue) ||
+          transportationType.includes(searchValue) ||
+          driverName.includes(searchValue)
+        );
       });
     }
     return filteredServices;
@@ -104,73 +102,80 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-
     return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
     return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column];
-      const second = b[sortDescriptor.column];
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+      let first = a[sortDescriptor.column];
+      let second = b[sortDescriptor.column];
+      
+      // Handle nested transportation and carDriver properties
+      if (["type", "departureAddress", "arrivalAddress", "departureTime", "arrivalTime", "departingDate", "returningDate", "description"].includes(sortDescriptor.column)) {
+        first = a.transportation?.[sortDescriptor.column];
+        second = b.transportation?.[sortDescriptor.column];
+      } else if (["driverName", "carModel", "carPlate"].includes(sortDescriptor.column)) {
+        first = a.transportation?.carDriver?.[sortDescriptor.column];
+        second = b.transportation?.carDriver?.[sortDescriptor.column];
+      }
 
+      // Handle null values
+      if (first === null || first === undefined) first = '';
+      if (second === null || second === undefined) second = '';
+
+      const cmp = first < second ? -1 : first > second ? 1 : 0;
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
+  const formatDateTime = (dateTimeStr) => {
+    if (!dateTimeStr) return "-";
+    const date = new Date(dateTimeStr);
+    return date.toLocaleString(CurrentLang, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   const renderCell = React.useCallback((service, columnKey) => {
-    const cellValue = displayByLanguage(CurrentLang, columnKey, service);
-
     switch (columnKey) {
-      case "departureAddress":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.transportation?.departureAddress}
-          </div>
-        );
-
+      case "name":
+        return service.name || "-";
       case "type":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.transportation?.type}
-          </div>
-        );
+        return service.transportation?.type || "-";
+      case "departureAddress":
+        return CurrentLang === 'ar' 
+          ? service.transportation?.ar_departureAddress || "-"
+          : service.transportation?.departureAddress || "-";
       case "arrivalAddress":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.transportation?.arrivalAddress}
-          </div>
-        );
+        return CurrentLang === 'ar'
+          ? service.transportation?.ar_arrivalAddress || "-"
+          : service.transportation?.arrivalAddress || "-";
       case "departureTime":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.transportation?.departureTime}
-          </div>
-        );
+        return formatDateTime(service.transportation?.departureTime);
       case "arrivalTime":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.transportation?.arrivalTime}
-          </div>
-        );
+        return formatDateTime(service.transportation?.arrivalTime);
       case "departingDate":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.transportation?.departingDate}
-          </div>
-        );
+        return formatDateTime(service.transportation?.departingDate);
       case "returningDate":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.transportation?.returningDate}
-          </div>
-        );
-      case "Transportation Description":
-        return (
-          <div className="relative flex items-center   gap-2">
-            {service.transportation?.description}
-          </div>
-        );
+        return formatDateTime(service.transportation?.returningDate);
+      case "driverName":
+        return service.transportation?.carDriver?.driverName || "-";
+      case "carModel":
+        return service.transportation?.carDriver?.carModel || "-";
+      case "carPlate":
+        return service.transportation?.carDriver?.carPlate || "-";
+      case "description":
+        return CurrentLang === 'ar'
+          ? service.transportation?.ar_description || "-"
+          : service.transportation?.description || "-";
+      case "price":
+        return `${service.price || 0} ${t("currency")}`;
+      case "quantityAvailable":
+        return service.quantityAvailable || 0;
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -186,15 +191,15 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
                 deleteFun={() => {
                   DeleteService(service.id, handleUpdate, "transportations");
                 }}
-                text={"transportation"}
+                text="transportation"
               />
             </Tooltip>
           </div>
         );
       default:
-        return cellValue;
+        return service[columnKey] || "-";
     }
-  }, []);
+  }, [CurrentLang, t]);
 
   const onRowsPerPageChange = React.useCallback((e) => {
     setRowsPerPage(Number(e.target.value));
@@ -220,7 +225,7 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",
             }}
-            placeholder={t("Search_by_name")}
+            placeholder={t("Search_by_name_or_driver")}
             size="sm"
             startContent={<SearchIcon className="text-default-300" />}
             value={filterValue}
@@ -260,10 +265,10 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            {t("Total") + " " + data.length + " " + t("services")}
+            {t("Total") + " " + (data?.length || 0) + " " + t("services")}
           </span>
           <label className="flex items-center text-default-400 text-small">
-            {t("Rows_per_age")}
+            {t("Rows_per_page")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -276,14 +281,7 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
         </div>
       </div>
     );
-  }, [
-    filterValue,
-    visibleColumns,
-    onSearchChange,
-    onRowsPerPageChange,
-    data.length,
-    hasSearchFilter,
-  ]);
+  }, [filterValue, visibleColumns, onSearchChange, onRowsPerPageChange, data?.length, t]);
 
   const bottomContent = React.useMemo(() => {
     return (
@@ -302,26 +300,7 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
         />
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
-
-  const classNames = React.useMemo(
-    () => ({
-      wrapper: ["max-h-[382px]", "max-w-3xl"],
-      th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
-      td: [
-        // changing the rows border radius
-        // first
-        "group-data-[first=true]:first:before:rounded-none",
-        "group-data-[first=true]:last:before:rounded-none",
-        // middle
-        "group-data-[middle=true]:before:rounded-none",
-        // last
-        "group-data-[last=true]:first:before:rounded-none",
-        "group-data-[last=true]:last:before:rounded-none",
-      ],
-    }),
-    [],
-  );
+  }, [page, pages, hasSearchFilter]);
 
   return (
     <Table
@@ -329,15 +308,10 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
       removeWrapper
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
-      aria-label="Transportation Table."
-      checkboxesProps={{
-        classNames: {
-          wrapper: " after:bg-foreground after:text-background text-background",
-          base: "overflow-scroll",
-          table: "overflow-scroll",
-        },
+      classNames={{
+        wrapper: ["max-h-[382px]", "max-w-3xl"],
+        th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
       }}
-      classNames={classNames}
       selectedKeys={selectedKeys}
       sortDescriptor={sortDescriptor}
       topContent={topContent}
@@ -349,7 +323,7 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
         {(column) => (
           <TableColumn
             key={column.uid}
-            align={column.uid === "actions" ? "center" : "end"}
+            align={column.uid === "actions" ? "center" : "start"}
             allowsSorting={column.sortable}
           >
             {t(column.name)}
@@ -359,7 +333,7 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
       <TableBody
         isLoading={isLoading}
         loadingContent={<Spinner label="Loading..." />}
-        emptyContent={"No hotels found"}
+        emptyContent={t("No_transportation_found")}
         items={sortedItems}
       >
         {(item) => (

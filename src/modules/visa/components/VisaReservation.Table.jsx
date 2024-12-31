@@ -63,7 +63,7 @@ export default function VisaReservationTable({ users = [], isLoading }) {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
+        user?.name?.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     return filteredUsers;

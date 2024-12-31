@@ -30,6 +30,7 @@ import ShowVisa from "./modules/visa/showVisa";
 import GetVisaData from "./modules/visa/getVisaData";
 import VisaRequired from "./modules/visa/pages.js/VisaRequired";
 import UserAppliedVisa from "./modules/visa/pages.js/UserAppliedVisa";
+import UserRequestedPackage from "./modules/Package/pages/RequestedPackage.user";
 import { User } from "@nextui-org/react";
 import VisaViewPage from "./modules/visa/pages.js/visa.page";
 import VisaReserveService from "./modules/visa/pages.js/VisaReserveService.user";
@@ -403,6 +404,19 @@ function App() {
               >
                 <Layout>
                   <ShowVisa />
+                  {/* <div>Hello world</div> */}
+                </Layout>
+              </WithPageRequiredAuth>
+            }
+          />
+             <Route
+            path="/user/requestedPackage"
+            element={
+              <WithPageRequiredAuth
+                options={{ roles: [RoleEnum.admin, RoleEnum.travelAgent] }}
+              >
+                <Layout>
+                <UserRequestedPackage />
                   {/* <div>Hello world</div> */}
                 </Layout>
               </WithPageRequiredAuth>

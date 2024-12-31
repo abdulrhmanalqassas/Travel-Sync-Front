@@ -11,8 +11,12 @@ const token = JSON.parse(cookie ? cookie : "null")?.token;
 
 async function getService(SetService, setIsLoading, service) {
   setIsLoading(true);
+  let url =
+    service == "custom-packages"
+      ? "/api/custom-packages"
+      : `/api/v1/${service}`;
   let data = await instance
-    .get(`/api/v1/${service}`, {
+    .get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

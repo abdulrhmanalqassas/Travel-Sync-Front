@@ -57,6 +57,13 @@ export default function TransportationForm({ handleUpdate }) {
         ar_departureAddress: "",
         ar_arrivalAddress: "",
       },
+      carDriver: {
+        driverName: "John Doe",
+        driverLicense: "123456",
+        carModel: "Toyota Camry",
+        carPlate: "123456",
+        transportationId: 1,
+      },
     },
 
     validationSchema: () => {
@@ -89,6 +96,13 @@ export default function TransportationForm({ handleUpdate }) {
           arrivalTime: Yup.string(),
           departingDate: Yup.string(),
           returningDate: Yup.string(),
+        }),
+        carDriver: Yup.object({
+          driverName: Yup.string().min(3).max(60).required(t("Required")),
+          driverLicense: Yup.string().min(3).max(60).required(t("Required")),
+          carModel: Yup.string().min(3).max(60).required(t("Required")),
+          carPlate: Yup.string().min(3).max(60).required(t("Required")),
+          transportationId: Yup.number().required(t("Required")),
         }),
       });
     },
@@ -524,6 +538,125 @@ export default function TransportationForm({ handleUpdate }) {
                         }
                       />
                     </div>
+<div>
+  <Input
+    id="transportation.ar_departureAddress"
+    name="transportation.ar_departureAddress"
+    type="text"
+    label={t("ar_Departure_Address")}
+    radius="lg"
+    onChange={formHandler.handleChange}
+    onBlur={formHandler.handleBlur}
+    value={formHandler.values.transportation.ar_departureAddress}
+    isInvalid={
+      formHandler.errors.transportation?.ar_departureAddress &&
+      formHandler.touched.transportation?.ar_departureAddress
+    }
+    errorMessage={formHandler.errors.transportation?.ar_departureAddress}
+  />
+</div>
+<div>
+  <Input
+    id="transportation.ar_arrivalAddress"
+    name="transportation.ar_arrivalAddress"
+    type="text"
+    label={t("ar_Arrival_Address")}
+    radius="lg"
+    onChange={formHandler.handleChange}
+    onBlur={formHandler.handleBlur}
+    value={formHandler.values.transportation.ar_arrivalAddress}
+    isInvalid={
+      formHandler.errors.transportation?.ar_arrivalAddress &&
+      formHandler.touched.transportation?.ar_arrivalAddress
+    }
+    errorMessage={formHandler.errors.transportation?.ar_arrivalAddress}
+  />
+</div>
+<div>
+  <Input
+    id="carDriver.driverName"
+    name="carDriver.driverName"
+    type="text"
+    label={t("Driver Name")}
+    radius="lg"
+    onChange={formHandler.handleChange}
+    onBlur={formHandler.handleBlur}
+    value={formHandler.values.carDriver.driverName}
+    isInvalid={
+      formHandler.errors.carDriver?.driverName &&
+      formHandler.touched.carDriver?.driverName
+    }
+    errorMessage={formHandler.errors.carDriver?.driverName}
+  />
+</div>
+<div>
+  <Input
+    id="carDriver.driverLicense"
+    name="carDriver.driverLicense"
+    type="text"
+    label={t("Driver License")}
+    radius="lg"
+    onChange={formHandler.handleChange}
+    onBlur={formHandler.handleBlur}
+    value={formHandler.values.carDriver.driverLicense}
+    isInvalid={
+      formHandler.errors.carDriver?.driverLicense &&
+      formHandler.touched.carDriver?.driverLicense
+    }
+    errorMessage={formHandler.errors.carDriver?.driverLicense}
+  />
+</div>
+<div>
+  <Input
+    id="carDriver.carModel"
+    name="carDriver.carModel"
+    type="text"
+    label={t("Car Model")}
+    radius="lg"
+    onChange={formHandler.handleChange}
+    onBlur={formHandler.handleBlur}
+    value={formHandler.values.carDriver.carModel}
+    isInvalid={
+      formHandler.errors.carDriver?.carModel &&
+      formHandler.touched.carDriver?.carModel
+    }
+    errorMessage={formHandler.errors.carDriver?.carModel}
+  />
+</div>
+<div>
+  <Input
+    id="carDriver.carPlate"
+    name="carDriver.carPlate"
+    type="text"
+    label={t("Car Plate")}
+    radius="lg"
+    onChange={formHandler.handleChange}
+    onBlur={formHandler.handleBlur}
+    value={formHandler.values.carDriver.carPlate}
+    isInvalid={
+      formHandler.errors.carDriver?.carPlate &&
+      formHandler.touched.carDriver?.carPlate
+    }
+    errorMessage={formHandler.errors.carDriver?.carPlate}
+  />
+</div>
+<div>
+  <Input
+    id="carDriver.transportationId"
+    name="carDriver.transportationId"
+    type="number"
+    label={t("Transportation ID")}
+    radius="lg"
+    onChange={formHandler.handleChange}
+    onBlur={formHandler.handleBlur}
+    value={formHandler.values.carDriver.transportationId}
+    isInvalid={
+      formHandler.errors.carDriver?.transportationId &&
+      formHandler.touched.carDriver?.transportationId
+    }
+    errorMessage={formHandler.errors.carDriver?.transportationId}
+  />
+</div>  
 
                     <div>
                       <Checkbox
