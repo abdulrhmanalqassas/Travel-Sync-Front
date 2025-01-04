@@ -46,6 +46,7 @@ export default function HotelsForm({ handleUpdate }) {
       ar_state: "",
       ar_description: "",
       WholesalerId: 1,
+      location: "",
     },
     validationSchema: () => {
       const phoneRegex = /^\+20(1[0125]\d{8})$/; // Egyptian phone number regex
@@ -68,6 +69,7 @@ export default function HotelsForm({ handleUpdate }) {
           .matches(emailRegex, "Invalid email address")
           .required(t("Required")),
         description: Yup.string().required(t("Required")),
+        location: Yup.string().required(t("Required")),
       });
     },
 
@@ -105,7 +107,7 @@ export default function HotelsForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                {t("Add_new_Agency")}
+                {t("Add_new_hotel")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -227,7 +229,23 @@ export default function HotelsForm({ handleUpdate }) {
                         </div>
                       ) : null}
                     </div>
-
+                    <div>
+                      <Input
+                        id="location"
+                        type="location"
+                        label={t("location")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.location}
+                      />
+                      {formHandler.touched.location &&
+                      formHandler.errors.location ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.location}
+                        </div>
+                      ) : null}
+                    </div>
                     <div>
                       <Input
                         id="email"

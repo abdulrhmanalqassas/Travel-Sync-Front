@@ -9,6 +9,7 @@ export default function TravellerFileUploader({
   setIsUploading,
 }) {
   const [files, setFiles] = useState([]);
+
   const [isLoading, setIsLoading] = useState({}); // Manage loading state for each file
   const { t } = useTranslation();
   const checkUploading = () => {
@@ -61,13 +62,11 @@ export default function TravellerFileUploader({
             console.error("File upload failed:", error);
             setIsLoading((prevLoading) => ({ ...prevLoading, [index]: false }));
           });
-      } 
+      }
     });
   }, [TravellerFiles, files, isLoading]);
 
-  useEffect(() => {
-
-  }, [idx]);
+  useEffect(() => {}, [idx]);
 
   useEffect(() => {
     const allFilesUploaded = checkUploading();
@@ -129,7 +128,7 @@ export default function TravellerFileUploader({
               />
             </label>
             <p className="text-xs leading-5 text-gray-600">
-              PNG, JPG, GIF up to 10MB
+              PNG, JPG, GIF ,pdf ,up to 10MB
             </p>
           </div>
         </div>

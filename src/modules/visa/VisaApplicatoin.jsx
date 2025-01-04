@@ -66,6 +66,7 @@ const ReserveService = () => {
     initialValues: {
       country: country,
       // visaRequirementId: id,
+      visaType: "",
       quantity: 1,
       travelers: travelers,
     },
@@ -149,7 +150,23 @@ const ReserveService = () => {
                 </div>
               ) : null}
             </div>
-
+            <div>
+              <Input
+                id="visaType"
+                name="visaType"
+                type="text"
+                label={t("Visa Type")}
+                radius="lg"
+                onChange={formHandler.handleChange}
+                onBlur={formHandler.handleBlur}
+                value={formHandler.values.visaType}
+                isInvalid={
+                  formHandler.errors.visaType && formHandler.touched.visaType
+                }
+                errorMessage={formHandler.errors.visaType}
+              />
+            </div>
+            
             {/* Check-In Date Input */}
           </div>
         </div>
@@ -437,7 +454,7 @@ const ReserveService = () => {
                 ) : null}
               </div>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input

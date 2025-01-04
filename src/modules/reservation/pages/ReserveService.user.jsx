@@ -12,6 +12,7 @@ const ReserveService = ({ type }) => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  
 
   // Get ID from URL
   const location = useLocation();
@@ -42,6 +43,8 @@ const ReserveService = ({ type }) => {
           email: "",
           mobilePhone: "",
           dateOfBirth: "",
+          nationality: "",
+          passportNumber: "",
           fileIds: [],
         },
       };
@@ -76,6 +79,8 @@ const ReserveService = ({ type }) => {
             .required(t("Required")),
           mobilePhone: Yup.string().required(t("Required")),
           dateOfBirth: Yup.string().required(t("Required")),
+          nationality: Yup.string().required(t("Required")),
+          passportNumber: Yup.string().required(t("Required")),
         }),
       ),
     }),
@@ -319,6 +324,48 @@ const ReserveService = ({ type }) => {
                   {formHandler.errors.travelers[idx].dateOfBirth}
                 </div>
               ) : null}
+              <div>
+                <Input
+                  id={`travelers[${idx}].nationality`}
+                  type="text"
+                  label={t("nationality")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={formHandler.values.travelers[idx]?.nationality || ""}
+                />
+                {formHandler.touched.travelers?.[idx]?.nationality &&
+                formHandler.errors.travelers?.[idx]?.nationality ? (
+                  <div className="text-red-600">
+                    {formHandler.errors.travelers[idx].nationality}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Input
+                  id={`travelers[${idx}].passportNumber`}
+                  type="text"
+                  label={t("passportNumber")}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  radius="lg"
+                  onChange={formHandler.handleChange}
+                  onBlur={formHandler.handleBlur}
+                  value={
+                    formHandler.values.travelers[idx]?.passportNumber || ""
+                  }
+                />
+                {formHandler.touched.travelers?.[idx]?.passportNumber &&
+                formHandler.errors.travelers?.[idx]?.passportNumber ? (
+                  <div className="text-red-600">
+                    {formHandler.errors.travelers[idx].passportNumber}
+                  </div>
+                ) : null}
+              </div>
             </div>
 
             <TravellerFileUploader

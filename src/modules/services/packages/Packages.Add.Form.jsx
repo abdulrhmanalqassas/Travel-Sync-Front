@@ -18,6 +18,8 @@ import { uploadImage } from "../../core/core.handlers";
 import Alert from "../../core/components/Alert";
 import { addService } from "../services.handlers";
 import { useTranslation } from "react-i18next";
+import HotelsForm from "../hotels/Hotels.Add.Form";
+import FlightsTable from "../flights/Flights.Table";
 
 export default function PackagesForm({ handleUpdate }) {
   const { t } = useTranslation();
@@ -30,10 +32,22 @@ export default function PackagesForm({ handleUpdate }) {
     initialValues: {
       name: "",
       address: "",
-      stars: "",
       city: "",
       state: "",
       zipCode: "",
+      Hotel: "",
+      hotelLocation: "",
+      stars: "",
+      room: "",
+      roomType: "",
+      trip: "",
+      tripLocation: "",
+      tripType: "",
+      transportation: "",
+      flight: "",
+      FlightsType: "",
+      flightTime: "",
+      flightAirline: "",
       mobileNumber: "",
       phoneNumber: "",
       website: "",
@@ -63,6 +77,18 @@ export default function PackagesForm({ handleUpdate }) {
           .matches(emailRegex, "Invalid email address")
           .required(t("Required")),
         description: Yup.string().required(t("Required")),
+        hotel: Yup.string().required(t("Required")),
+        hotelLocation: Yup.string().required(t("Required")),
+        room: Yup.string().required(t("Required")),
+        roomType: Yup.string(),
+        trip: Yup.string(),
+        tripLocation: Yup.string(),
+        tripType: Yup.string(),
+        transportation: Yup.string(),
+        flight: Yup.string(),
+        FlightsType: Yup.string(),
+        flightTime: Yup.string(),
+        flightAirline: Yup.string(),
       });
     },
 
@@ -100,7 +126,7 @@ export default function PackagesForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                {t("Add_new_Agency")}
+                {t("Add_new_Package")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -157,26 +183,6 @@ export default function PackagesForm({ handleUpdate }) {
                       {formHandler.touched.stars && formHandler.errors.stars ? (
                         <div className="text-red-600">
                           {formHandler.errors.stars}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div>
-                      <Input
-                        id="zipCode"
-                        type="zipCode"
-                        label={t("ZIP CODE")}
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.zipCode}
-                      />
-                      {formHandler.touched.zipCode &&
-                      formHandler.errors.zipCode ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.zipCode}
                         </div>
                       ) : null}
                     </div>
@@ -355,7 +361,231 @@ export default function PackagesForm({ handleUpdate }) {
                         </div>
                       ) : null}
                     </div>
-
+                    <div className="col-span-2">
+                      <Input
+                        id="hotel"
+                        type="hotel"
+                        label={t("hotel")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.hotel}
+                      />
+                      {formHandler.touched.hotel && formHandler.errors.hotel ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.hotel}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="hotelLocation"
+                        type="hotelLocation"
+                        label={t("hotelLocation")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.hotelLocation}
+                      />
+                      {formHandler.touched.hotelLocation &&
+                      formHandler.errors.hotelLocation ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.hotelLocation}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="room"
+                        type="room"
+                        label={t("room")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.room}
+                      />
+                      {formHandler.touched.room && formHandler.errors.room ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.room}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="roomType"
+                        type="roomType"
+                        label={t("roomType")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.roomType}
+                      />
+                      {formHandler.touched.roomType &&
+                      formHandler.errors.roomType ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.roomType}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="trip"
+                        type="trip"
+                        label={t("trip")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.trip}
+                      />
+                      {formHandler.touched.trip && formHandler.errors.trip ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.trip}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="tripLocation"
+                        type="tripLocation"
+                        label={t("tripLocation")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.tripLocation}
+                      />
+                      {formHandler.touched.tripLocation &&
+                      formHandler.errors.tripLocation ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.tripLocation}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="tripType"
+                        type="tripType"
+                        label={t("tripType")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.tripType}
+                      />
+                      {formHandler.touched.tripType &&
+                      formHandler.errors.tripType ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.tripType}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="transportation"
+                        type="transportation"
+                        label={t("transportation")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.transportation}
+                      />
+                      {formHandler.touched.transportation &&
+                      formHandler.errors.transportation ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.transportation}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="flight"
+                        type="flight"
+                        label={t("flight")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.flight}
+                      />
+                      {formHandler.touched.flight &&
+                      formHandler.errors.flight ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.flight}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="FlightsType"
+                        type="FlightsType"
+                        label={t("FlightsType")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.FlightsType}
+                      />
+                      {formHandler.touched.FlightsType &&
+                      formHandler.errors.FlightsType ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.FlightsType}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="flightTime"
+                        type="flightTime"
+                        label={t("flightTime")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.flightTime}
+                      />
+                      {formHandler.touched.flightTime &&
+                      formHandler.errors.flightTime ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.flightTime}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="flightAirline"
+                        type="flightAirline"
+                        label={t("flightAirline")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.flightAirline}
+                      />
+                      {formHandler.touched.flightAirline &&
+                      formHandler.errors.flightAirline ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.flightAirline}
+                        </div>
+                      ) : null}
+                    </div>
                     <div className="col-span-2">
                       {apiError ? <Alert text={apiError} /> : ""}
                     </div>

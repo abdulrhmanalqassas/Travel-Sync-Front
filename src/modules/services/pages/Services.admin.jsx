@@ -99,7 +99,7 @@ export default function Services() {
               className={`flex items-center space-x-2  ${selected == "safari" ? "text-black" : " "} `}
             >
               <FaHouseTsunami className="w-4 h-4" />
-              <span>{t("Safari")}</span>
+              <span>{t("trips")}</span>
             </div>
           }
         >

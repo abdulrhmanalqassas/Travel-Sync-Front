@@ -20,6 +20,7 @@ import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
 import Transactions from "./Transaction";
 import { useTranslation } from "react-i18next";
+import { convertDateToFormat } from "../../../utils/helper";
 
 const INITIAL_VISIBLE_COLUMNS = ["amount", "currency", "Name"];
 
@@ -35,10 +36,11 @@ export default function FinanceTable({
     { name: "type", uid: "type", sortable: true },
     { name: "amount", uid: "amount", sortable: true },
     { name: "currency", uid: "currency" },
+    { name: "transactionDate", uid: "transactionDate", sortable: true },
   ];
 
-  const { t ,i18n} = useTranslation();
-  const CurrentLang = i18n.language
+  const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -62,7 +64,7 @@ export default function FinanceTable({
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns,CurrentLang]);
+  }, [visibleColumns, CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...users];
@@ -114,6 +116,8 @@ export default function FinanceTable({
         );
       case "Name":
         return <h1>{user.account.travelOffice.name}</h1>;
+      case "transactionDate":
+        return convertDateToFormat(cellValue, CurrentLang);
       default:
         return cellValue;
     }
@@ -125,7 +129,6 @@ export default function FinanceTable({
   }, []);
 
   const onSearchChange = React.useCallback((value) => {
-   
     if (value) {
       setFilterValue(value);
       setPage(1);
@@ -160,7 +163,7 @@ export default function FinanceTable({
                   size="sm"
                   variant="flat"
                 >
-                {  t("Columns")}
+                  {t("Columns")}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -185,11 +188,10 @@ export default function FinanceTable({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-          {t("Total") + " " + users.length + " " + t("Users")}
-      
+            {t("Total") + " " + users.length + " " + t("Users")}
           </span>
           <label className="flex items-center text-default-400 text-small">
-          {t("Rows_per_age")}
+            {t("Rows_per_age")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}

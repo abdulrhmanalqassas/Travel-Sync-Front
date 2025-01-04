@@ -37,6 +37,9 @@ export default function AgenciesForm({ handleUpdate }) {
       country: "",
       postalCode: "",
       WholesalerId: 1,
+      agencyOwnerName: "",
+      bankAccountNumber: "",
+      taxCardNumber: "",
     },
     validationSchema: () => {
       const phoneRegex = /^\+20(1[0125]\d{8})$/; // Egyptian phone number regex
@@ -55,12 +58,14 @@ export default function AgenciesForm({ handleUpdate }) {
         address: Yup.string().required(t("Required")),
         country: Yup.string().required(t("Required")),
         postalCode: Yup.string().required(t("Required")),
+        agencyOwnerName: Yup.string().required(t("Required")),
+        bankAccountNumber: Yup.string().required(t("Required")),
+        taxCardNumber: Yup.string().required(t("Required")),
       });
     },
 
     onSubmit: (values, { resetForm }) => {
       uploadImage(agencyImage, setIsLoading, setApiError).then((id) => {
-      
         values["profilePhotoId"] = id ? id[0] : null;
         addAgency(values, setIsLoading, handleUpdate).then(() => {
           onClose();
@@ -163,7 +168,7 @@ export default function AgenciesForm({ handleUpdate }) {
                       <Input
                         id="phone"
                         type="phone"
-                        label= {t("phone")}
+                        label={t("phone")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -221,6 +226,54 @@ export default function AgenciesForm({ handleUpdate }) {
                           formHandler.errors.postalCode
                         }
                         errorMessage={formHandler.errors.postalCode}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="agencyOwnerName"
+                        type="agencyOwnerName"
+                        label={t("Agency Owner Name")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.agencyOwnerName}
+                        isInvalid={
+                          formHandler.touched.agencyOwnerName &&
+                          formHandler.errors.agencyOwnerName
+                        }
+                        errorMessage={formHandler.errors.agencyOwnerName}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="bankAccountNumber"
+                        type="bankAccountNumber"
+                        label={t("Bank Account Number")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.bankAccountNumber}
+                        isInvalid={
+                          formHandler.touched.bankAccountNumber &&
+                          formHandler.errors.bankAccountNumber
+                        }
+                        errorMessage={formHandler.errors.bankAccountNumber}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="taxCardNumber"
+                        type="taxCardNumber"
+                        label={t("Tax Card Number")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.taxCardNumber}
+                        isInvalid={
+                          formHandler.touched.taxCardNumber &&
+                          formHandler.errors.taxCardNumber
+                        }
+                        errorMessage={formHandler.errors.taxCardNumber}
                       />
                     </div>
 

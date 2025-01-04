@@ -96,6 +96,7 @@ export default function VisaForm({ handleUpdate }) {
         description: "Schengen visa",
         ar_description: "تأشيرة شنغن",
         type: "Tourist",
+        visaType: "single",
         days: 1,
         country: country,
         imageIds: [],
@@ -173,7 +174,7 @@ export default function VisaForm({ handleUpdate }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        {t("add_new")}
+        {t("add_new_readyVisa")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -188,32 +189,11 @@ export default function VisaForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                {t("Add_Room")}
+                {t("Add_Visa")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
                   <div className="grid grid-cols-2 gap-3">
-                    {/* <div>
-                      <Select
-                        label={t("Agency")}
-                        id="ReadyVisa?.hotelId"
-                        placeholder="Select an agency"
-                        value={formHandler.values.hotelId}
-                        // onClick={handleUpdateHotel}
-                        onChange={formHandler.handleChange("ReadyVisa?.hotelId")}
-                        isInvalid={
-                          formHandler.errors.ReadyVisa?.hotelId &&
-                          formHandler.touched.ReadyVisa?.hotelId
-                        }
-                        errorMessage={formHandler.errors.ReadyVisa?.hotelId}
-                      >
-                        {hotels.map(({ id, name }) => (
-                          <SelectItem key={id} value={id}>
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </Select>
-                    </div> */}
                     <CountrySelector
                       id="countries"
                       open={isSelectorOpen}
@@ -223,45 +203,7 @@ export default function VisaForm({ handleUpdate }) {
                         (option) => option.value === country,
                       )}
                     />
-                    <div>
-                      {/* {customFeatureVisible && (
-                        <div className="mt-4">
-                          {" "}
-                          <input
-                            type="text"
-                            value={customFeature.name}
-                            onChange={(e) =>
-                              setCustomFeature({
-                                ...customFeature,
-                                name: e.target.value,
-                              })
-                            }
-                            placeholder="Enter name"
-                            className="block mb-2 p-2 border rounded"
-                          />{" "}
-                          <input
-                            type="text"
-                            value={customFeature.ar_name}
-                            onChange={(e) =>
-                              setCustomFeature({
-                                ...customFeature,
-                                ar_name: e.target.value,
-                              })
-                            }
-                            placeholder="Enter ar_name"
-                            className="block mb-2 p-2 border rounded"
-                          />{" "}
-                          <button
-                            type="button"
-                            onClick={handleAddCustomFeature}
-                            className="px-4 py-2 bg-blue-500 text-white rounded"
-                          >
-                            {" "}
-                            Add{" "}
-                          </button>{" "}
-                        </div>
-                      )} */}
-                    </div>
+
                     <div>
                       <Input
                         id="service.name"
@@ -423,7 +365,7 @@ export default function VisaForm({ handleUpdate }) {
                         id="ReadyVisa.type"
                         name="ReadyVisa.type"
                         type="text"
-                        label={t("Room Type")}
+                        label={t("Visa Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -435,7 +377,23 @@ export default function VisaForm({ handleUpdate }) {
                         errorMessage={formHandler?.errors?.ReadyVisa?.type}
                       />
                     </div>
-
+                    <div>
+                      <Input
+                        id="ReadyVisa.visaType"
+                        name="ReadyVisa.visaType"
+                        type="text"
+                        label={t("Visa Type")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values?.ReadyVisa?.visaType}
+                        isInvalid={
+                          formHandler.errors?.ReadyVisa?.visaType &&
+                          formHandler.touched?.ReadyVisa?.visaType
+                        }
+                        errorMessage={formHandler?.errors?.ReadyVisa?.visaType}
+                      />
+                    </div>
                     <div>
                       <Input
                         id="ReadyVisa.days"

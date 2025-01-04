@@ -23,10 +23,23 @@ import Alert from "../../core/components/Alert";
 import { addService, getService } from "../services.handlers";
 import { useTranslation } from "react-i18next";
 const initialValues = [
-  { key: "dog", label: "Dog" },
-  { key: "cat", label: "Cat" },
-  { key: "bird", label: "Bird" },
-  { key: "fish", label: "Fish" },
+  { key: "WIFI", label: "WIFI" },
+  { key: "garden-View", lapel: "Garden View" },
+  { key: "tv", lapel: "TV" },
+  { key: "desk", lapel: "Desk" },
+  { key: "dining-room", lapel: "Dining Room" },
+  { key: "entertainment", lapel: "Entertainment" },
+  { key: "lounge", lapel: "Lounge" },
+  { key: "pool", lapel: "Pool" },
+];
+
+const roomTypes = [
+  { key: "Suite", label: "Suite" },
+  { key: "Private", label: "Private" },
+  { key: "standard", label: "Standard " },
+  { key: "Family", label: "Family " },
+  { key: "Shared", label: "Shared " },
+  { key: "Deluxe", label: "Deluxe " },
 ];
 export default function RoomsForm({ handleUpdate }) {
   const { t } = useTranslation();
@@ -47,6 +60,7 @@ export default function RoomsForm({ handleUpdate }) {
         name: "",
         description: "",
         price: "",
+        margin: "",
         quantityAvailable: "",
         savings: "",
         isOffer: false,
@@ -68,6 +82,7 @@ export default function RoomsForm({ handleUpdate }) {
           name: Yup.string().min(5).max(500).required(t("Required")),
           description: Yup.string().required(t("Required")),
           price: Yup.number().max(999999).min(0).required(t("Required")),
+          margin: Yup.number().max(999999).min(-99999).required(t("Required")),
           quantityAvailable: Yup.number()
             .min(0)
             .max(9999)
@@ -273,7 +288,6 @@ export default function RoomsForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.name}
                       />
                     </div>
-
                     <div>
                       <Textarea
                         id="service.description"
@@ -324,6 +338,39 @@ export default function RoomsForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.price}
                       />
                     </div>
+                    <div className="col-span-2">
+                      <Input
+                        id="service.margin"
+                        name="service.margin"
+                        type="number"
+                        label={t("Margin")}
+                        placeholder="0.00"
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.margin", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.margin", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.service?.margin}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.margin &&
+                          formHandler.touched.service?.margin
+                        }
+                        errorMessage={formHandler.errors.service?.margin}
+                      />
+                    </div>
                     <div>
                       <Input
                         id="service.savings"
@@ -357,7 +404,6 @@ export default function RoomsForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.savings}
                       />
                     </div>
-
                     <div>
                       <Input
                         id="service.quantityAvailable"
@@ -391,7 +437,6 @@ export default function RoomsForm({ handleUpdate }) {
                         }
                       />
                     </div>
-
                     <div>
                       <Input
                         id="service.cancellationPolicy"
@@ -413,6 +458,26 @@ export default function RoomsForm({ handleUpdate }) {
                     </div>
 
                     <div>
+                      <Select
+                        label="Room Type"
+                        id="room.type"
+                        placeholder="Select an feature"
+                        value={formHandler.values.room.type}
+                        onChange={formHandler.handleChange("room.type")}
+                        isInvalid={
+                          formHandler.errors.room?.type &&
+                          formHandler.touched.room?.type
+                        }
+                        errorMessage={formHandler.errors.room?.type}
+                      >
+                        {roomTypes.map((feat) => (
+                          <SelectItem key={feat.key} value={feat.key}>
+                            {feat.label}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                    </div>
+                    {/* <div>
                       <Input
                         id="room.type"
                         name="room.type"
@@ -428,8 +493,7 @@ export default function RoomsForm({ handleUpdate }) {
                         }
                         errorMessage={formHandler.errors.room?.type}
                       />
-                    </div>
-
+                    </div> */}
                     <div>
                       <Input
                         id="room.roomArea"
@@ -511,7 +575,6 @@ export default function RoomsForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.room?.numberOfSleeps}
                       />
                     </div>
-
                     <div>
                       <Checkbox
                         id="serviceIsOffer"
@@ -528,7 +591,6 @@ export default function RoomsForm({ handleUpdate }) {
                         {t("is_offer")}
                       </Checkbox>
                     </div>
-
                     <div className="col-span-2">
                       {apiError ? <Alert text={apiError} /> : ""}
                     </div>

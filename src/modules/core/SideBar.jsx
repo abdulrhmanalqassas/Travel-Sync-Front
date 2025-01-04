@@ -32,11 +32,11 @@ const SideBar = () => {
       path: "/visa/applications",
       icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
-    {
-      title: t("Visa"),
-      path: "/visa/add",
-      icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
-    },
+    // {
+    //   title: t("Visa"),
+    //   path: "/visa/add",
+    //   icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
+    // },
     {
       title: t("Agencies"),
       path: "/Agencies",
@@ -66,7 +66,7 @@ const SideBar = () => {
 
   const USER_ITEMS = [
     {
-      title: t("Dashboard"),
+      title: t("services"),
       path: "/user/Home",
       icon: <IoHome className={ICON_STYLE} />,
     },

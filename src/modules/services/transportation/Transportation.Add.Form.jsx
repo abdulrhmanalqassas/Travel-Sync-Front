@@ -63,6 +63,7 @@ export default function TransportationForm({ handleUpdate }) {
         carModel: "Toyota Camry",
         carPlate: "123456",
         transportationId: 1,
+        driverPhone: "123456",
       },
     },
 
@@ -103,6 +104,7 @@ export default function TransportationForm({ handleUpdate }) {
           carModel: Yup.string().min(3).max(60).required(t("Required")),
           carPlate: Yup.string().min(3).max(60).required(t("Required")),
           transportationId: Yup.number().required(t("Required")),
+          driverPhone: Yup.string().min(9).max(60).required(t("Required")),
         }),
       });
     },
@@ -657,7 +659,23 @@ export default function TransportationForm({ handleUpdate }) {
     errorMessage={formHandler.errors.carDriver?.transportationId}
   />
 </div>  
-
+<div>
+  <Input
+    id="carDriver.driverPhone"
+    name="carDriver.driverPhone"
+    type="text"
+    label={t("Phone")}
+    radius="lg"
+    onChange={formHandler.handleChange}
+    onBlur={formHandler.handleBlur}
+    value={formHandler.values.carDriver.driverPhone}
+    isInvalid={
+      formHandler.errors.carDriver?.driverPhone &&
+      formHandler.touched.carDriver?.driverPhone
+    }
+    errorMessage={formHandler.errors.carDriver?.driverPhone}
+  />
+</div>
                     <div>
                       <Checkbox
                         id="serviceIsOffer"
