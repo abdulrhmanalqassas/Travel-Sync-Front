@@ -31,10 +31,18 @@ export default function PackagesForm({ handleUpdate }) {
   const formHandler = useFormik({
     initialValues: {
       name: "",
-      address: "",
+      ar_name: "",
+      description: "",
+      ar_description: "",
+      price: "",
+      margin: "",
+      service: {
+        price: "",
+        savings: "",
+        margin: "",
+      } || {},
       city: "",
       state: "",
-      zipCode: "",
       Hotel: "",
       hotelLocation: "",
       stars: "",
@@ -48,14 +56,6 @@ export default function PackagesForm({ handleUpdate }) {
       FlightsType: "",
       flightTime: "",
       flightAirline: "",
-      mobileNumber: "",
-      phoneNumber: "",
-      website: "",
-      email: "",
-      description: "",
-      ar_name: "",
-      ar_description: "",
-      WholesalerId: 1,
     },
     validationSchema: () => {
       const phoneRegex = /^\+20(1[0125]\d{8})$/; // Egyptian phone number regex
@@ -63,20 +63,15 @@ export default function PackagesForm({ handleUpdate }) {
 
       return Yup.object({
         name: Yup.string().required(t("Required")),
+        ar_name: Yup.string().required(t("Required")),
+        description: Yup.string().required(t("Required")),
+        ar_description: Yup.string().required(t("Required")),
+        margin: Yup.number().max(999999).min(-99999).required(t("Required")),
+        price: Yup.number().max(999999).min(0).required(t("Required")),
         address: Yup.string().required(t("Required")),
         stars: Yup.number().integer().required(t("Required")),
         city: Yup.string().required(t("Required")),
         state: Yup.string().required(t("Required")),
-        zipCode: Yup.string().required(t("Required")),
-        mobileNumber: Yup.string().required(t("Required")),
-        phoneNumber: Yup.string()
-          .matches(phoneRegex, "Invalid Egyptian phoneNumber number")
-          .required(t("Required")),
-        website: Yup.string().required(t("Required")),
-        email: Yup.string()
-          .matches(emailRegex, "Invalid email address")
-          .required(t("Required")),
-        description: Yup.string().required(t("Required")),
         hotel: Yup.string().required(t("Required")),
         hotelLocation: Yup.string().required(t("Required")),
         room: Yup.string().required(t("Required")),
@@ -208,6 +203,44 @@ export default function PackagesForm({ handleUpdate }) {
 
                     <div>
                       <Input
+                        id="price"
+                        type="number"
+                        label={t("price")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.price}
+                      />
+                      {formHandler.touched.price && formHandler.errors.price ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.price}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div>
+                      <Input
+                        id="margin"
+                        type="number"
+                        label={t("margin")}
+                        variant="bordered"
+                        labelPlacement="outside"
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.margin}
+                      />
+                      {formHandler.touched.margin && formHandler.errors.margin ? (
+                        <div className="text-red-600">
+                          {formHandler.errors.margin}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div>
+                      <Input
                         id="city"
                         type="city"
                         label={t("city")}
@@ -221,64 +254,6 @@ export default function PackagesForm({ handleUpdate }) {
                       {formHandler.touched.city && formHandler.errors.city ? (
                         <div className="text-red-600">
                           {formHandler.errors.city}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div>
-                      <Input
-                        id="email"
-                        label="email"
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.email}
-                      />
-                      {formHandler.touched.email && formHandler.errors.email ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.email}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div>
-                      <Input
-                        id="phoneNumber"
-                        type="phoneNumber"
-                        label={t("phoneNumber")}
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.phoneNumber}
-                      />
-                      {formHandler.touched.phoneNumber &&
-                      formHandler.errors.phoneNumber ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.phoneNumber}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div>
-                      <Input
-                        id="mobileNumber"
-                        type="mobileNumber"
-                        label={t("mobileNumber")}
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.mobileNumber}
-                      />
-                      {formHandler.touched.mobileNumber &&
-                      formHandler.errors.mobileNumber ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.mobileNumber}
                         </div>
                       ) : null}
                     </div>

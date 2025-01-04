@@ -38,6 +38,7 @@ export default function FlightsForm({ handleUpdate }) {
       service: {
         name: "",
         description: "",
+        margin: "",
         price: "",
         quantityAvailable: "",
         savings: "",
@@ -48,7 +49,6 @@ export default function FlightsForm({ handleUpdate }) {
         airline: "",
         departureAddress: "",
         departureCity: "",
-        commission: "",
         arrivalAddress: "",
         arrivalCity: "",
         departureTime: new Date().toISOString(),
@@ -64,6 +64,7 @@ export default function FlightsForm({ handleUpdate }) {
           name: Yup.string().min(5).max(500).required(t("Required")),
           description: Yup.string().required(t("Required")),
           price: Yup.number().max(999999).min(0).required(t("Required")),
+          margin: Yup.number().max(999999).min(-99999).required(t("Required")),
           quantityAvailable: Yup.number()
             .min(0)
             .max(9999)
@@ -82,11 +83,11 @@ export default function FlightsForm({ handleUpdate }) {
             .min(3)
             .max(250)
             .required(t("Required")),
-          commission: Yup.number()
-            .max(999999)
-            .min(0)
-            .required(t("Required"))
-            .integer("Must be a number"),
+          // commission: Yup.number()
+          //   .max(999999)
+          //   .min(0)
+          //   .required(t("Required"))
+          //   .integer("Must be a number"),
           departureCity: Yup.string().min(3).max(60).required(t("Required")),
           arrivalAddress: Yup.string().min(3).max(250).required(t("Required")),
           arrivalCity: Yup.string().min(3).max(60).required(t("Required")),
@@ -191,6 +192,72 @@ export default function FlightsForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.price}
                       />
                     </div>
+                    <div className="col-span-2">
+                      <Input
+                        id="service.margin"
+                        name="service.margin"
+                        type="number"
+                        label={t("Margin")}
+                        placeholder="0.00"
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.margin", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.margin", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.service?.margin}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.margin &&
+                          formHandler.touched.service?.margin
+                        }
+                        errorMessage={formHandler.errors.service?.margin}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="service.savings"
+                        name="service.savings"
+                        type="number"
+                        label={t("savings")}
+                        placeholder="0.00"
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.savings", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.savings", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.service.savings}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.savings &&
+                          formHandler.touched.service?.savings
+                        }
+                        errorMessage={formHandler.errors.service?.savings}
+                      />
+                    </div>
                     <div>
                       <Input
                         id="service.savings"
@@ -276,48 +343,7 @@ export default function FlightsForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.flight?.airline}
                       />
                     </div>
-                    <div>
-                      <Input
-                        id="flight.commission"
-                        name="flight.commission"
-                        type="number"
-                        label={t("commission")}
-                        radius="lg"
-                        onChange={(e) => {
-                          if (e.target.value === "") {
-                            formHandler.setFieldValue("flight.commission", "");
-                            return;
-                          }
-
-                          const value = Math.max(0, parseFloat(e.target.value));
-                          formHandler.setFieldValue("flight.commission", value);
-                        }}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.flight.commission}
-                        isInvalid={
-                          formHandler.errors.flight?.commission &&
-                          formHandler.touched.flight?.commission
-                        }
-                        errorMessage={formHandler.errors.flight?.commission}
-                      />
-                    </div>
-                    <div>
-                      <Input
-                        id="flight.seatType"
-                        name="flight.seatType"
-                        type="text"
-                        label={t("Seat Type")}
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.flight?.seatType}
-                        isInvalid={
-                          formHandler.errors.flight?.seatType &&
-                          formHandler.touched.flight?.seatType
-                        }
-                        errorMessage={formHandler.errors.flight?.seatType}
-                      />
-                    </div>
+                    
 
                     <div>
                       <Input

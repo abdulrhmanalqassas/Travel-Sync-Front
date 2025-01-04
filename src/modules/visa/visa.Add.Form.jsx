@@ -84,6 +84,7 @@ export default function VisaForm({ handleUpdate }) {
         charterSalePercentage: 0,
         name: "",
         description: "",
+        commission: "",
         price: "",
         quantityAvailable: "",
         savings: "",
@@ -95,8 +96,8 @@ export default function VisaForm({ handleUpdate }) {
         ar_name: "شنغن",
         description: "Schengen visa",
         ar_description: "تأشيرة شنغن",
-        type: "Tourist",
-        visaType: "single",
+        type: "",
+        visaType: "",
         days: 1,
         country: country,
         imageIds: [],
@@ -189,7 +190,7 @@ export default function VisaForm({ handleUpdate }) {
           {(onClose) => (
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                {t("Add_Visa")}
+                {t("add_visa")}
               </ModalHeader>
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
@@ -272,6 +273,39 @@ export default function VisaForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.price}
                       />
                     </div>
+                    <div className="col-span-2">
+                      <Input
+                        id="service.margin"
+                        name="service.margin"
+                        type="number"
+                        label={t("Margin")}
+                        placeholder="0.00"
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.margin", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.margin", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.service?.margin}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.margin &&
+                          formHandler.touched.service?.margin
+                        }
+                        errorMessage={formHandler.errors.service?.margin}
+                      />
+                    </div>
                     <div>
                       <Input
                         id="service.savings"
@@ -305,7 +339,7 @@ export default function VisaForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.savings}
                       />
                     </div>
-
+                    
                     <div>
                       <Input
                         id="service.quantityAvailable"
