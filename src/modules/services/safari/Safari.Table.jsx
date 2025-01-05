@@ -25,7 +25,7 @@ import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
 import { capitalize } from "../../core/utils";
 import SafariForm from "./Safari.Add.Form";
 import CrusisForm from "./Crusis.Add.Form";
-import DivingForm from "./diving.Add.Form";
+import DivingForm from "./Diving.Add.Form";
 import SafariFormEdit from "./Safari.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
