@@ -61,7 +61,7 @@ export default function ActionRequired({ id, handleUpdate }) {
                   <Textarea
                     id="comment"
                     type="comment"
-                    label="Cancel reason"
+                    label={t("Cancel reason")}
                     placeholder="Please leave a comment with the reason of cancelation."
                     onChange={formHandler.handleChange}
                     onBlur={formHandler.handleBlur}

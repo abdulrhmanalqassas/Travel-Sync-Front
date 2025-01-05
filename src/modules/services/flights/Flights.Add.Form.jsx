@@ -107,7 +107,17 @@ export default function FlightsForm({ handleUpdate }) {
       values.service.imageIds = imageIds ? imageIds : [];
 
       values.service.WholesalerId = 1;
-      await addService(values, setIsLoading, handleUpdate, "flights");
+      try {
+        const response = await addService(values, setIsLoading, handleUpdate, "flights");
+        const data = await response.json().catch(() => {
+          throw new Error("Invalid JSON response");
+        });
+        if (!response.ok) {
+          throw new Error(data.message || "Something went wrong");
+        }
+      } catch (error) {
+        setApiError(error.message);
+      }
       onClose();
       resetForm();
     },
@@ -335,7 +345,7 @@ export default function FlightsForm({ handleUpdate }) {
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.airline}
+                        value={formHandler.values.flight.airline}
                         isInvalid={
                           formHandler.errors.flight?.airline &&
                           formHandler.touched.flight?.airline

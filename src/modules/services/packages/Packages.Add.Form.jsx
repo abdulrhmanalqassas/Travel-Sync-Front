@@ -224,7 +224,7 @@ export default function PackagesForm({ handleUpdate }) {
                       <Input
                         id="margin"
                         type="number"
-                        label={t("margin")}
+                        label={t("Margin")}
                         variant="bordered"
                         labelPlacement="outside"
                         radius="lg"

@@ -38,7 +38,7 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
           data.map((card) => {
             // card.arname = "test this shite"
 
-            const { id, images, stars, locationUrl, isOffer } = card;
+            const { id, images, stars, location, isOffer } = card;
             return (
               <ServiceCard
                 isOffer={isOffer}
@@ -47,7 +47,7 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
                 key={id}
                 img={images[0]?.imageUrl}
                 stars={stars}
-                locationUrl={locationUrl}
+                location={location}
                 hotelName={displayByLanguage(CurrentLang, "name", card)}
                 // numberOfRooms={52}
                 data={card}

@@ -56,12 +56,12 @@ export default function CancelReservation({ id, handleUpdate }) {
                 {t("Cancel_reservation")}
               </ModalHeader>
               <ModalBody>
-               {t("cancel_reason")}
+                {t("cancel_reason")}
                 <div>
                   <Textarea
                     id="cancelReason"
                     type="cancelReason"
-                    label="Cancel reason"
+                    label={t("Cancel reason")}
                     placeholder="Please leave a comment with the reason of cancelation."
                     onChange={formHandler.handleChange}
                     onBlur={formHandler.handleBlur}

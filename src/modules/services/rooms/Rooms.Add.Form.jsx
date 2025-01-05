@@ -24,13 +24,13 @@ import { addService, getService } from "../services.handlers";
 import { useTranslation } from "react-i18next";
 const initialValues = [
   { key: "WIFI", label: "WIFI" },
-  { key: "garden-View", lapel: "Garden View" },
-  { key: "tv", lapel: "TV" },
-  { key: "desk", lapel: "Desk" },
-  { key: "dining-room", lapel: "Dining Room" },
-  { key: "entertainment", lapel: "Entertainment" },
-  { key: "lounge", lapel: "Lounge" },
-  { key: "pool", lapel: "Pool" },
+  { key: "garden-View", label: "Garden View" },
+  { key: "tv", label: "TV" },
+  { key: "desk", label: "Desk" },
+  { key: "dining-room", label: "Dining Room" },
+  { key: "entertainment", label: "Entertainment" },
+  { key: "lounge", label: "Lounge" },
+  { key: "pool", label: "Pool" },
 ];
 
 const roomTypes = [
@@ -209,7 +209,7 @@ export default function RoomsForm({ handleUpdate }) {
                     </div>
                     <div>
                       <Select
-                        label="my features"
+                        label={t("my features")}
                         id="room.features"
                         value={formHandler.values.room.features}
                         onChange={handleSelectChange}
@@ -225,7 +225,7 @@ export default function RoomsForm({ handleUpdate }) {
                       >
                         {features.map((feat) => (
                           <SelectItem key={feat.key} value={feat.key}>
-                            {feat.label}
+                            {t(feat.label)}
                           </SelectItem>
                         ))}
                         <SelectItem key="add_custom" value="add_custom">
@@ -459,7 +459,7 @@ export default function RoomsForm({ handleUpdate }) {
 
                     <div>
                       <Select
-                        label="Room Type"
+                        label={t("Room Type")}
                         id="room.type"
                         placeholder="Select an feature"
                         value={formHandler.values.room.type}
@@ -472,7 +472,7 @@ export default function RoomsForm({ handleUpdate }) {
                       >
                         {roomTypes.map((feat) => (
                           <SelectItem key={feat.key} value={feat.key}>
-                            {feat.label}
+                            {t(feat.label)}
                           </SelectItem>
                         ))}
                       </Select>

@@ -684,7 +684,7 @@ export default function TransportationForm({ handleUpdate }) {
                         id="carDriver.driverPhone"
                         name="carDriver.driverPhone"
                         type="text"
-                        label={t("Phone")}
+                        label={t("PHONE")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}

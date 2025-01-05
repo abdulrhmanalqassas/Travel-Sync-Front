@@ -22,7 +22,7 @@ export default function AcceptReservation({ id, handleUpdate }) {
         color="success"
         className="text-white font-semibold"
       >
-        Accept
+        {t("accept")}
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>

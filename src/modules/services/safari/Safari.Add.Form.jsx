@@ -44,7 +44,7 @@ export default function SafariForm({ handleUpdate }) {
         cancellationPolicy: "",
       },
       safari: {
-        type: "",
+        type: "safari",
         address: "",
         city: "",
         country: "",
@@ -114,7 +114,7 @@ export default function SafariForm({ handleUpdate }) {
         endContent={<PlusIcon />}
         size="sm"
       >
-        {t("add_new")}
+        {t("add_safari")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -289,7 +289,7 @@ export default function SafariForm({ handleUpdate }) {
                         }
                       />
                     </div>
-                    <div>
+                    {/* <div>
                       <Input
                         id="safari.type"
                         name="safari.type"
@@ -305,7 +305,7 @@ export default function SafariForm({ handleUpdate }) {
                         }
                         errorMessage={formHandler.errors.safari?.type}
                       />
-                    </div>
+                    </div> */}
                     <div>
                       <Input
                         id="safari.address"

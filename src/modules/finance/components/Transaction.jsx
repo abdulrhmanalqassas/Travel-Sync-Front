@@ -90,7 +90,7 @@ export default function Transactions({ handlechange }) {
                   <Input
                     id="amount"
                     type="number"
-                    label="Amount"
+                    label={t("Amount")}
                     min={1}
                     variant="bordered"
                     radius="lg"
@@ -107,7 +107,7 @@ export default function Transactions({ handlechange }) {
                 </div>
                 <div>
                   <Select
-                    label="Type"
+                    label={t("Type")}
                     variant="bordered"
                     id="type"
                     placeholder="Select type"

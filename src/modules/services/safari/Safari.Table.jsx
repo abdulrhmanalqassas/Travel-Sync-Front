@@ -24,6 +24,8 @@ import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
 import { capitalize } from "../../core/utils";
 import SafariForm from "./Safari.Add.Form";
+import CrusisForm from "./Crusis.Add.Form";
+import DivingForm from "./diving.Add.Form";
 import SafariFormEdit from "./Safari.Edit.Form";
 import { DeleteService } from "../services.handlers";
 import DeleteModal from "../../core/components/DeleteModal";
@@ -261,6 +263,8 @@ export default function SafariTable({ data, isLoading, handleUpdate }) {
               </DropdownMenu>
             </Dropdown>
             <SafariForm handleUpdate={handleUpdate} />
+            <DivingForm handleUpdate={handleUpdate} />
+            < CrusisForm handleUpdate={handleUpdate} />
           </div>
         </div>
         <div className="flex justify-between items-center">

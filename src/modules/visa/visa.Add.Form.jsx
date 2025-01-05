@@ -84,7 +84,7 @@ export default function VisaForm({ handleUpdate }) {
         charterSalePercentage: 0,
         name: "",
         description: "",
-        commission: "",
+        margin: "",
         price: "",
         quantityAvailable: "",
         savings: "",

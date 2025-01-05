@@ -48,7 +48,7 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
     { name: "type", uid: "type", sortable: true },
     { name: "roomArea", uid: "roomArea" },
     { name: "hotelId", uid: "hotelId" },
-    { name: "numberOfBeds`", uid: "numberOfBeds" },
+    { name: "numberOfBeds", uid: "numberOfBeds" },
     { name: "numberOfSleeps", uid: "numberOfSleeps" },
     { name: "ACTIONS", uid: "actions" },
   ];
@@ -77,18 +77,17 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns,CurrentLang]);
+  }, [visibleColumns, CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredServices = [...data];
 
     if (hasSearchFilter) {
-      filteredServices = filteredServices.filter((service) =>
-{
-  const nameMatches = service.name.toLowerCase().includes(filterValue.toLowerCase());
-  const arNameMatches = service.ar_name ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase()) : false;
-  return nameMatches || arNameMatches
-},
+      filteredServices = filteredServices.filter((service) => {
+        const nameMatches = service.name.toLowerCase().includes(filterValue.toLowerCase());
+        const arNameMatches = service.ar_name ? service.ar_name.toLowerCase().includes(filterValue.toLowerCase()) : false;
+        return nameMatches || arNameMatches
+      },
       );
     }
     return filteredServices;
@@ -101,20 +100,21 @@ export default function RoomsTable({ data, isLoading, handleUpdate }) {
     return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
-  const sortedItems = React.useMemo(() => {
-    return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column];
-      const second = b[sortDescriptor.column];
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+  const sortedItems =
+    React.useMemo(() => {
+      return [...items].sort((a, b) => {
+        const first = a[sortDescriptor.column];
+        const second = b[sortDescriptor.column];
+        const cmp = first < second ? -1 : first > second ? 1 : 0;
 
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    });
-  }, [sortDescriptor, items]);
+        return sortDescriptor.direction === "descending" ? -cmp : cmp;
+      });
+    }, [sortDescriptor, items, CurrentLang]);
 
   const renderCell = React.useCallback((service, columnKey) => {
 
     const cellValue = displayByLanguage(CurrentLang, columnKey, service);
-    console.log("servises in room",service)
+    console.log("servises in room", service)
     switch (columnKey) {
       case "departureAddress":
         return (

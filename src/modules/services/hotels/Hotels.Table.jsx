@@ -53,7 +53,7 @@ export default function HotelsTable({ data, isLoading, handleUpdate }) {
     { name: "WEBSITE", uid: "website" },
     { name: "EMAIL", uid: "email" },
     { name: "DESCRIPTION", uid: "description" },
-    { name: "locationUrl", uid: "locationUrl" },
+    { name: "location", uid: "location" },
     { name: "ACTIONS", uid: "actions" },
   ];
   const { t, i18n } = useTranslation();
