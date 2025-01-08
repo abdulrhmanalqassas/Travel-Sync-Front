@@ -39,6 +39,9 @@ export default function AgenciesForm({ handleUpdate }) {
       WholesalerId: 1,
       agencyOwnerName: "",
       bankAccountNumber: "",
+      commercialRegistryNumber: "",
+      agencyOwnerId: "",
+      agencyOwnerAddress: "",
       taxCardNumber: "",
     },
     validationSchema: () => {
@@ -61,6 +64,9 @@ export default function AgenciesForm({ handleUpdate }) {
         agencyOwnerName: Yup.string().required(t("Required")),
         bankAccountNumber: Yup.string().required(t("Required")),
         taxCardNumber: Yup.string().required(t("Required")),
+        // commercialRegistryNumber: Yup.string().required(t("Required")),
+        // agencyOwnerId: Yup.string().required(t("Required")),
+        agencyOwnerAddress: Yup.string().required(t("Required"))
       });
     },
 
@@ -258,6 +264,55 @@ export default function AgenciesForm({ handleUpdate }) {
                           formHandler.errors.bankAccountNumber
                         }
                         errorMessage={formHandler.errors.bankAccountNumber}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="agencyOwnerAddress"
+                        type="agencyOwnerAddress"
+                        label={t("agency Owner Address")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.agencyOwnerAddress}
+                        isInvalid={
+                          formHandler.touched.agencyOwnerAddress &&
+                          formHandler.errors.agencyOwnerAddress
+                        }
+                        errorMessage={formHandler.errors.agencyOwnerAddress}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="agencyOwnerId"
+                        type="agencyOwnerId"
+                        label={t("agency Owner Id")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.agencyOwnerId}
+                        isInvalid={
+                          formHandler.touched.agencyOwnerId &&
+                          formHandler.errors.agencyOwnerId
+                        }
+                        errorMessage={formHandler.errors.agencyOwnerId}
+                      />
+                    </div>
+
+                    <div>
+                      <Input
+                        id="commercialRegistryNumber"
+                        type="commercialRegistryNumber"
+                        label={t("commercial Registry Number")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.commercialRegistryNumber}
+                        isInvalid={
+                          formHandler.touched.commercialRegistryNumber &&
+                          formHandler.errors.commercialRegistryNumber
+                        }
+                        errorMessage={formHandler.errors.commercialRegistryNumber}
                       />
                     </div>
                     <div>

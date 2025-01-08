@@ -146,7 +146,7 @@ export default function VisaTable({ data, isLoading, handleUpdate }) {
         case "description":
           return service.ReadyVisa?.description || service.description || "-";
         case "price":
-          return `${service.price || 0} ${t("currency")}`;
+          return `${service.price + service.margin || 0}`;
         case "quantityAvailable":
           return service.quantityAvailable || 0;
         case "actions":

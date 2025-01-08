@@ -208,7 +208,7 @@ export default function AgenciesTable({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            {t("Total") + " " + users.length + " " + t("Users")}
+            {t("Total") + " " + users.length + " " + t("Agencies")}
           </span>
           <label className="flex items-center text-default-400 text-small">
             {t("Rows_per_page")}

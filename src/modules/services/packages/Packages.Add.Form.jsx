@@ -8,6 +8,8 @@ import {
   Button,
   useDisclosure,
   Input,
+  Textarea,
+  Checkbox
 } from "@nextui-org/react";
 import { PlusIcon } from "../../core/components/icons/PlusIcon";
 import * as Yup from "yup"; // For validation.
@@ -30,73 +32,85 @@ export default function PackagesForm({ handleUpdate }) {
 
   const formHandler = useFormik({
     initialValues: {
-      name: "",
-      ar_name: "",
-      description: "",
-      ar_description: "",
-      price: "",
-      margin: "",
       service: {
+        name: "",
+        description: "",
         price: "",
-        savings: "",
         margin: "",
-      } || {},
-      city: "",
-      state: "",
-      Hotel: "",
-      hotelLocation: "",
-      stars: "",
-      room: "",
-      roomType: "",
-      trip: "",
-      tripLocation: "",
-      tripType: "",
-      transportation: "",
-      flight: "",
-      FlightsType: "",
-      flightTime: "",
-      flightAirline: "",
+        WholesalerId: 1,
+        quantityAvailable: "",
+        savings: "",
+        isOffer: false,
+        cancellationPolicy: "",
+      },
+      package: {
+        data: {
+          city: "",
+          state: "",
+          Hotel: "",
+          hotelLocation: "",
+          stars: "",
+          room: "",
+          roomType: "",
+          trip: "",
+          tripLocation: "",
+          tripType: "",
+          transportation: "",
+          flight: "",
+          FlightsType: "",
+          flightTime: "",
+          flightAirline: "",
+        }
+      }
     },
     validationSchema: () => {
       const phoneRegex = /^\+20(1[0125]\d{8})$/; // Egyptian phone number regex
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
 
       return Yup.object({
-        name: Yup.string().required(t("Required")),
-        ar_name: Yup.string().required(t("Required")),
-        description: Yup.string().required(t("Required")),
-        ar_description: Yup.string().required(t("Required")),
-        margin: Yup.number().max(999999).min(-99999).required(t("Required")),
-        price: Yup.number().max(999999).min(0).required(t("Required")),
-        address: Yup.string().required(t("Required")),
-        stars: Yup.number().integer().required(t("Required")),
-        city: Yup.string().required(t("Required")),
-        state: Yup.string().required(t("Required")),
-        hotel: Yup.string().required(t("Required")),
-        hotelLocation: Yup.string().required(t("Required")),
-        room: Yup.string().required(t("Required")),
-        roomType: Yup.string(),
-        trip: Yup.string(),
-        tripLocation: Yup.string(),
-        tripType: Yup.string(),
-        transportation: Yup.string(),
-        flight: Yup.string(),
-        FlightsType: Yup.string(),
-        flightTime: Yup.string(),
-        flightAirline: Yup.string(),
+        // name: Yup.string().required(t("Required")),
+        // ar_name: Yup.string().required(t("Required")),
+        // description: Yup.string().required(t("Required")),
+        // ar_description: Yup.string().required(t("Required")),
+        // margin: Yup.number().max(999999).min(-99999).required(t("Required")),
+        // price: Yup.number().max(999999).min(0).required(t("Required")),
+        // address: Yup.string().required(t("Required")),
+        // stars: Yup.number().integer().required(t("Required")),
+        // city: Yup.string().required(t("Required")),
+        // state: Yup.string().required(t("Required")),
+        // hotel: Yup.string().required(t("Required")),
+        // hotelLocation: Yup.string().required(t("Required")),
+        // room: Yup.string().required(t("Required")),
+        // roomType: Yup.string(),
+        // trip: Yup.string(),
+        // tripLocation: Yup.string(),
+        // tripType: Yup.string(),
+        // transportation: Yup.string(),
+        // flight: Yup.string(),
+        // FlightsType: Yup.string(),
+        // flightTime: Yup.string(),
+        // flightAirline: Yup.string(),
       });
     },
 
-    onSubmit: (values, { resetForm }) => {
-      uploadImage(agencyImage, setIsLoading, setApiError).then((id) => {
-        // Check if image is properly updated
-        values["imageIds"] = id ? id : null;
-        values["stars"] = Number(values["stars"]);
+    onSubmit: async (values, { resetForm }) => {
+      let imageIds;
+      if (agencyImage.length !== 0) {
+        imageIds = await uploadImage(agencyImage, setIsLoading, setApiError);
+        values.service.imageIds = imageIds ? imageIds : [];
+      }
+      values.service.imageIds = imageIds ? imageIds : [];
+
+      values.service.WholesalerId = 1;
+      // uploadImage(agencyImage, setIsLoading, setApiError).then((id) => {
+      //   // Check if image is properly updated
+      //   values["imageIds"] = id ? id : null;
+      //   values["stars"] = Number(values["stars"]);
+      //   values[]
         addService(values, setIsLoading, handleUpdate, "packages").then(() => {
           onClose();
           resetForm();
         });
-      });
     },
   });
 
@@ -126,441 +140,470 @@ export default function PackagesForm({ handleUpdate }) {
               <ModalBody className="flex flex-row items-center">
                 <div className="w-1/2">
                   <div className="grid grid-cols-2 gap-3">
+                    
                     <div>
                       <Input
-                        id="name"
-                        type="name"
-                        label={t("Name")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="service.name"
+                        type="text"
+                        name="service.name"
+                        label={t("Title")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.name}
+                        value={formHandler.values.service.name}
+                        isInvalid={
+                          formHandler.errors.service?.name &&
+                          formHandler.touched.service?.name
+                        }
+                        errorMessage={formHandler.errors.service?.name}
                       />
-                      {formHandler.touched.name && formHandler.errors.name ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.name}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
-                      <Input
-                        id="ar_name"
-                        type="ar_name"
-                        label={t("ar_name")}
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.ar_name}
-                      />
-                      {formHandler.touched.name && formHandler.errors.name ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.name}
-                        </div>
-                      ) : null}
                     </div>
 
                     <div>
-                      <Input
-                        id="stars"
-                        // type=""
-                        label={t("stars")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                      <Textarea
+                        id="service.description"
+                        name="service.description"
+                        type="text"
+                        label={t("Description")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.stars}
+                        value={formHandler.values.service.description}
+                        isInvalid={
+                          formHandler.errors.service?.description &&
+                          formHandler.touched.service?.description
+                        }
+                        errorMessage={formHandler.errors.service?.description}
                       />
-                      {formHandler.touched.stars && formHandler.errors.stars ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.stars}
-                        </div>
-                      ) : null}
                     </div>
-
                     <div>
                       <Input
-                        id="state"
-                        type="state"
-                        label={t("state")}
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.state}
-                      />
-                      {formHandler.touched.state && formHandler.errors.state ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.state}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div>
-                      <Input
-                        id="price"
+                        id="service.price"
+                        name="service.price"
                         type="number"
-                        label={t("price")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        label={t("Price")}
+                        placeholder="0.00"
                         radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.price}
-                      />
-                      {formHandler.touched.price && formHandler.errors.price ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.price}
-                        </div>
-                      ) : null}
-                    </div>
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.price", "");
+                            return;
+                          }
 
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.price", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.service?.price}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.price &&
+                          formHandler.touched.service?.price
+                        }
+                        errorMessage={formHandler.errors.service?.price}
+                      />
+                    </div>
                     <div>
                       <Input
-                        id="margin"
+                        id="service.margin"
+                        name="service.margin"
                         type="number"
                         label={t("Margin")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        placeholder="0.00"
                         radius="lg"
-                        onChange={formHandler.handleChange}
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.margin", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.margin", value);
+                        }}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.margin}
+                        value={formHandler.values.service?.margin}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.margin &&
+                          formHandler.touched.service?.margin
+                        }
+                        errorMessage={formHandler.errors.service?.margin}
                       />
-                      {formHandler.touched.margin && formHandler.errors.margin ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.margin}
-                        </div>
-                      ) : null}
+                    </div>
+                    <div>
+                      <Input
+                        id="service.savings"
+                        name="service.savings"
+                        type="number"
+                        label={t("savings")}
+                        placeholder="0.00"
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.savings", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.savings", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.service.savings}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.savings &&
+                          formHandler.touched.service?.savings
+                        }
+                        errorMessage={formHandler.errors.service?.savings}
+                      />
                     </div>
 
                     <div>
                       <Input
-                        id="city"
-                        type="city"
-                        label={t("city")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="service.quantityAvailable"
+                        name="service.quantityAvailable"
+                        type="number"
+                        label={t("Quantity Available")}
                         radius="lg"
-                        onChange={formHandler.handleChange}
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue(
+                              "service.quantityAvailable",
+                              "",
+                            );
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue(
+                            "service.quantityAvailable",
+                            value,
+                          );
+                        }}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.city}
+                        value={formHandler.values.service.quantityAvailable}
+                        isInvalid={
+                          formHandler.errors.service?.quantityAvailable &&
+                          formHandler.touched.service?.quantityAvailable
+                        }
+                        errorMessage={
+                          formHandler.errors.service?.quantityAvailable
+                        }
                       />
-                      {formHandler.touched.city && formHandler.errors.city ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.city}
-                        </div>
-                      ) : null}
                     </div>
 
                     <div>
                       <Input
-                        id="address"
-                        type="address"
-                        label={t("address")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="service.cancellationPolicy"
+                        name="service.cancellationPolicy"
+                        type="text"
+                        label={t("Cancelation Policy")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.address}
+                        value={formHandler.values.service.cancellationPolicy}
+                        isInvalid={
+                          formHandler.errors.service?.cancellationPolicy &&
+                          formHandler.touched.service?.cancellationPolicy
+                        }
+                        errorMessage={
+                          formHandler.errors.service?.cancellationPolicy
+                        }
                       />
-                      {formHandler.touched.address &&
-                      formHandler.errors.address ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.address}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div>
-                      <Input
-                        id="website"
-                        type="website"
-                        label={t("website")}
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.website}
-                      />
-                      {formHandler.touched.website &&
-                      formHandler.errors.website ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.website}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div>
-                      <Input
-                        id="description"
-                        type="description"
-                        label={t("Description")}
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.description}
-                      />
-                      {formHandler.touched.description &&
-                      formHandler.errors.description ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.description}
-                        </div>
-                      ) : null}
                     </div>
                     <div>
                       <Input
-                        id="ar_description"
-                        type="description"
-                        label={t("ar_description")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="package.data.city"
+                        name="package.data.city"
+                        type="text"
+                        label={t("City")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.ar_description}
+                        value={formHandler.values.package.data.city}
+                        isInvalid={
+                          formHandler.errors.package?.data?.city &&
+                          formHandler.touched.package?.data?.city
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.city
+                        }
                       />
-                      {formHandler.touched.ar_description &&
-                      formHandler.errors.ar_description ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.description}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div className="col-span-2">
-                      <Input
-                        id="hotel"
-                        type="hotel"
-                        label={t("hotel")}
-                        variant="bordered"
-                        labelPlacement="outside"
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.hotel}
-                      />
-                      {formHandler.touched.hotel && formHandler.errors.hotel ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.hotel}
-                        </div>
-                      ) : null}
                     </div>
                     <div>
                       <Input
-                        id="hotelLocation"
-                        type="hotelLocation"
-                        label={t("hotelLocation")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="package.data.state"
+                        name="package.data.state"
+                        type="text"
+                        label={t("state")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.hotelLocation}
+                        value={formHandler.values.package?.data?.state}
+                        isInvalid={
+                          formHandler.errors.package?.data?.state &&
+                          formHandler.touched.package?.data?.state
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.state
+                        }
                       />
-                      {formHandler.touched.hotelLocation &&
-                      formHandler.errors.hotelLocation ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.hotelLocation}
-                        </div>
-                      ) : null}
                     </div>
                     <div>
                       <Input
-                        id="room"
-                        type="room"
+                        id="package.data.Hotel"
+                        name="package.data.Hotel"
+                        type="text"
+                        label={t("Hotel")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.package?.data?.Hotel}
+                        isInvalid={
+                          formHandler.errors.package?.data?.Hotel &&
+                          formHandler.touched.package?.data?.Hotel
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.Hotel
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="package.data.hotelLocation"
+                        name="package.data.hotelLocation"
+                        type="text"
+                        label={t("hotel Location")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.package?.data?.hotelLocation}
+                        isInvalid={
+                          formHandler.errors.package?.data?.hotelLocation &&
+                          formHandler.touched.package?.data?.hotelLocation
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.hotelLocation
+                        }
+                      />
+                    </div><div>
+                      <Input
+                        id="package.data.stars"
+                        name="package.data.stars"
+                        type="number"
+                        label={t("stars")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.package?.data?.stars}
+                        isInvalid={
+                          formHandler.errors.package?.data?.stars &&
+                          formHandler.touched.package?.data?.stars
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.stars
+                        }
+                      />
+                    </div><div>
+                      <Input
+                        id="package.data.room"
+                        name="package.data.room"
+                        type="text"
                         label={t("room")}
-                        variant="bordered"
-                        labelPlacement="outside"
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.room}
+                        value={formHandler.values.package?.data?.room}
+                        isInvalid={
+                          formHandler.errors.package?.data?.room &&
+                          formHandler.touched.package?.data?.room
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.room
+                        }
                       />
-                      {formHandler.touched.room && formHandler.errors.room ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.room}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="roomType"
-                        type="roomType"
+                        id="package.data.roomType"
+                        name="package.data.roomType"
+                        type="text"
                         label={t("roomType")}
-                        variant="bordered"
-                        labelPlacement="outside"
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.roomType}
+                        value={formHandler.values.package?.data?.roomType}
+                        isInvalid={
+                          formHandler.errors.package?.data?.roomType &&
+                          formHandler.touched.package?.data?.roomType
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.roomType
+                        }
                       />
-                      {formHandler.touched.roomType &&
-                      formHandler.errors.roomType ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.roomType}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="trip"
-                        type="trip"
+                        id="package.data.trip"
+                        name="package.data.trip"
+                        type="text"
                         label={t("trip")}
-                        variant="bordered"
-                        labelPlacement="outside"
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.trip}
+                        value={formHandler.values.package?.data?.trip}
+                        isInvalid={
+                          formHandler.errors.package?.data?.trip &&
+                          formHandler.touched.package?.data?.trip
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.trip
+                        }
                       />
-                      {formHandler.touched.trip && formHandler.errors.trip ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.trip}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="tripLocation"
-                        type="tripLocation"
-                        label={t("tripLocation")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="package.data.tripLocation"
+                        name="package.data.tripLocation"
+                        type="text"
+                        label={t("trip Location")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.tripLocation}
+                        value={formHandler.values.package?.data?.tripLocation}
+                        isInvalid={
+                          formHandler.errors.package?.data?.tripLocation &&
+                          formHandler.touched.package?.data?.tripLocation
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.tripLocation
+                        }
                       />
-                      {formHandler.touched.tripLocation &&
-                      formHandler.errors.tripLocation ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.tripLocation}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="tripType"
-                        type="tripType"
-                        label={t("tripType")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="package.data.tripType"
+                        name="package.data.tripType"
+                        type="text"
+                        label={t("trip Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.tripType}
+                        value={formHandler.values.package?.data?.tripType}
+                        isInvalid={
+                          formHandler.errors.package?.data?.tripType &&
+                          formHandler.touched.package?.data?.tripType
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.tripType
+                        }
                       />
-                      {formHandler.touched.tripType &&
-                      formHandler.errors.tripType ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.tripType}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="transportation"
-                        type="transportation"
-                        label={t("transportation")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="package.data.transportation"
+                        name="package.data.transportation"
+                        type="text"
+                        label={t("City")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.transportation}
+                        value={formHandler.values.package?.data?.transportation}
+                        isInvalid={
+                          formHandler.errors.package?.data?.transportation &&
+                          formHandler.touched.package?.data?.transportation
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.transportation
+                        }
                       />
-                      {formHandler.touched.transportation &&
-                      formHandler.errors.transportation ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.transportation}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="flight"
-                        type="flight"
+                        id="package.data.flight"
+                        name="package.data.flight"
+                        type="text"
                         label={t("flight")}
-                        variant="bordered"
-                        labelPlacement="outside"
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.flight}
+                        value={formHandler.values.package?.data?.flight}
+                        isInvalid={
+                          formHandler.errors.package?.data?.flight &&
+                          formHandler.touched.package?.data?.flight
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.flight
+                        }
                       />
-                      {formHandler.touched.flight &&
-                      formHandler.errors.flight ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.flight}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="FlightsType"
-                        type="FlightsType"
-                        label={t("FlightsType")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="package.data.FlightsType"
+                        name="package.data.FlightsType"
+                        type="text"
+                        label={t("Flights Type")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.FlightsType}
+                        value={formHandler.values.package?.data?.FlightsType}
+                        isInvalid={
+                          formHandler.errors.package?.data?.FlightsType &&
+                          formHandler.touched.package?.data?.FlightsType
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.FlightsType
+                        }
                       />
-                      {formHandler.touched.FlightsType &&
-                      formHandler.errors.FlightsType ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.FlightsType}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="flightTime"
-                        type="flightTime"
-                        label={t("flightTime")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="package.data.flightTime"
+                        name="package.data.flightTime"
+                        type="text"
+                        label={t("flight Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.flightTime}
+                        value={formHandler.values.package?.data?.flightTime}
+                        isInvalid={
+                          formHandler.errors.package?.data?.flightTime &&
+                          formHandler.touched.package?.data?.flightTime
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.flightTime
+                        }
                       />
-                      {formHandler.touched.flightTime &&
-                      formHandler.errors.flightTime ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.flightTime}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div>
+                    </div><div>
                       <Input
-                        id="flightAirline"
-                        type="flightAirline"
-                        label={t("flightAirline")}
-                        variant="bordered"
-                        labelPlacement="outside"
+                        id="package.data.flightAirline"
+                        name="package.data.flightAirline"
+                        type="text"
+                        label={t("flight Air line")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values.flightAirline}
+                        value={formHandler.values.package?.data?.flightAirline}
+                        isInvalid={
+                          formHandler.errors.package?.data?.flightAirline &&
+                          formHandler.touched.package?.data?.flightAirline
+                        }
+                        errorMessage={
+                          formHandler.errors.package?.data?.flightAirline
+                        }
                       />
-                      {formHandler.touched.flightAirline &&
-                      formHandler.errors.flightAirline ? (
-                        <div className="text-red-600">
-                          {formHandler.errors.flightAirline}
-                        </div>
-                      ) : null}
                     </div>
+                    
                     <div className="col-span-2">
                       {apiError ? <Alert text={apiError} /> : ""}
                     </div>

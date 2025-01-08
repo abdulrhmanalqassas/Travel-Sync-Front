@@ -28,7 +28,7 @@ export default function FlightCard(props) {
   //   "deletedAt": null,
   //   "__entity": "FlightEntity"
   // }
-  const { flight, img } = props;
+  const { flight, img, service } = props;
 
   // const formattedDate = formatDuration(
   //   new Date(Reservation?.updatedAt),
@@ -124,7 +124,7 @@ export default function FlightCard(props) {
         className="text-center w-1/6 flex flex-col justify-center "
       >
         <div className="mb-4">
-          <h1 className="font-semibold">{flight?.price}$</h1>
+          <h1 className="font-semibold">{service?.price + service?.margin}$</h1>
 
           <h1>{t("Per_Flight")}</h1>
         </div>

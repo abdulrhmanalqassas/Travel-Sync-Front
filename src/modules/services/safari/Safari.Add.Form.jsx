@@ -38,6 +38,7 @@ export default function SafariForm({ handleUpdate }) {
         name: "",
         description: "",
         price: "",
+        margin: "",
         quantityAvailable: "",
         savings: "",
         isOffer: false,
@@ -48,11 +49,17 @@ export default function SafariForm({ handleUpdate }) {
         address: "",
         city: "",
         country: "",
+        startLocation: "",
+        endLocation: "",
+        distance: "",
         startTime: new Date().toISOString(),
         endTime: new Date().toISOString(),
         includes: "",
         excludes: "",
         days: "",
+        tourGuideName: "",
+        tourGuidePhone: "",
+        tourGuideId: "",
       },
     },
 
@@ -202,6 +209,40 @@ export default function SafariForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.price}
                       />
                     </div>
+
+                    <div>
+                      <Input
+                        id="service.margin"
+                        name="service.margin"
+                        type="number"
+                        label={t("Margin")}
+                        placeholder="0.00"
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.margin", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.margin", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.service?.margin}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.margin &&
+                          formHandler.touched.service?.margin
+                        }
+                        errorMessage={formHandler.errors.service?.margin}
+                      />
+                    </div>
                     <div>
                       <Input
                         id="service.savings"
@@ -306,6 +347,76 @@ export default function SafariForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.safari?.type}
                       />
                     </div> */}
+                    {
+                      //   tourGuideName: "",
+                      // tourGuidePhone: "",
+                      // tourGuideId: "",
+                      // startLocation: "",
+                      // endLocation: "",
+                      // distance: "",
+                      // margin: "",
+                    }
+                    <div>
+                      <Input
+                        id="safari.startLocation"
+                        name="safari.startLocation"
+                        type="text"
+                        label={t("startLocation")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.safari.startLocation}
+                        isInvalid={
+                          formHandler.errors.safari?.startLocation &&
+                          formHandler.touched.safari?.startLocation
+                        }
+                        errorMessage={formHandler.errors.safari?.startLocation}
+                      />
+                    </div>
+                    <div>
+                      <Input
+
+                        id="safari.distance"
+                        name="safari.distance"
+                        type="number"
+                        label={t("distance")}
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("safari.distance", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("safari.distance", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.safari.distance}
+                        isInvalid={
+                          formHandler.errors.safari?.distance &&
+                          formHandler.touched.safari?.distance
+                        }
+                        errorMessage={formHandler.errors.safari?.distance}
+                      />
+                    </div>
+
+                    <div>
+                      <Input
+                        id="safari.endLocation"
+                        name="safari.endLocation"
+                        type="text"
+                        label={t("endLocation")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.safari.endLocation}
+                        isInvalid={
+                          formHandler.errors.safari?.endLocation &&
+                          formHandler.touched.safari?.endLocation
+                        }
+                        errorMessage={formHandler.errors.safari?.endLocation}
+                      />
+                    </div>
                     <div>
                       <Input
                         id="safari.address"
@@ -407,7 +518,6 @@ export default function SafariForm({ handleUpdate }) {
                             formHandler.setFieldValue("safari.days", "");
                             return;
                           }
-
                           const value = Math.max(0, parseFloat(e.target.value));
                           formHandler.setFieldValue("safari.days", value);
                         }}
@@ -455,7 +565,58 @@ export default function SafariForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.safari?.excludes}
                       />
                     </div>
-
+                    
+                    <div>
+                      <Input
+                        id="safari.tourGuideName"
+                        name="safari.tourGuideName"
+                        type="text"
+                        label={t("tour Guide Name")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.safari.tourGuideName}
+                        isInvalid={
+                          formHandler.errors.safari?.tourGuideName &&
+                          formHandler.touched.safari?.tourGuideName
+                        }
+                        errorMessage={formHandler.errors.safari?.tourGuideName}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="safari.tourGuidePhone"
+                        name="safari.tourGuidePhone"
+                        type="text"
+                        label={t("tour Guide Phone")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.safari.tourGuidePhone}
+                        isInvalid={
+                          formHandler.errors.safari?.tourGuidePhone &&
+                          formHandler.touched.safari?.tourGuidePhone
+                        }
+                        errorMessage={formHandler.errors.safari?.tourGuidePhone}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="safari.tourGuideId"
+                        name="safari.tourGuideId"
+                        type="text"
+                        label={t("tour Guide Id")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.safari.tourGuideId}
+                        isInvalid={
+                          formHandler.errors.safari?.tourGuideId &&
+                          formHandler.touched.safari?.tourGuideId
+                        }
+                        errorMessage={formHandler.errors.safari?.tourGuideId}
+                      />
+                    </div>
                     <div>
                       <Checkbox
                         id="serviceIsOffer"

@@ -68,7 +68,7 @@ const NavBar = () => {
           {t("Welcome")}, {user.firstName}{" "}
         </h1>
         <h3 className="text-small  text-[#8f9191] ">
-          {t("Today_is")}
+          {t("Today_is") + " "}
           {formattedDate}
         </h3>
       </div>

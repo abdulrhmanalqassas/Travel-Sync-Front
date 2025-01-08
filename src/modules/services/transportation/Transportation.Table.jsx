@@ -173,7 +173,7 @@ export default function TransportationTable({ data, isLoading, handleUpdate }) {
           ? service.transportation?.ar_description || "-"
           : service.transportation?.description || "-";
       case "price":
-        return `${service.price || 0} ${t("currency")}`;
+        return `${service.price + service?.margin || 0}`;
       case "quantityAvailable":
         return service.quantityAvailable || 0;
       case "actions":

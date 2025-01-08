@@ -48,7 +48,7 @@ export default function RoomCard({ service }) {
         className="text-center w-1/6 flex flex-col justify-center "
       >
         <div className="mb-4">
-          <h1 className="font-semibold">{service.price}$</h1>
+          <h1 className="font-semibold">{service.price + service?.margin}$</h1>
           <h1>{t("Per_Night")}</h1>
         </div>
         <Button

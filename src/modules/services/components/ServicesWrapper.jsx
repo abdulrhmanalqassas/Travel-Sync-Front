@@ -21,11 +21,13 @@ const ServicesWrapper = ({ data, isLoading, type }) => {
             <ClockLoader color="#36d7b7" size={100} />
           </div>
         ) : type === "flights" ? (
-          data.map(({ id, flight }) => (
+            data.map((service) => (
             <FlightCard
-              flight={flight}
-              key={id}
-              img="https://img.freepik.com/premium-vector/airline-logo-plane-travel-icon-airport-flight-world-aviation-aircraft-business-tourism-logo_41737-1254.jpg"
+                flight={service.flight}
+                service={service}
+              key={service.id}
+                img={service.images[0]?.imageUrl}
+                
             />
           ))
         ) : type === "hotel-rooms" ? (

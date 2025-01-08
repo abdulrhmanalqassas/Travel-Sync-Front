@@ -58,45 +58,45 @@ export default function FlightsForm({ handleUpdate }) {
       },
     },
 
-    validationSchema: () => {
-      return Yup.object({
-        service: Yup.object({
-          name: Yup.string().min(5).max(500).required(t("Required")),
-          description: Yup.string().required(t("Required")),
-          price: Yup.number().max(999999).min(0).required(t("Required")),
-          margin: Yup.number().max(999999).min(-99999).required(t("Required")),
-          quantityAvailable: Yup.number()
-            .min(0)
-            .max(9999)
-            .required(t("Required"))
-            .integer("Must be a number"),
-          savings: Yup.number().min(0).max(9999).required(t("Required")),
-          isOffer: Yup.boolean().required(t("Required")),
-          cancellationPolicy: Yup.string()
-            .min(2)
-            .max(500)
-            .required(t("Required")),
-        }),
-        flight: Yup.object({
-          airline: Yup.string().min(3).max(60).required(t("Required")),
-          departureAddress: Yup.string()
-            .min(3)
-            .max(250)
-            .required(t("Required")),
-          // commission: Yup.number()
-          //   .max(999999)
-          //   .min(0)
-          //   .required(t("Required"))
-          //   .integer("Must be a number"),
-          departureCity: Yup.string().min(3).max(60).required(t("Required")),
-          arrivalAddress: Yup.string().min(3).max(250).required(t("Required")),
-          arrivalCity: Yup.string().min(3).max(60).required(t("Required")),
-          departureTime: Yup.string().required(t("Required")),
-          arrivalTime: Yup.string().required(t("Required")),
-          seatType: Yup.string().required(t("Required")),
-        }),
-      });
-    },
+    // validationSchema: () => {
+    //   return Yup.object({
+    //     service: Yup.object({
+    //       name: Yup.string().min(5).max(500).required(t("Required")),
+    //       description: Yup.string().required(t("Required")),
+    //       price: Yup.number().max(999999).min(0).required(t("Required")),
+    //       margin: Yup.number().max(999999).min(-99999).required(t("Required")),
+    //       quantityAvailable: Yup.number()
+    //         .min(0)
+    //         .max(9999)
+    //         .required(t("Required"))
+    //         .integer("Must be a number"),
+    //       savings: Yup.number().min(0).max(9999).required(t("Required")),
+    //       isOffer: Yup.boolean().required(t("Required")),
+    //       cancellationPolicy: Yup.string()
+    //         .min(2)
+    //         .max(500)
+    //         .required(t("Required")),
+    //     }),
+    //     flight: Yup.object({
+    //       airline: Yup.string().min(3).max(60).required(t("Required")),
+    //       departureAddress: Yup.string()
+    //         .min(3)
+    //         .max(250)
+    //         .required(t("Required")),
+    //       // commission: Yup.number()
+    //       //   .max(999999)
+    //       //   .min(0)
+    //       //   .required(t("Required"))
+    //       //   .integer("Must be a number"),
+    //       departureCity: Yup.string().min(3).max(60).required(t("Required")),
+    //       arrivalAddress: Yup.string().min(3).max(250).required(t("Required")),
+    //       arrivalCity: Yup.string().min(3).max(60).required(t("Required")),
+    //       departureTime: Yup.string().required(t("Required")),
+    //       arrivalTime: Yup.string().required(t("Required")),
+    //       seatType: Yup.string().required(t("Required")),
+    //     }),
+    //   });
+    // },
 
     onSubmit: async (values, { resetForm }) => {
       let imageIds;

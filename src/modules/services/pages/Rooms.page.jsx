@@ -5,6 +5,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaStar } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getService } from "../services.handlers";
+import { BiSolidOffer } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
 const RoomsPage = () => {
   const { t } = useTranslation();
@@ -40,27 +41,45 @@ const RoomsPage = () => {
         <div>
           <p className="flex  items-center gap-2">
             {" "}
-            <CiLocationOn /> Sidi Gaber, Alexandria
           </p>
-          <div className="flex mt-2">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <FaStar key={index} color="#FFCD6B" width={50} />
-            ))}
-            {Array.from({ length: 5 - 5 }).map((_, index) => (
-              <FaStar key={index} color="#F2F2F2" width={50} />
-            ))}
-          </div>
+          <p className="flex items-center gap-2">
+            {data?.isOffer ? <BiSolidOffer className="w-5 h-5" /> : null}
+            {`$${data?.price + data?.margin}`}
+          </p>
           <div className="mt-2">
             <h1 className="font-semibold">About room</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              beatae officiis itaque? Temporibus voluptatibus iure tempora
-              accusamus incidunt adipisci nesciunt explicabo excepturi sed eaque
-              doloremque, velit cupiditate fugiat eligendi itaque? Lorem, ipsum
-              dolor sit amet consectetur adipisicing elit. Amet accusantium
-              veritatis velit maiores totam quam, voluptate delectus architecto
-              aliquid excepturi?
+              {data?.description}
             </p>
+
+            <br />
+
+            <h1 className="font-semibold">Room Facilities</h1>
+
+            <table className="table-auto w-full mt-2">
+              <tbody>
+                <tr>
+                  <td className="border px-4 py-2 font-semibold">Number of Beds</td>
+                  <td className="border px-4 py-2">{data?.room?.numberOfBeds}</td>
+                </tr>
+                <tr>
+                  <td className="border px-4 py-2 font-semibold">Number of Sleeps</td>
+                  <td className="border px-4 py-2">{data?.room?.numberOfSleeps}</td>
+                </tr>
+                <tr>
+                  <td className="border px-4 py-2 font-semibold">Room Area</td>
+                  <td className="border px-4 py-2">{data?.room?.roomArea} m²</td>
+                </tr>
+                <tr>
+                  <td className="border px-4 py-2 font-semibold">Type</td>
+                  <td className="border px-4 py-2">{data?.room?.type}</td>
+                </tr>
+                <tr>
+                  <td className="border px-4 py-2 font-semibold">Features</td>
+                  <td className="border px-4 py-2">{data?.room?.features?.join(", ")}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

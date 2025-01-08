@@ -7,11 +7,15 @@ import { Button, Input } from "@nextui-org/react";
 import { Reserve } from "../reservation.handlers";
 import TravellerFileUploader from "../components/TravellerFileUploader";
 import { useTranslation } from "react-i18next";
+import { data } from "autoprefixer";
+import { getService } from "../../services/services.handlers";
 
 const ReserveService = ({ type }) => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [data, setData] = useState([]);
+
   
 
   // Get ID from URL
@@ -19,6 +23,11 @@ const ReserveService = ({ type }) => {
 
   const { pathname } = location;
   const id = parseInt(pathname.slice(pathname.lastIndexOf("/") + 1));
+
+  useEffect(() => {
+    getService(setData, setIsLoading, `hotel-rooms/${id}`);
+  }, [id]);
+
 
   // State to manage travelers
   const [travelers, setTravelers] = useState([
@@ -185,9 +194,9 @@ const ReserveService = ({ type }) => {
               <p>
                 {formHandler.values.quantity} {t("night")}
               </p>
-              <p>120$</p>
+              <p>{ data?.price + data?.margin}$</p>
             </div>
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <p> {t("Taxes_fees")}</p>
               <p>15$</p>
             </div>
@@ -198,18 +207,13 @@ const ReserveService = ({ type }) => {
             <div className="flex justify-between">
               <p>{t("charter percenteage")}</p>
               <p>10%</p>
-            </div>
+            </div> */}
             <hr className="border-dashed border-2 my-3" />
 
             <div className="flex justify-between">
               <p className="font-semibold">{t("Total")}</p>
               <p className="font-semibold">
-                {formHandler.values.quantity >= 10
-                  ? formHandler.values.quantity * 120 +
-                    15 * 0.9 +
-                    "$" +
-                    "   10% off"
-                  : formHandler.values.quantity * 120 + 15 + "$"}
+                {`${(data?.price + data?.margin)* formHandler.values.quantity}$`}
               </p>
             </div>
           </div>

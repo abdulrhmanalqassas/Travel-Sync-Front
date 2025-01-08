@@ -291,5 +291,7 @@
   "Add_Crusis":"إضافة رحلة بحرية",
   "Add_Diving":"إضافة خدمة الغوص",
   "add_safari":"اضافة سفاري",
-  "add_Diving": "اضافة غوص"
+  "add_Diving": "اضافة غوص",
+  "No_visas_found":"لم يتم العثور على تأشيرات",
+  "agencyOwnerAddress":"عنوان مالك الوكالة"
 }
