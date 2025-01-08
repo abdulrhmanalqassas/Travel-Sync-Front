@@ -154,7 +154,7 @@ const ReservationPageUser = () => {
                   color="success"
                   radius="full"
                   size="lg"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                    src={reservation?.user?.profilePhoto?.imageUrl}
                 />
                 <div className="flex flex-col ml-5">
                   <h4 className="text-md font-semibold">

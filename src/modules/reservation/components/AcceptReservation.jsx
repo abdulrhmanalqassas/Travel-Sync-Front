@@ -9,10 +9,12 @@ import {
 } from "@nextui-org/react";
 import { acceptReservation } from "../reservation.handlers";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function AcceptReservation({ id, handleUpdate }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isLoading, setIsLoading] = useState("");
+  const { t } = useTranslation();
 
   return (
     <>

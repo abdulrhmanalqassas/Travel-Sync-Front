@@ -129,7 +129,7 @@ const HotelsPage = () => {
                   </Button>
               <div>
                 <p className="text-lg font-semibold">
-                  {item?.service?.price + item.service.margin} EGP
+                  {item?.service?.price + (item?.service?.margin || 0)} EGP
                 </p>
                 <p>{t("per_night")}</p>
               </div>

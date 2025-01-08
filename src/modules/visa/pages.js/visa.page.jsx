@@ -36,15 +36,35 @@ const VisaViewPage = () => {
             {t("Reserve_visa")}
           </Button>
         </div>
+        <div className="flex justify-between mb-3">
+          <h1 className="text-2xl font-semibold"></h1>
+          <p><strong>{`total price: ${data?.price + data?.margin}$`}</strong> </p>
+        </div>
         <div>
           <p className="flex  items-center gap-2"> </p>
-          <div className="mt-2">
+          <div className="dddmt-2">
             <h1 className="font-semibold">{t("About_Visa")} </h1>
+            <p>{data?.description}</p>
             <h1 className="text-lg font-semibold">{data?.type}</h1>
             <h1 className="text-lg font-semibold">
               {data?.ReadyVisa?.country}
             </h1>
-            <p>{data?.description}</p>
+          </div>
+          <div>
+            <h1 className="font-semibold">{t("Visa Requirements")}</h1>
+            <table className="table-auto w-full mt-5">
+              
+              <tbody>
+                {Object.entries(data?.ReadyVisa || {})
+                  .filter(([key]) => !["createdAt", "updatedAt", "deletedAt", "__entity", "description", "id", "name", "ar_description", "ar_name"].includes(key))
+                  .map(([key, value]) => (
+                    <tr key={key}>
+                      <td className="border px-4 py-2">{key}</td>
+                      <td className="border px-4 py-2">{value}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

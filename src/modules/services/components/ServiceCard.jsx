@@ -46,12 +46,12 @@ export default function ServiceCard({
               <BiSolidOffer className="w-5 h-5" />
             </div>
           )}
-          <h3 className="text-[black2]">
+          <h3 className="text-[black2] font-bold">
             <span className="text-black">{numberOfRooms}</span>{" "}
-            {t(`${type}_with_price`)}
+            {data?.price ?  `${data?.price + data?.margin} $`: ""}
           </h3>
           <h3 className="text-[black2]">
-            <span className="text-black">{t(`_${type}`)}</span>{" "}
+            <span className="text-black">{t(`${type === 'safari' ? data?.safari?.type : type}`)}</span>{" "}
           </h3>
         </div>
         <div className="flex flex-col gap-2">
