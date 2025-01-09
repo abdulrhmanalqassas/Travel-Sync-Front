@@ -27,11 +27,6 @@ const SideBar = () => {
       path: "/Dashboard",
       icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
-    {
-      title: t("Visa_Applications"),
-      path: "/visa/applications",
-      icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
-    },
     // {
     //   title: t("Visa"),
     //   path: "/visa/add",
@@ -56,6 +51,11 @@ const SideBar = () => {
       title: t("Reservations"),
       path: "/Reservations",
       icon: <IoDocumentText className={ICON_STYLE} />,
+    },
+    {
+      title: t("Visa_Applications"),
+      path: "/visa/applications",
+      icon: <HiMiniPresentationChartBar className={ICON_STYLE} />,
     },
     {
       title: t("Finance"),

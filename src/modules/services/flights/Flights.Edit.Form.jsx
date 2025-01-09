@@ -34,6 +34,7 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
         name: data?.name,
         description: data?.description,
         price: data?.price,
+        margin: data?.margin,
         quantityAvailable: data?.quantityAvailable,
         savings: data?.savings,
         isOffer: data?.isOffer,
@@ -48,7 +49,6 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
         departureTime: data?.flight?.departureTime,
         arrivalTime: data?.flight?.arrivalTime,
         seatType: data?.flight?.seatType,
-        commission: data?.flight?.commission,
       },
     },
 
@@ -76,11 +76,6 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
             .min(3)
             .max(250)
             .required(t("Required")),
-          commission: Yup.number()
-            .max(999999)
-            .min(0)
-            .required(t("Required"))
-            .integer("Must be a number"),
           departureCity: Yup.string().min(3).max(60).required(t("Required")),
           arrivalAddress: Yup.string().min(3).max(250).required(t("Required")),
           arrivalCity: Yup.string().min(3).max(60).required(t("Required")),
@@ -234,6 +229,39 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
                     </div>
                     <div>
                       <Input
+                        id="service.margin"
+                        name="service.margin"
+                        type="number"
+                        label={t("margin")}
+                        placeholder="0.00"
+                        radius="lg"
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            formHandler.setFieldValue("service.margin", "");
+                            return;
+                          }
+
+                          const value = Math.max(0, parseFloat(e.target.value));
+                          formHandler.setFieldValue("service.margin", value);
+                        }}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.service?.margin}
+                        startContent={
+                          <div className="pointer-events-none flex items-center">
+                            <span className="text-default-400 text-small">
+                              $
+                            </span>
+                          </div>
+                        }
+                        isInvalid={
+                          formHandler.errors.service?.margin &&
+                          formHandler.touched.service?.margin
+                        }
+                        errorMessage={formHandler.errors.service?.margin}
+                      />
+                    </div>
+                    <div>
+                      <Input
                         id="service.savings"
                         name="service.savings"
                         type="number"
@@ -315,31 +343,6 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
                           formHandler.touched.flight?.airline
                         }
                         errorMessage={formHandler.errors.flight?.airline}
-                      />
-                    </div>
-                    <div>
-                      <Input
-                        id="flight.commission"
-                        name="flight.commission"
-                        type="number"
-                        label={t("commission")}
-                        radius="lg"
-                        onChange={(e) => {
-                          if (e.target.value === "") {
-                            formHandler.setFieldValue("flight.commission", "");
-                            return;
-                          }
-
-                          const value = Math.max(0, parseFloat(e.target.value));
-                          formHandler.setFieldValue("flight.commission", value);
-                        }}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.flight.commission}
-                        isInvalid={
-                          formHandler.errors.flight?.commission &&
-                          formHandler.touched.flight?.commission
-                        }
-                        errorMessage={formHandler.errors.flight?.commission}
                       />
                     </div>
                     <div>
@@ -438,7 +441,7 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
                       <Input
                         id="flight.departureTime"
                         name="flight.departureTime"
-                        type="text"
+                        type="datetime-local"
                         label={t("Departure Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}
@@ -456,7 +459,7 @@ export default function FlightsFormEdit({ handleUpdate, flightID, data }) {
                       <Input
                         id="flight.arrivalTime"
                         name="flight.arrivalTime"
-                        type="text"
+                        type="datetime-local"
                         label={t("Arrival Time")}
                         radius="lg"
                         onChange={formHandler.handleChange}

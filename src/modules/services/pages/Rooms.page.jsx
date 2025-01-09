@@ -59,23 +59,23 @@ const RoomsPage = () => {
             <table className="table-auto w-full mt-2">
               <tbody>
                 <tr>
-                  <td className="border px-4 py-2 font-semibold">Number of Beds</td>
+                  <td className="border px-4 py-2 font-semibold">{t("Number of Beds")}</td>
                   <td className="border px-4 py-2">{data?.room?.numberOfBeds}</td>
                 </tr>
                 <tr>
-                  <td className="border px-4 py-2 font-semibold">Number of Sleeps</td>
+                  <td className="border px-4 py-2 font-semibold">{t("Number of Sleeps")}</td>
                   <td className="border px-4 py-2">{data?.room?.numberOfSleeps}</td>
                 </tr>
                 <tr>
-                  <td className="border px-4 py-2 font-semibold">Room Area</td>
+                  <td className="border px-4 py-2 font-semibold">{t("room Area") }</td>
                   <td className="border px-4 py-2">{data?.room?.roomArea} m²</td>
                 </tr>
                 <tr>
-                  <td className="border px-4 py-2 font-semibold">Type</td>
+                  <td className="border px-4 py-2 font-semibold">{t("Type")}</td>
                   <td className="border px-4 py-2">{data?.room?.type}</td>
                 </tr>
                 <tr>
-                  <td className="border px-4 py-2 font-semibold">Features</td>
+                  <td className="border px-4 py-2 font-semibold">{t("Features") }</td>
                   <td className="border px-4 py-2">{data?.room?.features?.join(", ")}</td>
                 </tr>
               </tbody>

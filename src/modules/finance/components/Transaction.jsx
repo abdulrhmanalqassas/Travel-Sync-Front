@@ -110,7 +110,7 @@ export default function Transactions({ handlechange }) {
                     label={t("Type")}
                     variant="bordered"
                     id="type"
-                    placeholder="Select type"
+                    placeholder={t("Select type")}
                     onBlur={formHandler.handleBlur}
                     value={formHandler.values.type}
                     onChange={formHandler.handleChange("type")}

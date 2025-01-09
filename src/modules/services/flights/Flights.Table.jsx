@@ -57,6 +57,7 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
     { name: "ID", uid: "id", sortable: true },
     { name: "NAME", uid: "name", sortable: true },
     { name: "price", uid: "price" },
+    { name: "margin", uid: "margin" },
     { name: "quantityAvailable", uid: "quantityAvailable" },
     { name: "savings", uid: "savings", sortable: true },
     { name: "airline", uid: "airline", sortable: true },
@@ -67,7 +68,6 @@ export default function FlightsTable({ data, isLoading, handleUpdate }) {
     { name: "departureCity", uid: "departureCity" },
     { name: "arrivalCity", uid: "arrivalCity" },
     { name: "DESCRIPTION", uid: "description" },
-    { name: "commission", uid: "commission" },
     { name: "ACTIONS", uid: "actions" },
   ];
 

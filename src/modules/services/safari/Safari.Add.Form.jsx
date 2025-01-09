@@ -330,32 +330,6 @@ export default function SafariForm({ handleUpdate }) {
                         }
                       />
                     </div>
-                    {/* <div>
-                      <Input
-                        id="safari.type"
-                        name="safari.type"
-                        type="text"
-                        label={t("safari_Type")}
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.safari?.type}
-                        isInvalid={
-                          formHandler.errors.safari?.type &&
-                          formHandler.touched.safari?.type
-                        }
-                        errorMessage={formHandler.errors.safari?.type}
-                      />
-                    </div> */}
-                    {
-                      //   tourGuideName: "",
-                      // tourGuidePhone: "",
-                      // tourGuideId: "",
-                      // startLocation: "",
-                      // endLocation: "",
-                      // distance: "",
-                      // margin: "",
-                    }
                     <div>
                       <Input
                         id="safari.startLocation"

@@ -38,7 +38,7 @@ const VisaViewPage = () => {
         </div>
         <div className="flex justify-between mb-3">
           <h1 className="text-2xl font-semibold"></h1>
-          <p><strong>{`total price: ${data?.price + data?.margin}$`}</strong> </p>
+          <p><strong>{`${t("total price")}: ${data?.price + data?.margin}$`}</strong> </p>
         </div>
         <div>
           <p className="flex  items-center gap-2"> </p>
@@ -58,8 +58,8 @@ const VisaViewPage = () => {
                 {Object.entries(data?.ReadyVisa || {})
                   .filter(([key]) => !["createdAt", "updatedAt", "deletedAt", "__entity", "description", "id", "name", "ar_description", "ar_name"].includes(key))
                   .map(([key, value]) => (
-                    <tr key={key}>
-                      <td className="border px-4 py-2">{key}</td>
+                    <tr key={t(key)}>
+                      <td className="border px-4 py-2">{t(key)}</td>
                       <td className="border px-4 py-2">{value}</td>
                     </tr>
                   ))}

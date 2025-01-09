@@ -29,10 +29,10 @@ const RequestPackage = () => {
       quantity: 1,
       travelers: travelers,
       customPackage: {
-        name: "name should not be empty, name must be a string",
-        description: "description must be a string",
-        customService: "customService must be a string",
-        text: "text must be a string",
+        name: "",
+        description: "",
+        customService: "",
+        text: "",
       },
     },
     validationSchema: Yup.object({

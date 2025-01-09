@@ -292,5 +292,22 @@
   "add_safari": "Add new Safari",
   "add_Diving": "Add new Diving",
   "No_visas_found":"No visas found",
-  "agencyOwnerAddress":"Agency Owner Address"
+  "agency_Owner_Address":"Agency Owner Address",
+  "commercial_Registry_Number": "Commercial Registry Number",
+  "agency_Owner_id": "Agency Owner ID",
+  "Select an feature":"Select an feature",
+  "Select an type":"Select an type",
+  "startLocation": "Start Location",
+  "endLocation": "End Location",
+  "distance": "Distance",
+  "tour Guide Id": "Tour Guide Id",
+  "tour Guide Name": "Tour Guide Name",
+  "tour Guide Phone": "Tour Guide Phone",
+  "Departure Date": "Departure Date",
+  "tourGuidePhone": "Tour Guide Phone",
+  "tourGuideName": "Tour Guide Name",
+  "Check-In_Date": "Check-In Date",
+  "customService": "Custom Service",
+  "View on map": "View on map"
+  
 }

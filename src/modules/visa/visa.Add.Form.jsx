@@ -413,23 +413,6 @@ export default function VisaForm({ handleUpdate }) {
                     </div>
                     <div>
                       <Input
-                        id="ReadyVisa.visaType"
-                        name="ReadyVisa.visaType"
-                        type="text"
-                        label={t("Visa Type")}
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values?.ReadyVisa?.visaType}
-                        isInvalid={
-                          formHandler.errors?.ReadyVisa?.visaType &&
-                          formHandler.touched?.ReadyVisa?.visaType
-                        }
-                        errorMessage={formHandler?.errors?.ReadyVisa?.visaType}
-                      />
-                    </div>
-                    <div>
-                      <Input
                         id="ReadyVisa.days"
                         name="ReadyVisa.days"
                         type="number"

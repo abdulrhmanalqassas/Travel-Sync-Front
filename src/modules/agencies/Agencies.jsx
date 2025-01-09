@@ -15,10 +15,10 @@ const columns = [
   { name: "POSTAL_CODE", uid: "postalCode", sortable: true },
   { name: "ACTIONS", uid: "actions" },
   { name: "agencyOwnerAddress", uid: "agencyOwnerAddress", sortable: true },
-  { name: "bank Account Number", uid: "bankAccountNumber", sortable: true },
-  { name: "commercial Registry Number", uid: "commercialRegistryNumber", sortable: true },
-  { name: "tax Card Number", uid: "taxCardNumber", sortable: true },
-  { name: "agency Owner Id", uid: "agencyOwnerId", sortable: true }
+  { name: "Bank Account Number", uid: "bankAccountNumber", sortable: true },
+  { name: "commercial_Registry_Number", uid: "commercialRegistryNumber", sortable: true },
+  { name: "Tax Card Number", uid: "taxCardNumber", sortable: true },
+  { name: "agency_Owner_id", uid: "agencyOwnerId", sortable: true }
 ];
 
 const Agencies = () => {

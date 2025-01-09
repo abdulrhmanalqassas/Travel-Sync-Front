@@ -38,6 +38,12 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
       country: "",
       postalCode: "",
       WholesalerId: 1,
+      agencyOwnerName: "",
+      bankAccountNumber: "",
+      commercialRegistryNumber: "",
+      agencyOwnerId: "",
+      agencyOwnerAddress: "",
+      taxCardNumber: "",
     },
     validationSchema: () => {
       const phoneRegex = /^\+20(1[0125]\d{8})$/; // Egyptian phone number regex
@@ -55,13 +61,17 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
         address: Yup.string(),
         country: Yup.string(),
         postalCode: Yup.string(),
+        agencyOwnerName: Yup.string(),
+        bankAccountNumber: Yup.string(),
+        taxCardNumber: Yup.string(),
+        agencyOwnerAddress: Yup.string(),
       });
     },
 
     onSubmit: (values, { resetForm }) => {
       values = RemoveEmptyValues(values);
       uploadImage(agencyImage, setIsLoading, setApiError, "edit").then((id) => {
-      // Check if image is properly updated
+        // Check if image is properly updated
         values["profilePhotoId"] = id ? id[0] : null;
         editAgency(values, agencyId, setIsLoading, handleUpdate).then(() => {
           onClose();
@@ -222,7 +232,102 @@ export default function AgenciesFormEdit({ handleUpdate, agencyId }) {
                         errorMessage={formHandler.errors.postalCode}
                       />
                     </div>
-
+                    <div>
+                      <Input
+                        id="commercialRegistryNumber"
+                        type="commercialRegistryNumber"
+                        label={t("commercial_Registry_Number")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.commercialRegistryNumber}
+                        isInvalid={
+                          formHandler.touched.commercialRegistryNumber &&
+                          formHandler.errors.commercialRegistryNumber
+                        }
+                        errorMessage={formHandler.errors.commercialRegistryNumber}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="taxCardNumber"
+                        type="taxCardNumber"
+                        label={t("Tax Card Number")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.taxCardNumber}
+                        isInvalid={
+                          formHandler.touched.taxCardNumber &&
+                          formHandler.errors.taxCardNumber
+                        }
+                        errorMessage={formHandler.errors.taxCardNumber}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="agencyOwnerName"
+                        type="agencyOwnerName"
+                        label={t("Agency Owner Name")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.agencyOwnerName}
+                        isInvalid={
+                          formHandler.touched.agencyOwnerName &&
+                          formHandler.errors.agencyOwnerName
+                        }
+                        errorMessage={formHandler.errors.agencyOwnerName}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="bankAccountNumber"
+                        type="bankAccountNumber"
+                        label={t("Bank Account Number")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.bankAccountNumber}
+                        isInvalid={
+                          formHandler.touched.bankAccountNumber &&
+                          formHandler.errors.bankAccountNumber
+                        }
+                        errorMessage={formHandler.errors.bankAccountNumber}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="agencyOwnerAddress"
+                        type="agencyOwnerAddress"
+                        label={t("agency_Owner_Address")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.agencyOwnerAddress}
+                        isInvalid={
+                          formHandler.touched.agencyOwnerAddress &&
+                          formHandler.errors.agencyOwnerAddress
+                        }
+                        errorMessage={formHandler.errors.agencyOwnerAddress}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="agencyOwnerId"
+                        type="agencyOwnerId"
+                        label={t("agency_Owner_id")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.agencyOwnerId}
+                        isInvalid={
+                          formHandler.touched.agencyOwnerId &&
+                          formHandler.errors.agencyOwnerId
+                        }
+                        errorMessage={formHandler.errors.agencyOwnerId}
+                      />
+                    </div>
                     <div className="col-span-2">
                       {apiError ? <Alert text={apiError} /> : ""}
                     </div>

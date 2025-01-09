@@ -194,7 +194,8 @@ const ReserveService = ({ type }) => {
               <p>
                 {formHandler.values.quantity} {t("night")}
               </p>
-              <p>{ data?.price + data?.margin}$</p>
+              {console.log(data.price +"  ;" + data.margin)}
+              <p>{ data?.price + (data?.margin || 0)}$</p>
             </div>
             {/* <div className="flex justify-between">
               <p> {t("Taxes_fees")}</p>

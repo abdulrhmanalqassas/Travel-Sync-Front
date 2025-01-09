@@ -188,9 +188,9 @@ export default function RoomsForm({ handleUpdate }) {
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <Select
-                        label={t("Agency")}
+                        label={t("Hotel")}
                         id="room.hotelId"
-                        placeholder="Select an agency"
+                        placeholder={t("Select an hotel")}
                         value={formHandler.values.hotelId}
                         // onClick={handleUpdateHotel}
                         onChange={formHandler.handleChange("room.hotelId")}
@@ -219,7 +219,7 @@ export default function RoomsForm({ handleUpdate }) {
                           formHandler.touched.room?.features
                         }
                         errorMessage={formHandler.errors.room?.features}
-                        placeholder="Select an feature"
+                        placeholder={t("Select an feature")}
                         selectionMode="multiple"
                         className="max-w-xs"
                       >
@@ -461,7 +461,7 @@ export default function RoomsForm({ handleUpdate }) {
                       <Select
                         label={t("Room Type")}
                         id="room.type"
-                        placeholder="Select an feature"
+                        placeholder={t("Select an type")}
                         value={formHandler.values.room.type}
                         onChange={formHandler.handleChange("room.type")}
                         isInvalid={

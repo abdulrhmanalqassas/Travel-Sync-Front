@@ -236,6 +236,38 @@ export default function AgenciesForm({ handleUpdate }) {
                     </div>
                     <div>
                       <Input
+                        id="commercialRegistryNumber"
+                        type="commercialRegistryNumber"
+                        label={t("commercial_Registry_Number")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.commercialRegistryNumber}
+                        isInvalid={
+                          formHandler.touched.commercialRegistryNumber &&
+                          formHandler.errors.commercialRegistryNumber
+                        }
+                        errorMessage={formHandler.errors.commercialRegistryNumber}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        id="taxCardNumber"
+                        type="taxCardNumber"
+                        label={t("Tax Card Number")}
+                        radius="lg"
+                        onChange={formHandler.handleChange}
+                        onBlur={formHandler.handleBlur}
+                        value={formHandler.values.taxCardNumber}
+                        isInvalid={
+                          formHandler.touched.taxCardNumber &&
+                          formHandler.errors.taxCardNumber
+                        }
+                        errorMessage={formHandler.errors.taxCardNumber}
+                      />
+                    </div>
+                    <div>
+                      <Input
                         id="agencyOwnerName"
                         type="agencyOwnerName"
                         label={t("Agency Owner Name")}
@@ -270,7 +302,7 @@ export default function AgenciesForm({ handleUpdate }) {
                       <Input
                         id="agencyOwnerAddress"
                         type="agencyOwnerAddress"
-                        label={t("agency Owner Address")}
+                        label={t("agency_Owner_Address")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -286,7 +318,7 @@ export default function AgenciesForm({ handleUpdate }) {
                       <Input
                         id="agencyOwnerId"
                         type="agencyOwnerId"
-                        label={t("agency Owner Id")}
+                        label={t("agency_Owner_id")}
                         radius="lg"
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
@@ -299,38 +331,6 @@ export default function AgenciesForm({ handleUpdate }) {
                       />
                     </div>
 
-                    <div>
-                      <Input
-                        id="commercialRegistryNumber"
-                        type="commercialRegistryNumber"
-                        label={t("commercial Registry Number")}
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.commercialRegistryNumber}
-                        isInvalid={
-                          formHandler.touched.commercialRegistryNumber &&
-                          formHandler.errors.commercialRegistryNumber
-                        }
-                        errorMessage={formHandler.errors.commercialRegistryNumber}
-                      />
-                    </div>
-                    <div>
-                      <Input
-                        id="taxCardNumber"
-                        type="taxCardNumber"
-                        label={t("Tax Card Number")}
-                        radius="lg"
-                        onChange={formHandler.handleChange}
-                        onBlur={formHandler.handleBlur}
-                        value={formHandler.values.taxCardNumber}
-                        isInvalid={
-                          formHandler.touched.taxCardNumber &&
-                          formHandler.errors.taxCardNumber
-                        }
-                        errorMessage={formHandler.errors.taxCardNumber}
-                      />
-                    </div>
 
                     <div className="col-span-2">
                       {apiError ? <Alert text={apiError} /> : ""}
