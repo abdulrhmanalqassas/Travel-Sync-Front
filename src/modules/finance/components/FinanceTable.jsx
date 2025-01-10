@@ -21,6 +21,7 @@ import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
 import Transactions from "./Transaction";
 import { useTranslation } from "react-i18next";
 import { convertDateToFormat } from "../../../utils/helper";
+import { FaRegFileAlt } from "react-icons/fa";
 
 const INITIAL_VISIBLE_COLUMNS = ["amount", "currency", "Name"];
 
@@ -37,6 +38,7 @@ export default function FinanceTable({
     { name: "amount", uid: "amount", sortable: true },
     { name: "currency", uid: "currency" },
     { name: "transactionDate", uid: "transactionDate", sortable: true },
+    { name: "FILE", uid: "file" },
   ];
 
   const { t, i18n } = useTranslation();
@@ -115,9 +117,24 @@ export default function FinanceTable({
           </h1>
         );
       case "Name":
-        return <h1>{user.account.travelOffice.name}</h1>;
+        return <h1>{user?.account?.travelOffice?.name}</h1>;
       case "transactionDate":
         return convertDateToFormat(cellValue, CurrentLang);
+      case "file":
+        return (
+          <>
+            {user?.file && (
+              <div>
+                <FaRegFileAlt
+                  className="cursor-pointer"
+                  onClick={() => window.open(user?.file?.url)}
+                  width={40}
+                  height={40}
+                />
+              </div>
+            )}
+          </>
+        );
       default:
         return cellValue;
     }
@@ -188,7 +205,7 @@ export default function FinanceTable({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            {t("Total") + " " + users.length + " " + t("Users")}
+            {t("Total") + " " + users?.length + " " + t("Users")}
           </span>
           <label className="flex items-center text-default-400 text-small">
             {t("Rows_per_age")}

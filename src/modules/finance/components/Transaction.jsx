@@ -12,7 +12,7 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 import { PlusIcon } from "../../core/components/icons/PlusIcon";
-import * as Yup from "yup"; // For validation.
+import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { LuDollarSign } from "react-icons/lu";
@@ -20,20 +20,18 @@ import { MakeTransaction } from "../Finance.handlers";
 import { useLocation } from "react-router-dom";
 import useAuthTokens from "../../auth/context/use-auth-tokens";
 import { useTranslation } from "react-i18next";
-import TravellerFileUploader from "../../reservation/components/TravellerFileUploader";
-import { data } from "autoprefixer";
+import SingleFileUploader from "../../reservation/components/SingleFileUploader";
 
 export default function Transactions({ handlechange }) {
   const { t } = useTranslation();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const [isLoading, setIsLoading] = useState(false); // Fixed initial state type to boolean
+  const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const tokenObj = useAuthTokens();
   const token = tokenObj.tokensInfoRef.current.token;
 
   const location = useLocation();
   const { pathname } = location;
-
   const id = parseInt(pathname.slice(pathname.lastIndexOf("/") + 1));
 
   const onUpdate = () => {
@@ -48,16 +46,21 @@ export default function Transactions({ handlechange }) {
       transactionDate: new Date().toISOString(),
       transactionTime: new Date().toISOString(),
       currency: "USD",
+      fileId: [], // Initialize fileId as an empty array
     },
     validationSchema: Yup.object({
-      // Fixed incorrect anonymous function call
       amount: Yup.number().required(t("Required")),
       type: Yup.string().required(t("Required")),
     }),
 
     onSubmit: (values, { resetForm }) => {
-      MakeTransaction(values, setIsLoading, id, token, onUpdate);
-      resetForm();
+      // Only submit if there's no file uploading in progress
+      //sting the araay
+      values.fileId = values.fileId[0].toString();
+      if (!isUploading) {
+        MakeTransaction(values, setIsLoading, id, token, onUpdate);
+        resetForm();
+      }
     },
   });
 
@@ -80,12 +83,11 @@ export default function Transactions({ handlechange }) {
       >
         <ModalContent>
           {() => (
-            // Removed onClose as it is already in scope
             <form onSubmit={formHandler.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
                 {t("Add_new_Transactions")}
               </ModalHeader>
-              <ModalBody className="grid grid-cols-3">
+              <ModalBody className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
                   <Input
                     id="amount"
@@ -124,12 +126,13 @@ export default function Transactions({ handlechange }) {
                     </div>
                   ) : null}
                 </div>
-                <TravellerFileUploader
-                  key={"file-uploader"}
-                  TravellerFiles={formHandler.values.fileId}
-                  idx={1}
-                  setIsUploading={setIsUploading}
-                />
+                <div className="col-span-3">
+                  <SingleFileUploader
+                    TravellerFiles={formHandler.values.fileId}
+                    idx={1}
+                    setIsUploading={setIsUploading}
+                  />
+                </div>
               </ModalBody>
 
               <ModalFooter>
@@ -141,6 +144,7 @@ export default function Transactions({ handlechange }) {
                   color="success"
                   type="submit"
                   className="text-white"
+                  isDisabled={isUploading} // Disable submit while uploading
                 >
                   {t("Add")}
                 </Button>

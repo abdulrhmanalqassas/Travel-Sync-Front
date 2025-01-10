@@ -25,9 +25,14 @@ const ReserveService = ({ type }) => {
   const id = parseInt(pathname.slice(pathname.lastIndexOf("/") + 1));
 
   useEffect(() => {
-    getService(setData, setIsLoading, `hotel-rooms/${id}`);
+    if (type == "room") {
+      getService(setData, setIsLoading, `hotel-rooms/${id}`);
+    } else if (type == "flight") {
+      getService(setData, setIsLoading, `flights/${id}`);
+    }else if (type == "teansportation") {
+      getService(setData, setIsLoading, `transportations/${id}`);
+    } 
   }, [id]);
-
 
   // State to manage travelers
   const [travelers, setTravelers] = useState([

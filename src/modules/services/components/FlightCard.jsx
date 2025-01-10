@@ -29,7 +29,7 @@ export default function FlightCard(props) {
   //   "__entity": "FlightEntity"
   // }
   const { flight, img, service } = props;
-
+  console.log("flight", flight, "service", service, ">>id", props.id);
   // const formattedDate = formatDuration(
   //   new Date(Reservation?.updatedAt),
   //   new Date(),
@@ -130,7 +130,7 @@ export default function FlightCard(props) {
         </div>
         <Button
           onClick={() => {
-            navigate(`/user/Reserve/flight/${flight?.id}`);
+            navigate(`/user/Reserve/flight/${service?.id}`);
           }}
           className="bg-[#616CA8] text-white font-semibold"
         >

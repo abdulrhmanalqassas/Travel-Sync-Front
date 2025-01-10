@@ -278,8 +278,7 @@ function App() {
             element={
               <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
                 <Layout>
-                  {/* TODO FLIGT ReserveService */} */
-                  {" replace with fligh"}
+
                   <ReserveService type="flight" />
                 </Layout>
               </WithPageRequiredAuth>
@@ -290,8 +289,7 @@ function App() {
             element={
               <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
                 <Layout>
-                  {/* TODO FLIGT ReserveService */} */
-                  {" replace with safari"}
+              
                   <ReserveService type="safari" />
                 </Layout>
               </WithPageRequiredAuth>
@@ -302,8 +300,7 @@ function App() {
             element={
               <WithPageRequiredAuth options={{ roles: [RoleEnum.travelAgent] }}>
                 <Layout>
-                  {/* TODO FLIGT ReserveService */} */
-                  {" replace with transportation"}
+              
                   <ReserveService type="teansportation" />
                 </Layout>
               </WithPageRequiredAuth>
@@ -377,7 +374,7 @@ function App() {
               >
                 <Layout>
                   <VisaApplicationForm />
-                  {/* <div>Hello world</div> */}
+                
                 </Layout>
               </WithPageRequiredAuth>
             }
@@ -390,7 +387,7 @@ function App() {
               >
                 <Layout>
                   <VisaAdd />
-                  {/* <div>Hello world</div> */}
+           
                 </Layout>
               </WithPageRequiredAuth>
             }
@@ -404,20 +401,20 @@ function App() {
               >
                 <Layout>
                   <ShowVisa />
-                  {/* <div>Hello world</div> */}
+              
                 </Layout>
               </WithPageRequiredAuth>
             }
           />
-             <Route
+          <Route
             path="/user/requestedPackage"
             element={
               <WithPageRequiredAuth
                 options={{ roles: [RoleEnum.admin, RoleEnum.travelAgent] }}
               >
                 <Layout>
-                <UserRequestedPackage />
-                  {/* <div>Hello world</div> */}
+                  <UserRequestedPackage />
+               
                 </Layout>
               </WithPageRequiredAuth>
             }
@@ -431,8 +428,7 @@ function App() {
               >
                 <Layout>
                   <UserAppliedVisa />
-                  {/* <ShowVisa /> */}
-                  {/* <div>Hello world</div> */}
+                 
                 </Layout>
               </WithPageRequiredAuth>
             }
