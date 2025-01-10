@@ -97,7 +97,7 @@ export default function VisaForm({ handleUpdate }) {
         description: "Schengen visa",
         ar_description: "تأشيرة شنغن",
         type: "",
-        visaType: "",
+        visaType: "work visa",
         days: 1,
         country: country,
         imageIds: [],
