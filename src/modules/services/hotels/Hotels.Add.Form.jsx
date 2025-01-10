@@ -24,7 +24,6 @@ export default function HotelsForm({ handleUpdate }) {
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [agencyImage, setAgencyImage] = useState([]);
-  const [internalMapImage, setinternalMapImage] = useState([]);
   const [isLoading, setIsLoading] = useState("");
   const [apiError, setApiError] = useState("");
 
@@ -79,11 +78,9 @@ export default function HotelsForm({ handleUpdate }) {
         // Check if image is properly updated
         values.imageIds = id || null;
         values.stars = Number(values.stars);
-        uploadImage(internalMapImage, setIsLoading, setApiError).then((id) => {
           addService(values, setIsLoading, handleUpdate, "hotels").then(() => {
             onClose();
             resetForm();
-          });
         });
       });
     },
@@ -391,13 +388,6 @@ export default function HotelsForm({ handleUpdate }) {
                   <ImagesUploader
                     files={agencyImage}
                     setFiles={setAgencyImage}
-                    isMultiple
-                    isOnly={false}
-                  />
-                  {"internalMapImage"}
-                  <ImagesUploader
-                    files={internalMapImage}
-                    setFiles={setinternalMapImage}
                     isMultiple
                     isOnly={false}
                   />
