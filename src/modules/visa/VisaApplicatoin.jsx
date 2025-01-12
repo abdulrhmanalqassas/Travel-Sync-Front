@@ -23,24 +23,26 @@ const ReserveService = () => {
   // State to manage travelers
   const [travelers, setTravelers] = useState([
     {
-      firstName: "",
-      lastName: "",
-      email: "",
-      mobilePhone: "",
-      dateOfBirth: "",
-      PlaceOfBirth: "",
-      MaritalStatus: "",
-      Nationality: "",
-      occupation: "",
-      passportNumber: "",
-      passportExpiryDate: "",
-      passportIssuedDate: "",
-      address: "",
-      purposeOfTravel: "",
-      nameOfRelatives: "",
-      AddressOfRelatives: "",
+      travelerData: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        mobilePhone: "",
+        dateOfBirth: "",
+        PlaceOfBirth: "",
+        MaritalStatus: "",
+        Nationality: "",
+        occupation: "",
+        passportNumber: "",
+        passportExpiryDate: "",
+        passportIssuedDate: "",
+        address: "",
+        purposeOfTravel: "",
+        nameOfRelatives: "",
+        AddressOfRelatives: "",
+      },
       fileIds: [],
-    },
+    }
   ]);
 
   // Function to add a new traveler
@@ -48,11 +50,13 @@ const ReserveService = () => {
     setTravelers(() => {
       // Create the new traveler object
       const newTraveler = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobilePhone: "",
-        dateOfBirth: "",
+        travelerData: {
+          firstName: "",
+          lastName: "",
+          email: "",
+          mobilePhone: "",
+          dateOfBirth: "",
+        },
         fileIds: [],
       };
 
@@ -71,30 +75,31 @@ const ReserveService = () => {
       travelers: travelers,
     },
     validationSchema: Yup.object({
-      quantity: Yup.string().required(t("Required")),
+      // quantity: Yup.string().required(t("Required")),
 
-      travelers: Yup.array().of(
-        Yup.object({
-          firstName: Yup.string().required(t("Required")),
-          lastName: Yup.string().required(t("Required")),
-          email: Yup.string()
-            .email("Invalid email address")
-            .required(t("Required")),
-          mobilePhone: Yup.string().required(t("Required")),
-          dateOfBirth: Yup.string().required(t("Required")),
-          PlaceOfBirth: Yup.string().required(t("Required")),
-          MaritalStatus: Yup.string().required(t("Required")),
-          Nationality: Yup.string().required(t("Required")),
-          occupation: Yup.string().required(t("Required")),
-          passportNumber: Yup.string().required(t("Required")),
-          passportExpiryDate: Yup.string().required(t("Required")),
-          passportIssuedDate: Yup.string().required(t("Required")),
-          address: Yup.string().required(t("Required")),
-          purposeOfTravel: Yup.string().required(t("Required")),
-          nameOfRelatives: Yup.string().required(t("Required")),
-          AddressOfRelatives: Yup.string().required(t("Required")),
-        }),
-      ),
+      // travelers: Yup.array().of(
+      //   Yup.object({
+      //     firstName: Yup.string().required(t("Required")),
+      //     lastName: Yup.string().required(t("Required")),
+      //     email: Yup.string()
+      //       .email("Invalid email address")
+      //       .required(t("Required")),
+      //     mobilePhone: Yup.string().required(t("Required")),
+      //     dateOfBirth: Yup.string().required(t("Required")),
+      //     PlaceOfBirth: Yup.string().required(t("Required")),
+      //     MaritalStatus: Yup.string().required(t("Required")),
+      //     Nationality: Yup.string().required(t("Required")),
+      //     occupation: Yup.string().required(t("Required")),
+      //     passportNumber: Yup.string().required(t("Required")),
+      //     passportExpiryDate: Yup.string().required(t("Required")),
+      //     passportIssuedDate: Yup.string().required(t("Required")),
+      //     address: Yup.string().required(t("Required")),
+      //     purposeOfTravel: Yup.string().required(t("Required")),
+      //     nameOfRelatives: Yup.string().required(t("Required")),
+      //     AddressOfRelatives: Yup.string().required(t("Required")),
+      // }
+      // ),
+      //   ),
     }),
     onSubmit: (values, { resetForm }) => {
       // Handle form submission
@@ -166,7 +171,7 @@ const ReserveService = () => {
                 errorMessage={formHandler.errors.visaType}
               />
             </div>
-            
+
             {/* Check-In Date Input */}
           </div>
         </div>
@@ -180,7 +185,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].firstName`}
+                  id={`travelers[${idx}].travelerData.firstName`}
                   type="text"
                   label={t("First_Name")}
                   variant="bordered"
@@ -188,12 +193,12 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.firstName || ""}
+                  value={formHandler.values.travelers[idx]?.travelerData?.firstName || ""}
                 />
-                {formHandler.touched.travelers?.[idx]?.firstName &&
-                formHandler.errors.travelers?.[idx]?.firstName ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.firstName &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.firstName ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].firstName}
+                    {formHandler.errors.travelers[idx].travelerData?.firstName}
                   </div>
                 ) : null}
               </div>
@@ -201,7 +206,7 @@ const ReserveService = () => {
               <div>
                 <div>
                   <Input
-                    id={`travelers[${idx}].lastName`}
+                    id={`travelers[${idx}].travelerData.lastName`}
                     type="text"
                     label={t("Last_Name")}
                     variant="bordered"
@@ -209,12 +214,12 @@ const ReserveService = () => {
                     radius="lg"
                     onChange={formHandler.handleChange}
                     onBlur={formHandler.handleBlur}
-                    value={formHandler.values.travelers[idx]?.lastName || ""}
+                    value={formHandler.values.travelers[idx]?.travelerData?.lastName || ""}
                   />
-                  {formHandler.touched.travelers?.[idx]?.lastName &&
-                  formHandler.errors.travelers?.[idx]?.lastName ? (
+                  {formHandler.touched.travelers?.[idx]?.travelerData?.lastName &&
+                    formHandler.errors.travelers?.[idx]?.travelerData?.lastName ? (
                     <div className="text-red-600">
-                      {formHandler.errors.travelers[idx].lastName}
+                      {formHandler.errors.travelers[idx].travelerData?.lastName}
                     </div>
                   ) : null}
                 </div>
@@ -223,7 +228,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].PlaceOfBirth`}
+                  id={`travelers[${idx}].travelerData.PlaceOfBirth`}
                   type="text"
                   label={t("PlaceOfBirth")}
                   variant="bordered"
@@ -231,18 +236,18 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.PlaceOfBirth || ""}
+                  value={formHandler.values.travelers[idx]?.travelerData?.PlaceOfBirth || ""}
                 />
-                {formHandler.touched.travelers?.[idx]?.PlaceOfBirth &&
-                formHandler.errors.travelers?.[idx]?.PlaceOfBirth ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.PlaceOfBirth &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.PlaceOfBirth ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].PlaceOfBirth}
+                    {formHandler.errors.travelers[idx].travelerData?.PlaceOfBirth}
                   </div>
                 ) : null}
               </div>
               <div>
                 <Input
-                  id={`travelers[${idx}].MaritalStatus`}
+                  id={`travelers[${idx}].travelerData.MaritalStatus`}
                   type="text"
                   label={t("MaritalStatus")}
                   variant="bordered"
@@ -250,12 +255,12 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.MaritalStatus || ""}
+                  value={formHandler.values.travelers[idx]?.travelerData?.MaritalStatus || ""}
                 />
-                {formHandler.touched.travelers?.[idx]?.MaritalStatus &&
-                formHandler.errors.travelers?.[idx]?.MaritalStatus ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.MaritalStatus &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.MaritalStatus ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].MaritalStatus}
+                    {formHandler.errors.travelers[idx].travelerData?.MaritalStatus}
                   </div>
                 ) : null}
               </div>
@@ -263,7 +268,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].Nationality`}
+                  id={`travelers[${idx}].travelerData.Nationality`}
                   type="text"
                   label={t("Nationality")}
                   variant="bordered"
@@ -271,18 +276,18 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.Nationality || ""}
+                  value={formHandler.values.travelers[idx]?.travelerData?.Nationality || ""}
                 />
-                {formHandler.touched.travelers?.[idx]?.Nationality &&
-                formHandler.errors.travelers?.[idx]?.Nationality ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.Nationality &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.Nationality ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].Nationality}
+                    {formHandler.errors.travelers[idx]?.travelerData?.Nationality}
                   </div>
                 ) : null}
               </div>
               <div>
                 <Input
-                  id={`travelers[${idx}].occupation`}
+                  id={`travelers[${idx}].travelerData.occupation`}
                   type="text"
                   label={t("occupation")}
                   variant="bordered"
@@ -290,12 +295,12 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.occupation || ""}
+                  value={formHandler.values.travelers[idx]?.travelerData?.occupation || ""}
                 />
-                {formHandler.touched.travelers?.[idx]?.occupation &&
-                formHandler.errors.travelers?.[idx]?.occupation ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.occupation &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.occupation ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].occupation}
+                    {formHandler.errors.travelers[idx].travelerData?.occupation}
                   </div>
                 ) : null}
               </div>
@@ -303,7 +308,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].passportNumber`}
+                  id={`travelers[${idx}].travelerData.passportNumber`}
                   type="text"
                   label={t("passportNumber")}
                   variant="bordered"
@@ -312,19 +317,19 @@ const ReserveService = () => {
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
                   value={
-                    formHandler.values.travelers[idx]?.passportNumber || ""
+                    formHandler.values.travelers[idx]?.travelerData?.passportNumber || ""
                   }
                 />
-                {formHandler.touched.travelers?.[idx]?.passportNumber &&
-                formHandler.errors.travelers?.[idx]?.passportNumber ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.passportNumber &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.passportNumber ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].passportNumber}
+                    {formHandler.errors.travelers[idx].travelerData?.passportNumber}
                   </div>
                 ) : null}
               </div>
               <div>
                 <Input
-                  id={`travelers[${idx}].passportExpiryDate`}
+                  id={`travelers[${idx}].travelerData.passportExpiryDate`}
                   type="text"
                   label={t("passportExpiryDate")}
                   variant="bordered"
@@ -333,13 +338,13 @@ const ReserveService = () => {
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
                   value={
-                    formHandler.values.travelers[idx]?.passportExpiryDate || ""
+                    formHandler.values.travelers[idx]?.travelerData?.passportExpiryDate || ""
                   }
                 />
-                {formHandler.touched.travelers?.[idx]?.passportExpiryDate &&
-                formHandler.errors.travelers?.[idx]?.passportExpiryDate ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.passportExpiryDate &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.passportExpiryDate ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].passportExpiryDate}
+                    {formHandler.errors.travelers[idx].travelerData.passportExpiryDate}
                   </div>
                 ) : null}
               </div>
@@ -347,7 +352,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].passportIssuedDate`}
+                  id={`travelers[${idx}].travelerData.passportIssuedDate`}
                   type="text"
                   label={t("passportIssuedDate")}
                   variant="bordered"
@@ -356,19 +361,19 @@ const ReserveService = () => {
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
                   value={
-                    formHandler.values.travelers[idx]?.passportIssuedDate || ""
+                    formHandler.values.travelers[idx]?.travelerData?.passportIssuedDate || ""
                   }
                 />
-                {formHandler.touched.travelers?.[idx]?.passportIssuedDate &&
-                formHandler.errors.travelers?.[idx]?.passportIssuedDate ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.passportIssuedDate &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.passportIssuedDate ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].passportIssuedDate}
+                    {formHandler.errors.travelers[idx].travelerData.passportIssuedDate}
                   </div>
                 ) : null}
               </div>
               <div>
                 <Input
-                  id={`travelers[${idx}].address`}
+                  id={`travelers[${idx}].travelerData.address`}
                   type="text"
                   label={t("address")}
                   variant="bordered"
@@ -376,12 +381,12 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.address || ""}
+                  value={formHandler.values.travelers[idx]?.travelerData?.address || ""}
                 />
-                {formHandler.touched.travelers?.[idx]?.address &&
-                formHandler.errors.travelers?.[idx]?.address ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.address &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.address ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].address}
+                    {formHandler.errors.travelers[idx].travelerData?.address}
                   </div>
                 ) : null}
               </div>
@@ -390,7 +395,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].purposeOfTravel`}
+                  id={`travelers[${idx}].travelerData.purposeOfTravel`}
                   type="text"
                   label={t("purposeOfTravel")}
                   variant="bordered"
@@ -399,19 +404,19 @@ const ReserveService = () => {
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
                   value={
-                    formHandler.values.travelers[idx]?.purposeOfTravel || ""
+                    formHandler.values.travelers[idx]?.travelerData?.purposeOfTravel || ""
                   }
                 />
-                {formHandler.touched.travelers?.[idx]?.purposeOfTravel &&
-                formHandler.errors.travelers?.[idx]?.purposeOfTravel ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.purposeOfTravel &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.purposeOfTravel ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].purposeOfTravel}
+                    {formHandler.errors.travelers[idx].travelerData.purposeOfTravel}
                   </div>
                 ) : null}
               </div>
               <div>
                 <Input
-                  id={`travelers[${idx}].nameOfRelatives`}
+                  id={`travelers[${idx}].travelerData.nameOfRelatives`}
                   type="text"
                   label={t("Name_of_Relatives")}
                   variant="bordered"
@@ -420,13 +425,13 @@ const ReserveService = () => {
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
                   value={
-                    formHandler.values.travelers[idx]?.nameOfRelatives || ""
+                    formHandler.values.travelers[idx]?.travelerData?.nameOfRelatives || ""
                   }
                 />
-                {formHandler.touched.travelers?.[idx]?.nameOfRelatives &&
-                formHandler.errors.travelers?.[idx]?.nameOfRelatives ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.nameOfRelatives &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.nameOfRelatives ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].nameOfRelatives}
+                    {formHandler.errors.travelers[idx].travelerData.nameOfRelatives}
                   </div>
                 ) : null}
               </div>
@@ -434,7 +439,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].AddressOfRelatives`}
+                  id={`travelers[${idx}].travelerData.AddressOfRelatives`}
                   type="text"
                   label={t("Address_of_Relatives")}
                   variant="bordered"
@@ -443,13 +448,13 @@ const ReserveService = () => {
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
                   value={
-                    formHandler.values.travelers[idx]?.AddressOfRelatives || ""
+                    formHandler.values.travelers[idx]?.travelerData?.AddressOfRelatives || ""
                   }
                 />
-                {formHandler.touched.travelers?.[idx]?.AddressOfRelatives &&
-                formHandler.errors.travelers?.[idx]?.AddressOfRelatives ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.AddressOfRelatives &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.AddressOfRelatives ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].AddressOfRelatives}
+                    {formHandler.errors.travelers[idx].travelerData.AddressOfRelatives}
                   </div>
                 ) : null}
               </div>
@@ -458,7 +463,7 @@ const ReserveService = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Input
-                  id={`travelers[${idx}].mobilePhone`}
+                  id={`travelers[${idx}].travelerData.mobilePhone`}
                   type="text"
                   label={t("mobileNumber")}
                   variant="bordered"
@@ -466,12 +471,12 @@ const ReserveService = () => {
                   radius="lg"
                   onChange={formHandler.handleChange}
                   onBlur={formHandler.handleBlur}
-                  value={formHandler.values.travelers[idx]?.mobilePhone || ""}
+                  value={formHandler.values.travelers[idx]?.travelerData?.mobilePhone || ""}
                 />
-                {formHandler.touched.travelers?.[idx]?.mobilePhone &&
-                formHandler.errors.travelers?.[idx]?.mobilePhone ? (
+                {formHandler.touched.travelers?.[idx]?.travelerData?.mobilePhone &&
+                  formHandler.errors.travelers?.[idx]?.travelerData?.mobilePhone ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].mobilePhone}
+                    {formHandler.errors.travelers[idx].travelerData.mobilePhone}
                   </div>
                 ) : null}
               </div>
@@ -487,10 +492,10 @@ const ReserveService = () => {
                   onBlur={formHandler.handleBlur}
                   value={formHandler.values.travelers[idx]?.email || ""}
                 />
-                {formHandler.touched.travelers?.[idx]?.email &&
-                formHandler.errors.travelers?.[idx]?.email ? (
+                {formHandler.touched.travelers?.[idx].travelerData?.email &&
+                  formHandler.errors.travelers?.[idx].travelerData?.email ? (
                   <div className="text-red-600">
-                    {formHandler.errors.travelers[idx].email}
+                    {formHandler.errors.travelers[idx].travelerData?.email}
                   </div>
                 ) : null}
               </div>
@@ -498,7 +503,7 @@ const ReserveService = () => {
 
             <div>
               <Input
-                id={`travelers[${idx}].dateOfBirth`}
+                id={`travelers[${idx}].travelerData.dateOfBirth`}
                 type="date"
                 label={t("Date_of_Birth")}
                 variant="bordered"
@@ -506,12 +511,12 @@ const ReserveService = () => {
                 radius="lg"
                 onChange={formHandler.handleChange}
                 onBlur={formHandler.handleBlur}
-                value={formHandler.values.travelers[idx]?.dateOfBirth || ""}
+                value={formHandler.values.travelers[idx]?.travelerData.dateOfBirth || ""}
               />
-              {formHandler.touched.travelers?.[idx]?.dateOfBirth &&
-              formHandler.errors.travelers?.[idx]?.dateOfBirth ? (
+              {formHandler.touched.travelers?.[idx]?.travelerData?.dateOfBirth &&
+                formHandler.errors.travelers?.[idx]?.travelerData?.dateOfBirth ? (
                 <div className="text-red-600">
-                  {formHandler.errors.travelers[idx].dateOfBirth}
+                  {formHandler.errors.travelers[idx].travelerData?.dateOfBirth}
                 </div>
               ) : null}
             </div>
