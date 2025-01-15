@@ -47,14 +47,14 @@ const RoomsPage = () => {
             {`$${data?.price + data?.margin}`}
           </p>
           <div className="mt-2">
-            <h1 className="font-semibold">About room</h1>
+            <h1 className="font-semibold">{t("About_Room")}</h1>
             <p>
               {data?.description}
             </p>
 
             <br />
 
-            <h1 className="font-semibold">Room Facilities</h1>
+            <h1 className="font-semibold">{t("Room_Facilities")}</h1>
 
             <table className="table-auto w-full mt-2">
               <tbody>

@@ -39,7 +39,7 @@ export default function VisaForm({ handleUpdate }) {
   const [roomFeatures, setRoomFeatures] = useState(initialValues);
   const [customFeature, setCustomFeature] = useState({ name: "", ar_name: "" });
   const [customFeatureVisible, setCustomFeatureVisible] = useState(false);
-  const [country, setCountry] = useState("AF");
+  const [country, setCountry] = useState("EG");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
   const handleCloseModal = () => {
@@ -92,12 +92,12 @@ export default function VisaForm({ handleUpdate }) {
         cancellationPolicy: "",
       },
       ReadyVisa: {
-        name: "Schengen",
-        ar_name: "شنغن",
-        description: "Schengen visa",
-        ar_description: "تأشيرة شنغن",
+        name: "",
+        ar_name: "",
+        description: "",
+        ar_description: "",
         type: "",
-        visaType: "work visa",
+        visaType: "",
         days: 1,
         country: country,
         imageIds: [],
@@ -106,30 +106,20 @@ export default function VisaForm({ handleUpdate }) {
 
     validationSchema: () => {
       return Yup.object({
-        // service: Yup.object({
-        //   name: Yup.string().min(5).max(500).required(t("Required")),
-        //   description: Yup.string().required(t("Required")),
-        //   price: Yup.number().max(999999).min(0).required(t("Required")),
-        //   quantityAvailable: Yup.number()
-        //     .min(0)
-        //     .max(9999)
-        //     .required(t("Required"))
-        //     .integer("Must be a number"),
-        //   savings: Yup.number().min(0).max(9999).required(t("Required")),
-        //   isOffer: Yup.boolean().required(t("Required")),
-        //   cancellationPolicy: Yup.string()
-        //     .min(2)
-        //     .max(500)
-        //     .required(t("Required")),
-        // }),
-        // ReadyVisa: Yup.object({
-        //   type: Yup.string().required(t("Required")),
-        //   days: Yup.number().min(0).max(9999).required(t("Required")),
-        //   numberOfBeds: Yup.number().min(0).max(9999).required(t("Required")),
-        //   numberOfSleeps: Yup.number().min(0).max(9999).required(t("Required")),
-        //   // hotelId: Yup.number().required(t("Required")),
-        //   roomFeatures: Yup.array().required(t("Required")),
-        // }),
+        service: Yup.object({
+          name: Yup.string().min(5).max(500).required(t("Required")),
+          description: Yup.string().required(t("Required")),
+          price: Yup.number().max(999999).min(0).required(t("Required")),
+          quantityAvailable: Yup.number()
+            .min(0)
+            .max(9999)
+            .required(t("Required"))
+            .integer("Must be a number"),
+        }),
+        ReadyVisa: Yup.object({
+          visaType: Yup.string().required(t("Required")),
+          days: Yup.number().min(0).max(9999).required(t("Required")),
+        }),
       });
     },
 
@@ -199,7 +189,11 @@ export default function VisaForm({ handleUpdate }) {
                       id="countries"
                       open={isSelectorOpen}
                       onToggle={() => setIsSelectorOpen(!isSelectorOpen)}
-                      onChange={(val) => setCountry(val)}
+                      onChange={(val) => {
+                        setCountry(val);
+                        console.log("ccval>>>>>>>>val", val);
+                        formHandler.setFieldValue("ReadyVisa.country", val);
+                      }}
                       selectedValue={COUNTRIES.find(
                         (option) => option.value === country,
                       )}
@@ -339,7 +333,7 @@ export default function VisaForm({ handleUpdate }) {
                         errorMessage={formHandler.errors.service?.savings}
                       />
                     </div>
-                    
+
                     <div>
                       <Input
                         id="service.quantityAvailable"
@@ -396,19 +390,19 @@ export default function VisaForm({ handleUpdate }) {
 
                     <div>
                       <Input
-                        id="ReadyVisa.type"
-                        name="ReadyVisa.type"
+                        id="ReadyVisa.visaType"
+                        name="ReadyVisa.visaType"
                         type="text"
                         label={t("Visa Type")}
                         radius="lg"
+                        isInvalid={
+                          formHandler.errors?.ReadyVisa?.visaType &&
+                          formHandler.touched?.ReadyVisa?.visaType
+                        }
+                        errorMessage={formHandler?.errors?.ReadyVisa?.visaType}
                         onChange={formHandler.handleChange}
                         onBlur={formHandler.handleBlur}
-                        value={formHandler.values?.ReadyVisa?.type}
-                        isInvalid={
-                          formHandler.errors?.ReadyVisa?.type &&
-                          formHandler.touched?.ReadyVisa?.type
-                        }
-                        errorMessage={formHandler?.errors?.ReadyVisa?.type}
+                        value={formHandler.values?.ReadyVisa?.visaType}
                       />
                     </div>
                     <div>

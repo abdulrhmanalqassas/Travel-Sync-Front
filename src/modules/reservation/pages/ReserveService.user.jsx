@@ -16,8 +16,6 @@ const ReserveService = ({ type }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [data, setData] = useState([]);
 
-  
-
   // Get ID from URL
   const location = useLocation();
 
@@ -29,9 +27,15 @@ const ReserveService = ({ type }) => {
       getService(setData, setIsLoading, `hotel-rooms/${id}`);
     } else if (type == "flight") {
       getService(setData, setIsLoading, `flights/${id}`);
-    }else if (type == "teansportation") {
+    } else if (type == "teansportation") {
       getService(setData, setIsLoading, `transportations/${id}`);
-    } 
+    } else if (type == "standard-packages") {
+      getService(setData, setIsLoading, `standard-packages/${id}`);
+    } else if (type == "ready-visa") {
+      getService(setData, setIsLoading, `ready-visa/${id}`);
+    } else if (type == "safari") {
+      getService(setData, setIsLoading, `safari/${id}`);
+    }
   }, [id]);
 
   // State to manage travelers
@@ -199,8 +203,8 @@ const ReserveService = ({ type }) => {
               <p>
                 {formHandler.values.quantity} {t("night")}
               </p>
-              {console.log(data.price +"  ;" + data.margin)}
-              <p>{ data?.price + (data?.margin || 0)}$</p>
+              {console.log(data.price + "  ;" + data.margin)}
+              <p>{data?.price + (data?.margin || 0)}$</p>
             </div>
             {/* <div className="flex justify-between">
               <p> {t("Taxes_fees")}</p>
@@ -219,7 +223,7 @@ const ReserveService = ({ type }) => {
             <div className="flex justify-between">
               <p className="font-semibold">{t("Total")}</p>
               <p className="font-semibold">
-                {`${(data?.price + data?.margin)* formHandler.values.quantity}$`}
+                {`${(data?.price + data?.margin) * formHandler.values.quantity}$`}
               </p>
             </div>
           </div>

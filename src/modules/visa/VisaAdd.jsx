@@ -58,10 +58,10 @@ const initialValidationSchema = Yup.object({
   dateOfTheLastPreviousEntryToIraq: Yup.string().required(),
   previousOccupationInIraq: Yup.string().required(),
   placesOfPreciousResidenceInIraq: Yup.string().required(),
-})
+});
 
 // Initial values
-const initialValues ={
+const initialValues = {
   nameAndSurname: "",
   religion: "",
   gender: "",
@@ -100,7 +100,7 @@ const initialValues ={
   dateOfTheLastPreviousEntryToIraq: "",
   previousOccupationInIraq: "",
   placesOfPreciousResidenceInIraq: "",
-}
+};
 
 // Handle submit function
 
@@ -124,9 +124,7 @@ const VisaAdd = () => {
     setExtraField("");
   };
   const handleSubmit = async (values) => {
-   
     try {
-
       let imageIds;
       if (visaImages.length !== 0) {
         imageIds = await uploadImage(visaImages, setIsLoading, setApiError);
@@ -155,7 +153,7 @@ const VisaAdd = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   // Default this to a country's code to preselect it
-  const [country, setCountry] = useState("AF");
+  const [country, setCountry] = useState("EF");
 
   return (
     <div className="m-5 mt-1 p-5 rounded-lg bg-white flex flex-col justify-center">
@@ -210,7 +208,10 @@ const VisaAdd = () => {
                   id="countries"
                   open={isOpen}
                   onToggle={() => setIsOpen(!isOpen)}
-                  onChange={(val) => setCountry(val)}
+                  onChange={(val) => {
+                    setCountry(val);
+                    console.log("val<>>>>>>>", val);
+                  }}
                   selectedValue={COUNTRIES.find(
                     (option) => option.value === country,
                   )}
@@ -277,37 +278,36 @@ const VisaAdd = () => {
             className="!mt-0 !rounded-b-none !shadow-none"
           >
             <div className="px-5 py-4">
-
               <CountrySelector
-                  id="countries2"
-                  open={isOpen}
-                  onToggle={() => setIsOpen(!isOpen)}
-                  onChange={(val) => setCountry(val)}
-                  selectedValue={COUNTRIES.find(
-                    (option) => option.value === country,
-                  )}
-                />
-             
-               <div className="w-1/2">
-               
-            <div className="grid grid-cols-1 gap-3">
-
-            
-              <Input
-                id={"extra filed"}
-                name={"extra filed "}
-                type="text"
-                label="add extra key"
-                radius="lg"
-                onChange={(e) => setExtraField(e.target.value)}
-                value={extraField}
+                id="countries2"
+                open={isOpen}
+                onToggle={() => setIsOpen(!isOpen)}
+                onChange={(val) => {
+                  setCountry(val);
+                  console.log("val<>>>>>>>", val);
+                }}
+                selectedValue={COUNTRIES.find(
+                  (option) => option.value === country,
+                )}
               />
-                <Button onClick={() => addFieldToSchema(extraField)}>
-                add filed
-              </Button>
-            </div>
-          </div>
-         
+
+              <div className="w-1/2">
+                <div className="grid grid-cols-1 gap-3">
+                  <Input
+                    id={"extra filed"}
+                    name={"extra filed "}
+                    type="text"
+                    label="add extra key"
+                    radius="lg"
+                    onChange={(e) => setExtraField(e.target.value)}
+                    value={extraField}
+                  />
+                  <Button onClick={() => addFieldToSchema(extraField)}>
+                    add filed
+                  </Button>
+                </div>
+              </div>
+
               <Form
                 initialValues={initialValues}
                 handleSubmit={handleSubmit}

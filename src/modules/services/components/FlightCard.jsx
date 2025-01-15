@@ -130,7 +130,7 @@ export default function FlightCard(props) {
         </div>
         <Button
           onClick={() => {
-            navigate(`/user/Reserve/flight/${service?.id}`);
+            navigate(`/user/flightsPage/${service?.id}`);
           }}
           className="bg-[#616CA8] text-white font-semibold"
         >

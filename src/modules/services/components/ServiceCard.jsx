@@ -48,10 +48,12 @@ export default function ServiceCard({
           )}
           <h3 className="text-[black2] font-bold">
             <span className="text-black">{numberOfRooms}</span>{" "}
-            {data?.price ?  `${data?.price + data?.margin} $`: ""}
+            {data?.price ? `${data?.price + data?.margin} $` : ""}
           </h3>
           <h3 className="text-[black2]">
-            <span className="text-black">{t(`${type === 'safari' ? data?.safari?.type : type}`)}</span>{" "}
+            <span className="text-black">
+              {t(`${type === "safari" ? data?.safari?.type : type}`)}
+            </span>{" "}
           </h3>
         </div>
         <div className="flex flex-col gap-2">
@@ -76,7 +78,15 @@ export default function ServiceCard({
                 </div> */}
         <Button
           onClick={() => {
-            navigate(`/user/${type}/${id}`);
+            if (type == "safari") {
+              navigate(`/user/safariPage/${id}`);
+            } else if (type == "transportations") {
+              navigate(`/user/transportationsPage/${id}`);
+            } else if (type == "standard-packages") {
+              navigate(`/user/standard-packagesPage/${id}`);
+            } else {
+              navigate(`/user/${type}/${id}`);
+            }
           }}
           className="bg-black text-white font-semibold"
         >
