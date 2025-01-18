@@ -45,7 +45,7 @@ export default function AgenciesForm({ handleUpdate }) {
       taxCardNumber: "",
     },
     validationSchema: () => {
-      const phoneRegex = /^\+20(1[0125]\d{8})$/; // Egyptian phone number regex
+      const phoneRegex = /^\+\d{1,3}\(?\d{1,4}?\)?\d{6,14}$/;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
 
       return Yup.object({
@@ -56,7 +56,7 @@ export default function AgenciesForm({ handleUpdate }) {
           .matches(emailRegex, "Invalid email address")
           .required(t("Required")),
         phone: Yup.string()
-          .matches(phoneRegex, "Invalid Egyptian phone number")
+          .matches(phoneRegex, "Invalid  phone number")
           .required(t("Required")),
         address: Yup.string().required(t("Required")),
         country: Yup.string().required(t("Required")),

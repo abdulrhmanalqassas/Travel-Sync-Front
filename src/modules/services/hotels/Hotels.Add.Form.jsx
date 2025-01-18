@@ -49,7 +49,7 @@ export default function HotelsForm({ handleUpdate }) {
       location: "",
     },
     validationSchema: () => {
-      const phoneRegex = /^\+20(1[0125]\d{8})$/; // Egyptian phone number regex
+      const phoneRegex = /^\+\d{1,3}\(?\d{1,4}?\)?\d{6,14}$/;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
 
       return Yup.object({
@@ -62,7 +62,7 @@ export default function HotelsForm({ handleUpdate }) {
         zipCode: Yup.string().required(t("Required")),
         mobileNumber: Yup.string().required(t("Required")),
         phoneNumber: Yup.string()
-          .matches(phoneRegex, "Invalid Egyptian phoneNumber number")
+          .matches(phoneRegex, "Invalid  phoneNumber number")
           .required(t("Required")),
         website: Yup.string().required(t("Required")),
         email: Yup.string()

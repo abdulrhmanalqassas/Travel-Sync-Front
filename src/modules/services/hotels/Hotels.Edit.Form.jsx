@@ -48,7 +48,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
       WholesalerId: 1,
     },
     validationSchema: () => {
-      const phoneRegex = /^\+20(1[0125]\d{8})$/; // Egyptian phone number regex
+      const phoneRegex = /^\+\d{1,3}\(?\d{1,4}?\)?\d{6,14}$/;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
 
       return Yup.object({
@@ -61,7 +61,7 @@ export default function HotelsFormEdit({ handleUpdate, hotelID }) {
         mobileNumber: Yup.string(),
         phoneNumber: Yup.string().matches(
           phoneRegex,
-          "Invalid Egyptian phoneNumber number",
+          "Invalid  phoneNumber number",
         ),
         website: Yup.string(),
         email: Yup.string().matches(emailRegex, "Invalid email address"),

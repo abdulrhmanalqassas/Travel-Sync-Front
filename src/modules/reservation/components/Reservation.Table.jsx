@@ -15,24 +15,34 @@ import {
   DropdownItem,
   Pagination,
   Spinner,
+  Tooltip,
 } from "@nextui-org/react";
 import { FaRegFileAlt } from "react-icons/fa";
 import { SearchIcon } from "../../core/components/icons/SearchIcon";
 import { ChevronDownIcon } from "../../core/components/icons/ChevronDownIcon";
 import { useTranslation } from "react-i18next";
-
+import DeleteModal from "../../core/components/DeleteModal";
+// import ReservationFormEdit from "./Reservationedite.form";
+import TravelerFormEdit from "./Reservationedite.form";
 const INITIAL_VISIBLE_COLUMNS = ["name", "phone", "file"];
 
-export default function ReservationTable({ users = [], isLoading }) {
+export default function ReservationTable({
+  users = [],
+  isLoading,
+  reservationId,
+  handleUpdate,
+}) {
   const columns = [
     { name: "ID", uid: "id", sortable: true },
     { name: "NAME", uid: "name", sortable: true },
     { name: "PHONE", uid: "phone", sortable: true },
     { name: "FILE", uid: "file" },
+    { name: "ACTIONS", uid: "actions" },
   ];
 
-  const { t ,i18n} = useTranslation();
-  const CurrentLang = i18n.language
+  const { t, i18n } = useTranslation();
+  const CurrentLang = i18n.language;
+  console.log("reservation", users);
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -56,7 +66,7 @@ export default function ReservationTable({ users = [], isLoading }) {
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns,CurrentLang]);
+  }, [visibleColumns, CurrentLang]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...users];
@@ -67,14 +77,14 @@ export default function ReservationTable({ users = [], isLoading }) {
       );
     }
     return filteredUsers;
-  }, [users, filterValue]);
+  }, [users, filterValue, CurrentLang]);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
     return filteredItems.slice(start, end);
-  }, [page, filteredItems, rowsPerPage]);
+  }, [page, filteredItems, rowsPerPage, CurrentLang]);
 
   const sortedItems = React.useMemo(() => {
     return [...items].sort((a, b) => {
@@ -84,7 +94,7 @@ export default function ReservationTable({ users = [], isLoading }) {
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
-  }, [sortDescriptor, items]);
+  }, [sortDescriptor, items, CurrentLang]);
 
   const renderCell = React.useCallback((user, columnKey) => {
     const cellValue = user[columnKey];
@@ -117,6 +127,27 @@ export default function ReservationTable({ users = [], isLoading }) {
               </div>
             )}
           </>
+        );
+      case "actions":
+        return (
+          <div className="relative flex items-center gap-2">
+            <Tooltip content="Edit service">
+              <TravelerFormEdit
+                handleUpdate={handleUpdate}
+                reservationId={reservationId}
+                travelerId={user.id}
+                data={user}
+              />
+            </Tooltip>
+            <Tooltip color="danger" content="Delete service">
+              <DeleteModal
+                deleteFun={() => {
+                  // DeleteService(service.id, handleUpdate, "rooms");
+                }}
+                text={"traviler"}
+              />
+            </Tooltip>
+          </div>
         );
       default:
         return cellValue;
@@ -186,10 +217,10 @@ export default function ReservationTable({ users = [], isLoading }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-          {t("Total") + " " + users.length + " " + t("Users")}
+            {t("Total") + " " + users.length + " " + t("Users")}
           </span>
           <label className="flex items-center text-default-400 text-small">
-          {t("Rows_per_age")}
+            {t("Rows_per_age")}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}

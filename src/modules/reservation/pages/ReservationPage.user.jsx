@@ -20,7 +20,8 @@ const ReservationPageUser = () => {
   const location = useLocation();
   const { pathname } = location;
   const id = parseInt(pathname.slice(pathname.lastIndexOf("/") + 1));
-
+  const handleUpdate = () =>
+    getReservation(setReservation, setIsLoading, "", id, token);
   useEffect(() => {
     getReservation(setReservation, setIsLoading, "", id, token);
   }, [id, token]);
@@ -154,7 +155,7 @@ const ReservationPageUser = () => {
                   color="success"
                   radius="full"
                   size="lg"
-                    src={reservation?.user?.profilePhoto?.imageUrl}
+                  src={reservation?.user?.profilePhoto?.imageUrl}
                 />
                 <div className="flex flex-col ml-5">
                   <h4 className="text-md font-semibold">
@@ -188,7 +189,12 @@ const ReservationPageUser = () => {
               </div>
             )}
           </div>
-          <ReservationTable users={travelers} isLoading={isLoading} />
+          <ReservationTable
+            users={travelers}
+            isLoading={isLoading}
+            reservationId={id}
+            handleUpdate={handleUpdate}
+          />
         </>
       )}
     </div>
