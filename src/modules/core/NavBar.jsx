@@ -113,7 +113,6 @@ const NavBar = () => {
       console.error("Error marking notification as read:", error);
     }
   };
-  // i want ot to open this if it is a user accounrt /user/ReservationUser/{id}  and thios if it is an admin account http://localhost:4173/Reservation/{id}
   return (
     <div className="h-[80px] bg-second flex items-center justify-between px-5">
       <div className="flex flex-col items-start">

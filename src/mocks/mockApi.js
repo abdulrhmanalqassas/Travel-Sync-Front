@@ -79,11 +79,11 @@ const hotels = [
     stars: 5,
     mobileNumber: "+20 111 000 1010",
     phoneNumber: "+20 69 360 1010",
-    website: "https://example.com/blue-lagoon",
+    website: "#",
     email: "sales@bluelagoon.demo",
     description: "Beachfront resort with diving center, spa, and family suites.",
     ar_description: "منتجع على البحر مع مركز غوص وسبا وأجنحة عائلية.",
-    location: "https://maps.google.com/?q=Sharm+El+Sheikh",
+    location: "#",
     images: [{ id: 1, imageUrl: image("hotel-blue") }],
     isOffer: true,
     price: 210,
@@ -104,11 +104,11 @@ const hotels = [
     stars: 4,
     mobileNumber: "+20 122 000 2020",
     phoneNumber: "+20 2 2577 2020",
-    website: "https://example.com/cairo-heritage",
+    website: "#",
     email: "bookings@cairoheritage.demo",
     description: "Central hotel near museums, Nile cruises, and business districts.",
     ar_description: "فندق مركزي قريب من المتاحف ورحلات النيل ومناطق الأعمال.",
-    location: "https://maps.google.com/?q=Cairo",
+    location: "#",
     images: [{ id: 2, imageUrl: image("hotel-cairo") }],
     isOffer: false,
     price: 135,
@@ -515,11 +515,11 @@ hotels.push(
     stars: 4,
     mobileNumber: "+20 120 000 3030",
     phoneNumber: "+20 3 555 3030",
-    website: "https://example.com/corniche-suites",
+    website: "#",
     email: "book@cornichesuites.demo",
     description: "Sea-facing suites close to Stanley, Bibliotheca Alexandrina, and cafes.",
     ar_description: "Sea-facing suites close to Stanley, Bibliotheca Alexandrina, and cafes.",
-    location: "https://maps.google.com/?q=Alexandria+Corniche",
+    location: "#",
     images: [{ id: 13, imageUrl: image("hotel-alex") }],
     isOffer: true,
     price: 150,
@@ -540,11 +540,11 @@ hotels.push(
     stars: 5,
     mobileNumber: "+20 111 444 4040",
     phoneNumber: "+20 95 555 4040",
-    website: "https://example.com/luxor-palace",
+    website: "#",
     email: "reservations@luxorpalace.demo",
     description: "Nile-view palace hotel with temple tours and sunset felucca trips.",
     ar_description: "Nile-view palace hotel with temple tours and sunset felucca trips.",
-    location: "https://maps.google.com/?q=Luxor+Nile",
+    location: "#",
     images: [{ id: 14, imageUrl: image("hotel-luxor") }],
     isOffer: false,
     price: 240,
@@ -565,11 +565,11 @@ hotels.push(
     stars: 3,
     mobileNumber: "+20 100 555 5050",
     phoneNumber: "+20 69 555 5050",
-    website: "https://example.com/dahab-lagoon",
+    website: "#",
     email: "stay@dahablagoon.demo",
     description: "Relaxed beach camp for diving, windsurfing, and budget group trips.",
     ar_description: "Relaxed beach camp for diving, windsurfing, and budget group trips.",
-    location: "https://maps.google.com/?q=Dahab+Lagoon",
+    location: "#",
     images: [{ id: 15, imageUrl: image("hotel-dahab") }],
     isOffer: true,
     price: 85,
@@ -1070,7 +1070,10 @@ const paged = (data) => ({ data: { data }, count: data.length });
 
 const parsePath = (config) => {
   const rawUrl = (config.url || "").trim();
-  const base = config.baseURL || window.location.origin;
+  const base =
+    config.baseURL && config.baseURL.startsWith("http")
+      ? config.baseURL
+      : window.location.origin;
   return new URL(rawUrl, base).pathname.replace(/\/$/, "");
 };
 

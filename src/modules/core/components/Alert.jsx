@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { alertIconDataUri } from "../../../mocks/demoAssets";
 
 export default function Alert({ text }) {
   return (
@@ -9,7 +10,7 @@ export default function Alert({ text }) {
       <img
         width={22}
         height={6}
-        src="https://static-00.iconduck.com/assets.00/process-error-symbolic-icon-2048x2048-oqfn9h3m.png"
+        src={alertIconDataUri}
         alt="alert"
       />
       <span className="block sm:inline">{text}</span>

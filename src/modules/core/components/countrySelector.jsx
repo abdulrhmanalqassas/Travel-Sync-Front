@@ -1,6 +1,7 @@
 import { COUNTRIES } from "./countries";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { flagDataUri } from "../../../mocks/demoAssets";
 
 function CountrySelector({
   id,
@@ -45,7 +46,7 @@ function CountrySelector({
           <span className="truncate flex items-center">
             <img
               alt={`${selectedValue.value}`}
-              src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${selectedValue.value}.svg`}
+              src={flagDataUri(selectedValue.value)}
               className={"inline mr-2 h-4 rounded-sm"}
             />
             {selectedValue.title}
@@ -127,7 +128,7 @@ function CountrySelector({
                       >
                         <img
                           alt={`${value.value}`}
-                          src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${value.value}.svg`}
+                          src={flagDataUri(value.value)}
                           className={"inline mr-2 h-4 rounded-sm"}
                         />
 

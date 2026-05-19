@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { notFoundDataUri } from "../../../mocks/demoAssets";
 
 export default function NotFound() {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ export default function NotFound() {
         <div className="relative w-full mt-12 lg:w-1/2 lg:mt-0">
           <img
             className="w-full max-w-lg lg:mx-auto"
-            src="https://merakiui.com//images/components/illustration.svg"
+            src={notFoundDataUri}
             alt
           />
         </div>

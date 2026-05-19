@@ -14,6 +14,7 @@ import useAuthActions from "../context/use-auth-actions";
 import useAuthTokens from "../context/use-auth-tokens";
 import { useAuthLoginService } from "../handlers/auth";
 import HTTP_CODES_ENUM from "../../../enums/http-codes";
+import { logoDataUri } from "../../../mocks/demoAssets";
 
 const Login = () => {
   const { setUser } = useAuthActions();
@@ -97,7 +98,7 @@ const Login = () => {
               <img
                 width={50}
                 height={50}
-                src="https://static.thenounproject.com/png/62578-200.png"
+                src={logoDataUri}
                 alt="logo"
               />
               <h1 className="text-3xl font-bold text-center">BookIt</h1>

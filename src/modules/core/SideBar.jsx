@@ -13,6 +13,7 @@ import useAuth from "../auth/context/use-auth";
 import { IoHome } from "react-icons/io5";
 import { RoleEnum } from "../../enums/role-enum";
 import { useTranslation } from "react-i18next";
+import { logoDataUri } from "../../mocks/demoAssets";
 
 const ICON_STYLE = "flex-shrink-0 w-6 h-6 ease-in-out";
 
@@ -113,7 +114,7 @@ const SideBar = () => {
           <img
             width={50}
             height={50}
-            src="https://static.thenounproject.com/png/62578-200.png"
+            src={logoDataUri}
             alt="logo"
           />
           <h1 className="text-2xl">BookIt</h1>
