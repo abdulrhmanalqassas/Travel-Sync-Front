@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { AUTH_REFRESH_URL } from "../modules/auth/config";
+import { mockFetchResponse } from "../mocks/mockApi";
 // import { AUTH_REFRESH_URL } from "./config";
 // import useLanguage from "../i18n/use-language";
 
@@ -7,6 +8,10 @@ function useFetchBase() {
   // const language = useLanguae();
 
   return useCallback(async (input, init, tokens) => {
+    if (import.meta.env.VITE_USE_MOCKS === "true") {
+      return mockFetchResponse(input, init);
+    }
+
     let headers = {
       // "x-custom-lang": language,
     };

@@ -22,15 +22,17 @@ import Cookies from "js-cookie";
 import useFetchBase from "../../../utils/use-fetch-base";
 import { AUTH_LOGOUT_URL, AUTH_ME_URL } from "../config";
 import HTTP_CODES_ENUM from "../../../enums/http-codes";
+import { mockAuthTokens, mockCurrentUser } from "../../../mocks/mockApi";
 
 function AuthProvider(props) {
   const AUTH_TOKEN_KEY = "auth-token-data";
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [user, setUser] = useState(null);
+  const isMockMode = import.meta.env.VITE_USE_MOCKS === "true";
+  const [isLoaded, setIsLoaded] = useState(isMockMode);
+  const [user, setUser] = useState(isMockMode ? mockCurrentUser : null);
   const tokensInfoRef = useRef({
-    token: null,
-    refreshToken: null,
-    tokenExpires: null,
+    token: isMockMode ? mockAuthTokens.token : null,
+    refreshToken: isMockMode ? mockAuthTokens.refreshToken : null,
+    tokenExpires: isMockMode ? mockAuthTokens.tokenExpires : null,
   });
   const fetchBase = useFetchBase();
 
@@ -79,6 +81,12 @@ function AuthProvider(props) {
     setTokensInfoRef(tokens);
 
     try {
+      if (isMockMode && !tokens?.token) {
+        setTokensInfo(mockAuthTokens);
+        setUser(mockCurrentUser);
+        return;
+      }
+
       if (tokens?.token) {
         const response = await fetchBase(
           AUTH_ME_URL,

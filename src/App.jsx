@@ -107,45 +107,34 @@ function App() {
     document.getElementsByTagName("html")[0].setAttribute("dir", dir);
   }, [i18n.resolvedLanguage]);
 
-  const wrapInLayout = (element, roles) => (
-    <WithPageRequiredAuth options={{ roles }}>
-      <Layout>{element}</Layout>
-    </WithPageRequiredAuth>
-  );
+  // Simplified wrapper without authentication - just Layout
+  const wrapInLayout = (element) => <Layout>{element}</Layout>;
 
-  const renderRoutes = (routes, roles) =>
+  // Render routes without authentication
+  const renderRoutes = (routes) =>
     routes.map(({ path, element }) => (
-      <Route key={path} path={path} element={wrapInLayout(element, roles)} />
+      <Route key={path} path={path} element={wrapInLayout(element)} />
     ));
 
   return (
     <>
       <Toaster />
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
-          {/* Public routes */}
-          <Route
-            path="login"
-            element={
-              <WithPageRequiredGuest>
-                <Login />
-              </WithPageRequiredGuest>
-            }
-          />
+          {/* Login page - now accessible but not required */}
+          <Route path="login" element={<Login />} />
+
+          {/* Keep these public routes as they were */}
           <Route path="unauthorized" element={<UnAuthorized />} />
           <Route
             path="/visa/getvisadata/:type/:country"
             element={<GetVisaData />}
           />
 
-          {/* Admin routes */}
-          {renderRoutes(adminRoutes, [RoleEnum.admin])}
-
-          {/* User routes */}
-          {renderRoutes(userRoutes, [RoleEnum.travelAgent])}
-
-          {/* Shared routes */}
-          {renderRoutes(sharedRoutes, [RoleEnum.admin, RoleEnum.travelAgent])}
+          {/* All routes now accessible without authentication */}
+          {renderRoutes(adminRoutes)}
+          {renderRoutes(userRoutes)}
+          {renderRoutes(sharedRoutes)}
 
           {/* 404 route */}
           <Route path="*" element={<NotFound />} />

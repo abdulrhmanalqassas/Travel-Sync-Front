@@ -7,6 +7,7 @@ import useAuthTokens from "../../auth/context/use-auth-tokens";
 import useAuth from "../../auth/context/use-auth";
 import { RoleEnum } from "../../../enums/role-enum";
 import { useTranslation } from "react-i18next";
+import PDFReport from "../reservationReport";
 
 export default function Reservation() {
   const { t } = useTranslation();
@@ -187,7 +188,7 @@ export default function Reservation() {
           )}
         </Tab>
       </Tabs>
-
+      <PDFReport />
       {/* Pagination Control */}
       <Pagination
         className="self-center"
