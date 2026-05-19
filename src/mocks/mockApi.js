@@ -1080,11 +1080,14 @@ const parsePath = (config) => {
 const collectionByService = {
   hotels,
   rooms,
+  "hotel-rooms": rooms,
   flights,
   safari: safaris,
   transportations,
   "standard-packages": standardPackages,
   "custom-packages": customPackages,
+  ReadyVisa: readyVisas,
+  "ready-visa": readyVisas,
 };
 
 const byId = (items, id) => items.find((item) => String(item.id) === String(id)) || items[0];

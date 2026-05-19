@@ -27,6 +27,11 @@ export default function Services() {
     getService(setData, setIsLoading, selected);
   };
 
+  const handleSelectionChange = (key) => {
+    setData([]);
+    setSelected(key);
+  };
+
   useEffect(() => {
     getService(setData, setIsLoading, selected);
   }, [selected]);
@@ -37,7 +42,7 @@ export default function Services() {
       <Tabs
         aria-label="Options"
         selectedKey={selected}
-        onSelectionChange={setSelected}
+        onSelectionChange={handleSelectionChange}
         color="primary"
         variant="bordered"
       >
